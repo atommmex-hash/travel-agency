@@ -1,0 +1,49 @@
+{
+  "id": "kalimpong-homestay",
+  "title": "Kalimpong Homestay Escape",
+  "destination": "Offbeat",
+  "nights": 3,
+  "pricePerPerson": 11200,
+  "highestPointMetres": 1700,
+  "tag": "Offbeat pick",
+  "featured": false,
+  "highlights": [
+    "Family-run homestay",
+    "Cactus and orchid nurseries",
+    "Early birdwatching walk"
+  ],
+  "days": [
+    {
+      "label": "Day 1",
+      "title": "Meet your hosts",
+      "text": "Drive up to your family-run homestay near Kalimpong. Home-cooked dinner with the family."
+    },
+    {
+      "label": "Day 2",
+      "title": "Hills and nurseries",
+      "text": "Deolo Hill viewpoint, cactus and orchid nurseries, and Durpin Dara."
+    },
+    {
+      "label": "Day 3",
+      "title": "Birds and bazaar",
+      "text": "Early birdwatching walk with a local guide, then the Kalimpong market and monasteries."
+    },
+    {
+      "label": "Day 4",
+      "title": "Departure",
+      "text": "Breakfast with the family and a drop to NJP or Bagdogra."
+    }
+  ],
+  "included": [
+    "Homestay with all meals",
+    "Local guide for walks",
+    "Pickup and drop",
+    "Evening bonfire (weather permitting)"
+  ],
+  "plate": {
+    "seed": 19,
+    "px": 0.4,
+    "py": 0.55,
+    "bg": ["#123A3F", "#0E1A2B"]
+  }
+}

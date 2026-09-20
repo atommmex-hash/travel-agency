@@ -1,0 +1,24 @@
+{
+  "heading": "What travellers say",
+  "subheading": "Rated 4.9 by 1,200+ travellers on Google (TODO: confirm with client).",
+  "items": [
+    {
+      "quote": "We wanted a slow trip with our parents. Every stop was planned around their pace, and the WhatsApp updates meant no stress at all.",
+      "author": "Ananya and Rohit",
+      "trip": "Darjeeling Tea and Toy Train",
+      "location": "from Kolkata"
+    },
+    {
+      "quote": "Clear prices, no surprise add-ons. The Tiger Hill morning was the best hour of our year.",
+      "author": "The Sen family",
+      "trip": "Darjeeling Tea and Toy Train",
+      "location": "from Howrah"
+    },
+    {
+      "quote": "The Kalimpong homestay felt like visiting relatives. We would never have found it ourselves.",
+      "author": "Sayan D.",
+      "trip": "Kalimpong Homestay Escape",
+      "location": "from Durgapur"
+    }
+  ]
+}

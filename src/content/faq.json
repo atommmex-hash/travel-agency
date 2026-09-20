@@ -1,0 +1,25 @@
+{
+  "heading": "Before you book",
+  "items": [
+    {
+      "question": "When is the best time to go?",
+      "answer": "March to May and October to early December are usually clearest for mountain views. The monsoon (June to September) is green and quiet but roads can close. Tell us what you want to see and we will suggest dates."
+    },
+    {
+      "question": "Do you arrange Sikkim permits?",
+      "answer": "Yes. Permits for restricted areas such as Tsomgo Lake and North Sikkim are arranged for you. Send us your ID details when you confirm."
+    },
+    {
+      "question": "Can I change the itinerary?",
+      "answer": "Every itinerary is a starting point. Swap hotels, add a day, or combine two destinations, and we will re-quote."
+    },
+    {
+      "question": "How do payments work?",
+      "answer": "A small advance confirms your dates and the balance is due a week before departure. We send UPI and bank details on WhatsApp."
+    },
+    {
+      "question": "What if my plans change?",
+      "answer": "Date changes are free up to 7 days before departure, subject to availability. Full cancellation terms are shared in writing before you pay."
+    }
+  ]
+}

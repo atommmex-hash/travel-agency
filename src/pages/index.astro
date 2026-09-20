@@ -1,0 +1,585 @@
+---
+import { getCollection } from 'astro:content';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import Icons from '../components/Icons.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import TripFilters from '../components/TripFilters.astro';
+import TripCard from '../components/TripCard.astro';
+import BookingAndWhy from '../components/BookingAndWhy.astro';
+import Stories from '../components/Stories.astro';
+import Faq from '../components/Faq.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import Footer from '../components/Footer.astro';
+import MobileDock from '../components/MobileDock.astro';
+import Toast from '../components/Toast.astro';
+import TripDialog from '../components/TripDialog.astro';
+import SavedDialog from '../components/SavedDialog.astro';
+import { siteData, storiesData, faqData } from '../lib/content';
+import { buildGeneralEnquiryUrl } from '../lib/whatsapp';
+
+const tripsCollection = await getCollection('trips');
+const trips = tripsCollection.map((t) => t.data);
+
+// Sort so featured trip is first
+trips.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+
+// Extract unique destination names
+const destinations = Array.from(new Set(trips.map((t) => t.destination)));
+
+const generalWaUrl = buildGeneralEnquiryUrl(siteData.brand, siteData.whatsapp);
+
+// JSON-LD structured data for TravelAgency
+const schemaJson = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "TravelAgency",
+  "name": siteData.brand,
+  "telephone": siteData.phone,
+  "email": siteData.email,
+  "areaServed": destinations,
+  "url": "https://himaltrails.example"
+});
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{siteData.brand} | Darjeeling, Sikkim and Dooars trips</title>
+  <meta name="description" content={`${siteData.brand}: Small-group trips through Darjeeling, Sikkim and the Dooars. Clear prices, permits included, direct help on WhatsApp.`} />
+  <meta name="theme-color" content="#0E1A2B" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={`${siteData.brand} | Mountain trips`} />
+  <meta property="og:description" content={siteData.hero.lead} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://himaltrails.example" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json" set:html={schemaJson} />
+</head>
+<body id="top">
+  <a class="skip-link" href="#trips">Skip to trips</a>
+  <Icons />
+
+  <Header brand={siteData.brand} />
+
+  <main>
+    <Hero
+      headline={siteData.hero.headline}
+      lead={siteData.hero.lead}
+      peakName={siteData.hero.peak.name}
+      peakMetres={siteData.hero.peak.metres}
+      finePrint={siteData.finePrint}
+      whatsappUrl={generalWaUrl}
+    />
+
+    <section class="sec wrap" id="trips" aria-labelledby="trips-h">
+      <h2 id="trips-h">Pick a way up</h2>
+      <p class="lead">Every trip lists its highest point, so you know what to pack and what to expect.</p>
+
+      <TripFilters destinations={destinations} />
+
+      <div class="grid" id="grid">
+        {trips.map((trip, idx) => (
+          <TripCard trip={trip} index={idx} />
+        ))}
+      </div>
+
+      <noscript>
+        <p class="fine" style="margin-top:1rem;color:var(--slate)">
+          Showing all pre-rendered trips. Enable JavaScript to filter by budget and length or calculate estimates.
+        </p>
+      </noscript>
+    </section>
+
+    <BookingAndWhy />
+
+    <Stories stories={storiesData} />
+
+    <Faq faq={faqData} />
+
+    <EnquiryForm phone={siteData.phone} email={siteData.email} />
+  </main>
+
+  <Footer brand={siteData.brand} />
+
+  <MobileDock phone={siteData.phone} whatsappUrl={generalWaUrl} />
+
+  <Toast />
+
+  <TripDialog />
+
+  <SavedDialog />
+
+  <!-- Client-side Interactive Logic (Zero Framework Runtime) -->
+  <script is:inline define:vars={{ trips, siteData }}>
+    (() => {
+      'use strict';
+
+      const CONFIG = {
+        brand: siteData.brand,
+        whatsapp: siteData.whatsapp
+      };
+
+      const TIERS = [
+        { n: 'Comfort', m: 1 },
+        { n: 'Premium', m: 1.35 },
+        { n: 'Luxury', m: 1.8 }
+      ];
+
+      const TRIPS = trips;
+
+      const $ = (s, r = document) => r.querySelector(s);
+      const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+      const fmt = (n) => '\u20B9' + n.toLocaleString('en-IN');
+      const metres = (n) => n.toLocaleString('en-IN') + ' m';
+      const wa = (msg) => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+      const ico = (n) => `<svg class="i" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+
+      const store = {
+        get(k, d) {
+          try {
+            const v = localStorage.getItem(k);
+            return v ? JSON.parse(v) : d;
+          } catch (e) {
+            return d;
+          }
+        },
+        set(k, v) {
+          try {
+            localStorage.setItem(k, JSON.stringify(v));
+          } catch (e) {}
+        }
+      };
+
+      let toastT;
+      function toast(msg) {
+        const t = $('#toast');
+        if (!t) return;
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(toastT);
+        toastT = setTimeout(() => t.classList.remove('show'), 2200);
+      }
+
+      function rng(seed) {
+        let s = seed % 2147483647;
+        if (s <= 0) s += 2147483646;
+        return () => (s = (s * 16807) % 2147483647) / 2147483647;
+      }
+
+      function rings({ seed, cx, cy, n, rMax, sx = 1.25, sy = 1, pts = 64, pow = 1.15 }) {
+        const r = rng(seed);
+        const p = [r() * 6.28, r() * 6.28, r() * 6.28];
+        const a = [0.06 + r() * 0.03, 0.04 + r() * 0.02, 0.02 + r() * 0.01];
+        const out = [];
+        for (let i = 0; i < n; i++) {
+          const base = rMax * Math.pow(1 - i / n, pow);
+          const line = [];
+          for (let k = 0; k <= pts; k++) {
+            const th = (k / pts) * Math.PI * 2;
+            const w =
+              1 +
+              a[0] * Math.sin(2 * th + p[0] + i * 0.06) +
+              a[1] * Math.sin(3 * th + p[1] - i * 0.05) +
+              a[2] * Math.sin(5 * th + p[2] + i * 0.07);
+            line.push([cx + Math.cos(th) * base * w * sx, cy + Math.sin(th) * base * w * sy]);
+          }
+          out.push(line);
+        }
+        return out;
+      }
+
+      const pathOf = (pts) => 'M' + pts.map((p) => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('L') + 'Z';
+
+      function plate(t, ctx) {
+        if (t.photo) {
+          return `<img src="${t.photo}" alt="${t.title}" loading="lazy" width="400" height="260" style="width:100%;height:100%;object-fit:cover"/>`;
+        }
+        const W = 400;
+        const H = 260;
+        const cx = W * (t.plate.px || 0.5);
+        const cy = H * (t.plate.py || 0.5);
+        const id = `pg-${ctx}-${t.id}`;
+        const R = rings({ seed: t.plate.seed, cx, cy, n: 14, rMax: 230, pts: 64 });
+        let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${t.plate.bg[0]}"/><stop offset="1" stop-color="${t.plate.bg[1]}"/></linearGradient></defs><rect width="${W}" height="${H}" fill="url(#${id})"/>`;
+        R.forEach((line, i) => {
+          const hi = i >= R.length - 3;
+          const idx = i % 4 === 0;
+          s += `<path d="${pathOf(line)}" fill="none" stroke="${hi ? '#F2B53A' : '#8FB8CC'}" stroke-opacity="${hi ? (0.55 + (i - (R.length - 3)) * 0.2).toFixed(2) : idx ? 0.42 : 0.2}" stroke-width="${hi ? 1.5 : idx ? 1.3 : 1}" stroke-linejoin="round"/>`;
+        });
+        s += `<path d="M${cx},${cy - 7}l6,11h-12z" fill="#F2B53A"/><text x="${cx + 12}" y="${cy + 4}" fill="#fff" font-size="13" font-weight="700" paint-order="stroke" stroke="#0E1A2B" stroke-width="5" stroke-linejoin="round">${metres(t.highestPointMetres)}</text></svg>`;
+        return s;
+      }
+
+      /* ==========================================================
+         FILTERS & TRIPS
+         ========================================================== */
+      const state = { dest: 'All', dur: 'any', max: 35000 };
+      const durOk = (n) =>
+        state.dur === 'any' ||
+        (state.dur === 'short' && n <= 3) ||
+        (state.dur === 'mid' && n >= 4 && n <= 5) ||
+        (state.dur === 'long' && n >= 6);
+
+      let saved = new Set(store.get('ht_saved', []));
+
+      function cardHTML(t, i) {
+        const altPercent = Math.min(100, (t.highestPointMetres / 5000) * 100);
+        return `<article class="card${t.featured ? ' feat' : ''}" style="--i:${i}; --p:${altPercent}%" data-id="${t.id}">
+          <div class="plate">${plate(t, 'c')}${t.tag ? `<span class="tag">${t.tag}</span>` : ''}
+            <button class="heart" data-save="${t.id}" aria-pressed="${saved.has(t.id)}" aria-label="Save ${t.title}">${ico('heart')}</button>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="dest">${t.destination}</span><span>${t.nights} nights</span></div>
+            <h3>${t.title}</h3>
+            <ul class="hl">${t.highlights.map((h) => `<li>${h}</li>`).join('')}</ul>
+            <div class="alt">
+              <div class="alt-row"><strong>${metres(t.highestPointMetres)}</strong><span>highest point</span></div>
+              <div class="alt-bar" style="--p:${altPercent}%"></div>
+            </div>
+            <div class="card-foot">
+              <p class="price"><small>From</small><strong>${fmt(t.pricePerPerson)}</strong><small>per person</small></p>
+              <button class="btn btn-ink" data-open="${t.id}">View trip</button>
+            </div>
+          </div>
+        </article>`;
+      }
+
+      function renderTrips() {
+        const list = TRIPS.filter(
+          (t) =>
+            (state.dest === 'All' || t.destination === state.dest) &&
+            durOk(t.nights) &&
+            t.pricePerPerson <= state.max
+        );
+        $('#grid').innerHTML = list.map(cardHTML).join('');
+        $('#count').textContent = list.length ? `${list.length} trip${list.length > 1 ? 's' : ''} shown` : '';
+        $('#empty').hidden = list.length > 0;
+      }
+
+      function chipRow(el, key) {
+        el.onclick = (e) => {
+          const b = e.target.closest('.chip');
+          if (!b) return;
+          state[key] = b.dataset.v;
+          $$('.chip', el).forEach((c) => c.setAttribute('aria-pressed', c === b));
+          renderTrips();
+        };
+      }
+
+      function budgetLabel() {
+        $('#budgetOut').textContent = state.max >= 35000 ? 'Any' : 'Up to ' + fmt(state.max);
+      }
+
+      function resetFilters() {
+        state.dest = 'All';
+        state.dur = 'any';
+        state.max = 35000;
+        $('#budget').value = 35000;
+        budgetLabel();
+        $$('#destChips .chip').forEach((c) => c.setAttribute('aria-pressed', c.dataset.v === 'All'));
+        $$('#durChips .chip').forEach((c) => c.setAttribute('aria-pressed', c.dataset.v === 'any'));
+        renderTrips();
+      }
+
+      /* ==========================================================
+         SAVED TRIPS SHORTLIST
+         ========================================================== */
+      function syncSaved() {
+        $$('[data-save]').forEach((b) => b.setAttribute('aria-pressed', saved.has(b.dataset.save)));
+        ['#dockCount', '#hdrCount'].forEach((sel) => {
+          const el = $(sel);
+          if (el) {
+            el.textContent = saved.size;
+            el.hidden = saved.size === 0;
+          }
+        });
+        if ($('#savedDlg') && $('#savedDlg').open) renderSaved();
+      }
+
+      function toggleSave(id) {
+        const t = TRIPS.find((x) => x.id === id);
+        if (!t) return;
+        if (saved.has(id)) {
+          saved.delete(id);
+          toast('Removed from saved trips');
+        } else {
+          saved.add(id);
+          toast(`Saved ${t.title}`);
+        }
+        store.set('ht_saved', [...saved]);
+        syncSaved();
+      }
+
+      function renderSaved() {
+        const list = [...saved].map((id) => TRIPS.find((t) => t.id === id)).filter(Boolean);
+        const msg = `Hi ${CONFIG.brand}! I'm shortlisting these trips: ${list.map((t) => t.title).join(', ')}. Can you help me plan?`;
+        $('#savedBody').innerHTML =
+          `<div class="sv"><h2>Saved trips</h2>` +
+          (list.length
+            ? `<ul class="sv-list">${list
+                .map(
+                  (t) =>
+                    `<li><div><strong>${t.title}</strong><span>${t.nights} nights, from ${fmt(t.pricePerPerson)}</span></div><div class="sv-act"><button class="link" data-open="${t.id}">View</button><button class="link" data-save="${t.id}">Remove</button></div></li>`
+                )
+                .join('')}</ul><a class="btn btn-gold" target="_blank" rel="noopener" href="${wa(msg)}">${ico('chat')}Send shortlist on WhatsApp</a>`
+            : `<p class="muted" style="margin-bottom:1.5rem">Nothing saved yet. Tap the heart on a trip to keep it here, then send your shortlist in one message.</p><a class="btn btn-ink" href="#trips" data-close>Browse trips</a>`) +
+          `</div>`;
+      }
+
+      /* ==========================================================
+         TRIP DIALOG & ESTIMATOR
+         ========================================================== */
+      const tripDlg = $('#tripDlg');
+      const savedDlg = $('#savedDlg');
+      let current = null;
+      let est = { n: 2, tier: 0 };
+
+      function tripHTML(t) {
+        return `<button class="x" data-close aria-label="Close">${ico('x')}</button>
+        <div class="sheet-plate">${plate(t, 'd')}
+          <button class="heart" data-save="${t.id}" aria-pressed="${saved.has(t.id)}" aria-label="Save ${t.title}">${ico('heart')}</button>
+          <div class="sheet-title">
+            <p>${t.destination}, ${t.nights} nights</p>
+            <h2 id="tripTitle">${t.title}</h2>
+          </div>
+        </div>
+        <div class="sheet-grid">
+          <div class="sheet-main">
+            <h3>Day by day</h3>
+            <div class="acc">${t.days
+              .map(
+                (d, i) =>
+                  `<details${i === 0 ? ' open' : ''}><summary><span class="dn">${d.label}</span><span class="dt">${d.title}</span>${ico('chev')}</summary><p>${d.text}</p></details>`
+              )
+              .join('')}</div>
+            <h3>Included</h3>
+            <ul class="inc">${t.included.map((x) => `<li>${ico('check')}<span>${x}</span></li>`).join('')}</ul>
+          </div>
+          <aside class="est" aria-label="Trip estimate">
+            <h3>Estimate your trip</h3>
+            <div class="est-row">
+              <span id="lblTrav">Travellers</span>
+              <div class="stepper" role="group" aria-labelledby="lblTrav">
+                <button data-step="-1" aria-label="Fewer travellers">${ico('minus')}</button>
+                <output id="estN" aria-live="polite">2</output>
+                <button data-step="1" aria-label="More travellers">${ico('plus')}</button>
+              </div>
+            </div>
+            <fieldset class="tiers">
+              <legend>Stay</legend>
+              ${TIERS.map(
+                (x, i) =>
+                  `<label class="tier"><input type="radio" name="tier" value="${i}"${i === 0 ? ' checked' : ''}><span>${x.n}</span></label>`
+              ).join('')}
+            </fieldset>
+            <div class="est-total">
+              <span>Approx. total</span>
+              <strong id="estTotal"></strong>
+              <small id="estPer"></small>
+            </div>
+            <a class="btn btn-gold" id="estWa" target="_blank" rel="noopener">${ico('chat')}Get the exact quote</a>
+            <p class="fine">Twin-sharing rates. The final quote depends on dates and availability.</p>
+          </aside>
+        </div>`;
+      }
+
+      function updateEst() {
+        const t = current;
+        if (!t) return;
+        const tier = TIERS[est.tier];
+        const per = Math.round((t.pricePerPerson * tier.m) / 100) * 100;
+        const total = per * est.n;
+        $('#estN').textContent = est.n;
+        $('#estTotal').textContent = fmt(total);
+        $('#estPer').textContent = `${fmt(per)} per person, ${tier.n} stay`;
+        $('#estWa').href = wa(
+          `Hi ${CONFIG.brand}! I'm interested in "${t.title}" for ${est.n} traveller${est.n > 1 ? 's' : ''} (${tier.n} stay). Could you share availability and the final quote?`
+        );
+        $$('[data-step]', tripDlg).forEach(
+          (b) =>
+            (b.disabled =
+              (b.dataset.step === '-1' && est.n <= 1) || (b.dataset.step === '1' && est.n >= 12))
+        );
+      }
+
+      function openTrip(id) {
+        current = TRIPS.find((t) => t.id === id);
+        if (!current) return;
+        est = { n: 2, tier: 0 };
+        $('#tripBody').innerHTML = tripHTML(current);
+        updateEst();
+        document.body.classList.add('lock');
+        if (!tripDlg.open) tripDlg.showModal();
+        tripDlg.scrollTop = 0;
+      }
+
+      function openSaved() {
+        renderSaved();
+        document.body.classList.add('lock');
+        savedDlg.showModal();
+      }
+
+      /* ==========================================================
+         EVENT DELEGATION
+         ========================================================== */
+      document.addEventListener('click', (e) => {
+        const o = e.target.closest('[data-open]');
+        if (o) {
+          if (savedDlg.open) savedDlg.close();
+          openTrip(o.dataset.open);
+          return;
+        }
+        const sv = e.target.closest('[data-save]');
+        if (sv) {
+          toggleSave(sv.dataset.save);
+          return;
+        }
+        const st = e.target.closest('[data-step]');
+        if (st) {
+          est.n = Math.min(12, Math.max(1, est.n + Number(st.dataset.step)));
+          updateEst();
+          return;
+        }
+        const c = e.target.closest('[data-close]');
+        if (c) {
+          const d = c.closest('dialog');
+          if (d) d.close();
+        }
+      });
+
+      tripDlg.addEventListener('change', (e) => {
+        if (e.target.name === 'tier') {
+          est.tier = Number(e.target.value);
+          updateEst();
+        }
+      });
+
+      [tripDlg, savedDlg].forEach((d) => {
+        d.addEventListener('click', (e) => {
+          if (e.target === d) d.close();
+        });
+        d.addEventListener('close', () => {
+          if (!tripDlg.open && !savedDlg.open) document.body.classList.remove('lock');
+        });
+      });
+
+      $('#dockSaved')?.addEventListener('click', openSaved);
+      $('#hdrSaved')?.addEventListener('click', openSaved);
+      $('#budget')?.addEventListener('input', (e) => {
+        state.max = Number(e.target.value);
+        budgetLabel();
+        renderTrips();
+      });
+      $('#resetF')?.addEventListener('click', resetFilters);
+
+      /* Header scroll and mobile menu */
+      const hdr = $('#hdr');
+      const nav = $('#nav');
+      const menuBtn = $('#menuBtn');
+
+      function onScroll() {
+        hdr?.classList.toggle('solid', window.scrollY > 40 || nav?.classList.contains('open'));
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      function setMenu(open) {
+        nav?.classList.toggle('open', open);
+        menuBtn?.setAttribute('aria-expanded', String(open));
+        menuBtn?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        const icon = $('#menuIcon');
+        if (icon) {
+          icon.innerHTML = `<use href="#i-${open ? 'x' : 'menu'}"/>`;
+        }
+        document.body.classList.toggle('lock', open);
+        onScroll();
+      }
+
+      menuBtn?.addEventListener('click', () => setMenu(!nav?.classList.contains('open')));
+      nav?.addEventListener('click', (e) => {
+        if (e.target.closest('a')) setMenu(false);
+      });
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && nav?.classList.contains('open')) setMenu(false);
+      });
+
+      /* Dynamic month generator (next 7 months) */
+      const mSel = $('#fMonth');
+      if (mSel) {
+        const now = new Date();
+        for (let i = 0; i < 7; i++) {
+          const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
+          const opt = document.createElement('option');
+          opt.value = d.toLocaleString('en-IN', { month: 'long', year: 'numeric' });
+          opt.textContent = opt.value;
+          mSel.appendChild(opt);
+        }
+      }
+
+      /* Enquiry form submit handler */
+      $('#form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const f = new FormData(e.target);
+        const name = String(f.get('name') || '').trim();
+        const n = Math.max(1, Number(f.get('n')) || 1);
+        const month = String(f.get('month') || 'Not sure yet');
+        const note = String(f.get('note') || '').trim();
+        const msgEl = $('#formMsg');
+
+        if (!name) {
+          if (msgEl) {
+            msgEl.textContent = 'Add your name so we know who to reply to.';
+            msgEl.classList.remove('success');
+          }
+          e.target.elements.name?.focus();
+          return;
+        }
+
+        const savedList = [...saved]
+          .map((id) => TRIPS.find((t) => t.id === id))
+          .filter(Boolean)
+          .map((t) => t.title);
+
+        let msg = `Hi ${CONFIG.brand}! I'm ${name}. We are ${n} traveller${n > 1 ? 's' : ''}, thinking of ${month}.`;
+        if (savedList.length) msg += ` Saved trips: ${savedList.join(', ')}.`;
+        if (note) msg += ` ${note}`;
+
+        if (msgEl) {
+          msgEl.textContent = 'Opening WhatsApp with your message...';
+          msgEl.classList.add('success');
+        }
+        window.open(wa(msg), '_blank', 'noopener');
+      });
+
+      /* Initialize */
+      chipRow($('#destChips'), 'dest');
+      chipRow($('#durChips'), 'dur');
+      budgetLabel();
+      syncSaved();
+      onScroll();
+    })();
+  </script>
+</body>
+</html>
+
+<style>
+  .grid {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  }
+
+  @media (min-width: 1000px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,56 @@
+---
+interface Props {
+  phone: string;
+  whatsappUrl: string;
+}
+
+const { phone, whatsappUrl } = Astro.props;
+---
+<aside class="dock" role="group" aria-label="Quick actions">
+  <a class="btn btn-line" href={`tel:${phone}`} aria-label="Call us">
+    <svg class="i" aria-hidden="true"><use href="#i-phone"></use></svg>
+    <span>Call</span>
+  </a>
+  <a class="btn btn-gold wide" id="dockWa" href={whatsappUrl} target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+    <svg class="i" aria-hidden="true"><use href="#i-chat"></use></svg>
+    <span>WhatsApp</span>
+  </a>
+  <button class="btn btn-line" id="dockSaved" aria-label="Saved trips">
+    <svg class="i" aria-hidden="true"><use href="#i-heart"></use></svg>
+    <span class="cnt-badge" id="dockCount" hidden>0</span>
+    <span class="sr-only">Saved trips</span>
+  </button>
+</aside>
+
+<style>
+  .dock {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    display: none;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
+    background: rgba(14, 26, 43, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .dock .btn {
+    flex: 1;
+    min-height: 48px;
+    padding: 0 0.7rem;
+    font-size: 0.95rem;
+  }
+
+  .dock .btn.wide {
+    flex: 2;
+  }
+
+  @media (max-width: 767px) {
+    .dock {
+      display: flex;
+    }
+  }
+</style>

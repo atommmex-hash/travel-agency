@@ -1,0 +1,184 @@
+---
+interface Props {
+  brand: string;
+}
+
+const { brand } = Astro.props;
+---
+<header class="hdr" id="hdr">
+  <div class="wrap hdr-in">
+    <a class="logo" href="#top" aria-label={`${brand}, home`}>
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <ellipse cx="16" cy="17" rx="14" ry="10" opacity=".5" />
+        <ellipse cx="16" cy="17" rx="9.5" ry="6.5" opacity=".75" />
+        <ellipse cx="16" cy="17" rx="5" ry="3.2" />
+        <path d="M16 12l2.5 4h-5z" fill="var(--gold)" stroke="none" />
+      </svg>
+      <span>{brand}</span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="#trips">Trips</a>
+      <a href="#booking">Booking</a>
+      <a href="#stories">Stories</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn-gold" href="#enquire">Plan my trip</a>
+    </nav>
+
+    <div class="hdr-actions">
+      <button class="icon-btn hdr-saved" id="hdrSaved" aria-label="Saved trips">
+        <svg class="i"><use href="#i-heart"></use></svg>
+        <span class="cnt-badge" id="hdrCount" hidden>0</span>
+      </button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+        <svg class="i" id="menuIcon"><use href="#i-menu"></use></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hdr {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    color: #ffffff;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .hdr::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(14, 26, 43, 0.9);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .hdr.solid::before {
+    opacity: 1;
+  }
+
+  .hdr-in {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    gap: 1rem;
+  }
+
+  .logo {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    font-stretch: 75%;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .logo svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    margin-left: auto;
+  }
+
+  .nav a:not(.btn) {
+    text-decoration: none;
+    font-weight: 600;
+    opacity: 0.88;
+  }
+
+  .nav a:not(.btn):hover {
+    opacity: 1;
+  }
+
+  .nav .btn {
+    min-height: 44px;
+    padding: 0 1.1rem;
+  }
+
+  .hdr-actions {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .icon-btn {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+  }
+
+  .icon-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .icon-btn .cnt-badge {
+    position: absolute;
+    top: 2px;
+    right: 0;
+  }
+
+  .menu-btn {
+    display: none;
+  }
+
+  @media (max-width: 899px) {
+    .hdr-saved {
+      display: none;
+    }
+    .menu-btn {
+      display: grid;
+    }
+    .nav {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      margin: 0;
+      background: var(--ink);
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 1.1rem;
+      padding: 5rem var(--pad) 3rem;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.25s, visibility 0.25s;
+    }
+    .nav.open {
+      visibility: visible;
+      opacity: 1;
+    }
+    .nav a:not(.btn) {
+      font-stretch: 72%;
+      font-weight: 800;
+      font-size: 3rem;
+      line-height: 1;
+      opacity: 1;
+    }
+    .nav .btn {
+      margin-top: 1rem;
+      min-height: 52px;
+      font-size: 1rem;
+    }
+  }
+</style>

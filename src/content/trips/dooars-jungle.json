@@ -1,0 +1,44 @@
+{
+  "id": "dooars-jungle",
+  "title": "Dooars Jungle and Rivers",
+  "destination": "Dooars",
+  "nights": 2,
+  "pricePerPerson": 8900,
+  "highestPointMetres": 100,
+  "tag": "Weekend",
+  "featured": false,
+  "highlights": [
+    "Jeep safari in Gorumara",
+    "Riverside evenings",
+    "Tea garden drive"
+  ],
+  "days": [
+    {
+      "label": "Day 1",
+      "title": "Arrive and river evening",
+      "text": "Transfer from NJP or Siliguri to a jungle-edge resort. Riverside walk and a village tea garden drive."
+    },
+    {
+      "label": "Day 2",
+      "title": "Jeep safari",
+      "text": "Morning jeep safari in Gorumara National Park, a slow afternoon and an evening cultural programme."
+    },
+    {
+      "label": "Day 3",
+      "title": "Departure",
+      "text": "Breakfast and a drop to NJP or Siliguri."
+    }
+  ],
+  "included": [
+    "Resort stay with all meals",
+    "Jeep safari arranged",
+    "Naturalist-led walk",
+    "Pickup and drop from NJP or Siliguri"
+  ],
+  "plate": {
+    "seed": 27,
+    "px": 0.55,
+    "py": 0.6,
+    "bg": ["#0F3D34", "#0E1A2B"]
+  }
+}

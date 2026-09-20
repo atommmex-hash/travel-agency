@@ -1,0 +1,54 @@
+{
+  "id": "gangtok-tsomgo",
+  "title": "Gangtok and Tsomgo Lake",
+  "destination": "Sikkim",
+  "nights": 4,
+  "pricePerPerson": 18900,
+  "highestPointMetres": 3780,
+  "tag": "",
+  "featured": false,
+  "highlights": [
+    "Day trip to Tsomgo Lake",
+    "Rumtek Monastery",
+    "Evenings on MG Marg"
+  ],
+  "days": [
+    {
+      "label": "Day 1",
+      "title": "Arrive in Gangtok",
+      "text": "Pickup from NJP or Bagdogra and a scenic drive to Gangtok. Evening on MG Marg."
+    },
+    {
+      "label": "Day 2",
+      "title": "Tsomgo Lake and Baba Mandir",
+      "text": "Full-day excursion to the high-altitude lake. We arrange the permits."
+    },
+    {
+      "label": "Day 3",
+      "title": "Monasteries and viewpoints",
+      "text": "Rumtek Monastery, Ganesh Tok and the Do-Drul Chorten, with time for momos."
+    },
+    {
+      "label": "Day 4",
+      "title": "Ropeway and leisure",
+      "text": "Gangtok ropeway, the flower exhibition centre and a free afternoon."
+    },
+    {
+      "label": "Day 5",
+      "title": "Departure",
+      "text": "Breakfast, then a drop to NJP or Bagdogra."
+    }
+  ],
+  "included": [
+    "Hotel with breakfast and dinner",
+    "Private cab",
+    "Sikkim permits arranged",
+    "Station and airport transfers"
+  ],
+  "plate": {
+    "seed": 11,
+    "px": 0.62,
+    "py": 0.46,
+    "bg": ["#17335C", "#0E1A2B"]
+  }
+}

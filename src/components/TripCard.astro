@@ -1,0 +1,269 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { generatePlateSvg, formatMetres } from '../lib/contours';
+import { formatINR } from '../lib/estimator';
+
+interface Props {
+  trip: CollectionEntry<'trips'>['data'];
+  index: number;
+}
+
+const { trip, index } = Astro.props;
+
+const plateSvg = generatePlateSvg({
+  id: `c-${trip.id}`,
+  seed: trip.plate.seed,
+  px: trip.plate.px,
+  py: trip.plate.py,
+  bg: trip.plate.bg,
+  alt: trip.highestPointMetres
+});
+
+const altPercent = Math.min(100, (trip.highestPointMetres / 5000) * 100);
+---
+<article
+  class={`card${trip.featured ? ' feat' : ''}`}
+  style={`--i:${index}; --p:${altPercent}%`}
+  data-id={trip.id}
+  data-dest={trip.destination}
+  data-nights={trip.nights}
+  data-price={trip.pricePerPerson}
+>
+  <div class="plate">
+    {trip.photo ? (
+      <img src={trip.photo} alt={trip.title} loading="lazy" width="400" height="260" />
+    ) : (
+      <Fragment set:html={plateSvg} />
+    )}
+    {trip.tag && <span class="tag">{trip.tag}</span>}
+    <button
+      class="heart"
+      data-save={trip.id}
+      aria-pressed="false"
+      aria-label={`Save ${trip.title}`}
+    >
+      <svg class="i" aria-hidden="true"><use href="#i-heart"></use></svg>
+    </button>
+  </div>
+
+  <div class="card-body">
+    <div class="card-top">
+      <span class="dest">{trip.destination}</span>
+      <span>{trip.nights} nights</span>
+    </div>
+
+    <h3>{trip.title}</h3>
+
+    <ul class="hl">
+      {trip.highlights.map((h) => (
+        <li>{h}</li>
+      ))}
+    </ul>
+
+    <div class="alt">
+      <div class="alt-row">
+        <strong>{formatMetres(trip.highestPointMetres)}</strong>
+        <span>highest point</span>
+      </div>
+      <div class="alt-bar" style={`--p:${altPercent}%`}></div>
+    </div>
+
+    <div class="card-foot">
+      <p class="price">
+        <small>From</small>
+        <strong>{formatINR(trip.pricePerPerson)}</strong>
+        <small>per person</small>
+      </p>
+      <button class="btn btn-ink" data-open={trip.id}>View trip</button>
+    </div>
+  </div>
+</article>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: var(--paper);
+    border: 1px solid var(--mist);
+    border-radius: var(--r-m);
+    overflow: hidden;
+    animation: rise 0.5s var(--ease) both;
+    animation-delay: calc(var(--i) * 60ms);
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+
+  .plate {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: var(--ink);
+    overflow: hidden;
+  }
+
+  :global(.plate svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .plate img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .tag {
+    position: absolute;
+    left: 0.9rem;
+    top: 0.9rem;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 0.875rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: var(--r-s);
+  }
+
+  .heart {
+    position: absolute;
+    right: 0.6rem;
+    top: 0.6rem;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(14, 26, 43, 0.62);
+    color: #ffffff;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: transform 0.15s;
+  }
+
+  .heart:active {
+    transform: scale(0.92);
+  }
+
+  :global(.heart[aria-pressed="true"] .i) {
+    fill: var(--alert);
+    stroke: var(--alert);
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: 1.3rem;
+    flex: 1;
+  }
+
+  .card-top {
+    display: flex;
+    gap: 0.9rem;
+    align-items: baseline;
+    font-size: 0.875rem;
+    color: var(--slate);
+  }
+
+  .card-top .dest {
+    font-weight: 700;
+    color: var(--tea);
+  }
+
+  .hl {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.15rem;
+    color: var(--slate);
+  }
+
+  .hl li::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 1.5px;
+    background: var(--slate);
+    margin-right: 0.65rem;
+    vertical-align: middle;
+  }
+
+  .alt {
+    margin-top: auto;
+  }
+
+  .alt-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    font-size: 0.875rem;
+    color: var(--slate);
+    margin-bottom: 0.4rem;
+  }
+
+  .alt-row strong {
+    font-size: 1.125rem;
+    color: var(--ink);
+  }
+
+  .alt-bar {
+    position: relative;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--mist);
+  }
+
+  .alt-bar::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--p);
+    background: var(--ink);
+    border-radius: 2px;
+  }
+
+  .card-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--mist);
+  }
+
+  .price small {
+    font-size: 0.875rem;
+    color: var(--slate);
+  }
+
+  .price strong {
+    display: block;
+    font-size: 1.5rem;
+    font-stretch: 90%;
+    line-height: 1.1;
+  }
+
+  .price small:last-child {
+    display: block;
+  }
+
+  @media (min-width: 1000px) {
+    :global(.card.feat) {
+      grid-column: span 2;
+      flex-direction: row;
+    }
+    :global(.card.feat .plate) {
+      aspect-ratio: auto;
+      flex: 1 1 52%;
+      min-height: 100%;
+    }
+    :global(.card.feat .card-body) {
+      flex: 1 1 48%;
+    }
+  }
+</style>

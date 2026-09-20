@@ -1,0 +1,79 @@
+---
+import '../styles/tokens.css';
+import '../styles/base.css';
+import Icons from '../components/Icons.astro';
+import { siteData } from '../lib/content';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Privacy Policy | {siteData.brand}</title>
+  <meta name="description" content={`Privacy Policy for ${siteData.brand}. How we handle your trip inquiries.`} />
+  <meta name="theme-color" content="#0E1A2B" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <Icons />
+  <header style="background:var(--ink);padding:1.5rem 0;color:#fff">
+    <div class="wrap" style="display:flex;align-items:center;justify-content:space-between">
+      <a href="/" style="font-weight:800;font-size:1.5rem;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem">
+        <span>{siteData.brand}</span>
+      </a>
+      <a class="btn btn-gold" href="/">Back to Trips</a>
+    </div>
+  </header>
+
+  <main class="wrap sec" style="max-width:800px">
+    <h1>Privacy Policy</h1>
+    <p class="lead" style="margin-bottom:2rem">Last updated: September 2026</p>
+
+    <div style="display:grid;gap:1.5rem;line-height:1.7;color:var(--ink)">
+      <section>
+        <h2>1. Overview</h2>
+        <p>
+          At <strong>{siteData.brand}</strong>, we respect your privacy. Our website is built as a static site without cookies, analytics trackers, or user account databases.
+        </p>
+      </section>
+
+      <section>
+        <h2>2. Information You Provide</h2>
+        <p>
+          When you use our enquiry form or trip cost estimator, you provide information such as your name, estimated number of travellers, desired travel month, and travel notes.
+        </p>
+        <p>
+          This information is compiled directly into a pre-filled WhatsApp message on your device. We do not store your personal details on web servers or databases when you interact with the form.
+        </p>
+      </section>
+
+      <section>
+        <h2>3. Local Storage</h2>
+        <p>
+          If you save trips using the heart icon, your shortlisted trip IDs are stored strictly on your device’s local browser storage (<code>localStorage</code>). This data never leaves your browser unless you explicitly choose to send your shortlist via WhatsApp.
+        </p>
+      </section>
+
+      <section>
+        <h2>4. Contact & Inquiries</h2>
+        <p>
+          If you have any questions about this policy or your travel data, you can contact us directly:
+        </p>
+        <ul style="margin-top:.5rem">
+          <li>Phone: <a href={`tel:${siteData.phone}`}>{siteData.phone}</a></li>
+          <li>Email: <a href={`mailto:${siteData.email}`}>{siteData.email}</a></li>
+          <li>Operating hours: {siteData.hours}</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer style="background:#091321;color:#9FB4C4;padding:2rem 0;margin-top:4rem">
+    <div class="wrap" style="text-align:center">
+      <p>© {new Date().getFullYear()} {siteData.brand}. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

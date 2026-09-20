@@ -1,0 +1,59 @@
+{
+  "id": "pelling-yuksom",
+  "title": "Pelling and Yuksom Heritage",
+  "destination": "Sikkim",
+  "nights": 5,
+  "pricePerPerson": 24500,
+  "highestPointMetres": 2150,
+  "tag": "",
+  "featured": false,
+  "highlights": [
+    "Kanchenjunga views from Pelling",
+    "Pemayangtse Monastery",
+    "Yuksom, the first capital"
+  ],
+  "days": [
+    {
+      "label": "Day 1",
+      "title": "Arrive in Pelling",
+      "text": "Drive from NJP or Bagdogra and settle in for a first look at the peaks."
+    },
+    {
+      "label": "Day 2",
+      "title": "Pelling sights",
+      "text": "Pemayangtse Monastery, Rabdentse ruins and the Chenrezig statue and Skywalk."
+    },
+    {
+      "label": "Day 3",
+      "title": "To Yuksom",
+      "text": "Drive to Yuksom, Sikkim's first capital, and walk to Dubdi Monastery."
+    },
+    {
+      "label": "Day 4",
+      "title": "Yuksom slow day",
+      "text": "Village walk and a free afternoon."
+    },
+    {
+      "label": "Day 5",
+      "title": "Khecheopalri Lake",
+      "text": "The wishing lake and a short forest trail on the way back."
+    },
+    {
+      "label": "Day 6",
+      "title": "Departure",
+      "text": "Breakfast, then a drop to NJP or Bagdogra."
+    }
+  ],
+  "included": [
+    "Hotel with breakfast and dinner",
+    "Private cab",
+    "Monastery entry fees",
+    "Station and airport transfers"
+  ],
+  "plate": {
+    "seed": 35,
+    "px": 0.45,
+    "py": 0.48,
+    "bg": ["#2A2F5C", "#0E1A2B"]
+  }
+}

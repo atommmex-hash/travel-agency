@@ -1,0 +1,71 @@
+import { describe, it, expect } from 'vitest';
+import { tripSchema, siteSchema } from '../src/lib/schemas';
+
+describe('Content Schema Validation', () => {
+  const validTrip = {
+    id: 'test-trip',
+    title: 'Test Mountain Trek',
+    destination: 'Sikkim',
+    nights: 4,
+    pricePerPerson: 15000,
+    highestPointMetres: 3200,
+    tag: 'Popular',
+    featured: false,
+    highlights: ['Scenic Ridge', 'Alpine Lake'],
+    days: [
+      {
+        label: 'Day 1',
+        title: 'Arrival',
+        text: 'Arrive at basecamp.'
+      }
+    ],
+    included: ['Guide', 'Cab'],
+    plate: {
+      seed: 5,
+      px: 0.5,
+      py: 0.5,
+      bg: ['#14324A', '#0E1A2B']
+    }
+  };
+
+  it('valid trip passes schema validation', () => {
+    expect(() => tripSchema.parse(validTrip)).not.toThrow();
+  });
+
+  it('fails clearly when trip price is negative or zero', () => {
+    const badTrip = { ...validTrip, pricePerPerson: -500 };
+    expect(() => tripSchema.parse(badTrip)).toThrow(/Price per person must be positive/);
+  });
+
+  it('fails clearly when title is empty', () => {
+    const badTrip = { ...validTrip, title: '' };
+    expect(() => tripSchema.parse(badTrip)).toThrow(/Trip title is required/);
+  });
+
+  it('fails clearly when nights is not a positive integer', () => {
+    const badTrip = { ...validTrip, nights: 0 };
+    expect(() => tripSchema.parse(badTrip)).toThrow(/Nights must be a positive integer/);
+  });
+
+  it('fails clearly when highlights are empty', () => {
+    const badTrip = { ...validTrip, highlights: [] };
+    expect(() => tripSchema.parse(badTrip)).toThrow(/At least 1 highlight required/);
+  });
+
+  it('fails clearly when site email is invalid', () => {
+    const badSite = {
+      brand: 'Test Agency',
+      whatsapp: '919000000000',
+      phone: '+919000000000',
+      email: 'not-an-email',
+      hours: '9am-9pm',
+      hero: {
+        headline: 'Test',
+        lead: 'Lead',
+        peak: { name: 'Peak', metres: 5000 }
+      },
+      finePrint: 'Fine print'
+    };
+    expect(() => siteSchema.parse(badSite)).toThrow();
+  });
+});

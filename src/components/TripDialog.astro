@@ -1,0 +1,352 @@
+---
+// Native HTML dialog bottom sheet on mobile, modal on desktop
+---
+<dialog id="tripDlg" aria-labelledby="tripTitle">
+  <div id="tripBody"></div>
+</dialog>
+
+<style>
+  dialog {
+    border: 0;
+    padding: 0;
+    width: min(1000px, calc(100% - 2rem));
+    max-width: none;
+    max-height: calc(100vh - 2rem);
+    max-height: calc(100dvh - 2rem);
+    overflow: auto;
+    overscroll-behavior: contain;
+    background: var(--snow);
+    color: var(--ink);
+    border-radius: var(--r-l);
+    box-shadow: 0 30px 80px rgba(5, 12, 22, 0.5);
+  }
+
+  dialog::backdrop {
+    background: rgba(9, 19, 33, 0.66);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+  }
+
+  dialog[open] {
+    animation: pop 0.35s var(--ease);
+  }
+
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+  }
+
+  @media (max-width: 720px) {
+    dialog {
+      width: 100%;
+      margin: auto 0 0;
+      max-height: 92vh;
+      max-height: 92dvh;
+      border-radius: var(--r-l) var(--r-l) 0 0;
+    }
+    dialog[open] {
+      animation: sheet 0.4s var(--ease);
+    }
+  }
+
+  @keyframes sheet {
+    from {
+      transform: translateY(100%);
+    }
+  }
+
+  :global(.x) {
+    position: sticky;
+    top: 0.75rem;
+    z-index: 6;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin: 0.75rem 0.75rem -56px auto;
+    border-radius: 50%;
+    background: rgba(14, 26, 43, 0.78);
+    color: #ffffff;
+    transition: background 0.2s;
+  }
+
+  :global(.x:hover) {
+    background: rgba(14, 26, 43, 0.95);
+  }
+
+  :global(.sheet-plate) {
+    position: relative;
+    height: clamp(200px, 34vw, 300px);
+    background: var(--ink);
+    overflow: hidden;
+  }
+
+  :global(.sheet-plate svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  :global(.sheet-plate img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  :global(.sheet-plate .heart) {
+    left: 0.75rem;
+    right: auto;
+    top: 0.75rem;
+  }
+
+  :global(.sheet-title) {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 3rem 1.5rem 1.3rem;
+    color: #ffffff;
+    background: linear-gradient(0deg, rgba(14, 26, 43, 0.92), transparent);
+  }
+
+  :global(.sheet-title p) {
+    font-weight: 600;
+    color: #C4D4DF;
+  }
+
+  :global(.sheet-title h2) {
+    font-size: clamp(2rem, 6vw, 3.2rem);
+  }
+
+  :global(.sheet-grid) {
+    display: grid;
+    gap: 2rem;
+    padding: 1.5rem;
+  }
+
+  @media (min-width: 860px) {
+    :global(.sheet-grid) {
+      grid-template-columns: 1.5fr 1fr;
+      padding: 2rem 2.2rem 2.4rem;
+      gap: 2.5rem;
+      align-items: start;
+    }
+  }
+
+  :global(.sheet-main h3) {
+    margin: 2rem 0 0.6rem;
+  }
+
+  :global(.sheet-main h3:first-child) {
+    margin-top: 0;
+  }
+
+  /* Accordions inside sheet */
+  :global(.acc) {
+    border-bottom: 1px solid var(--mist);
+  }
+
+  :global(.acc details) {
+    border-top: 1px solid var(--mist);
+  }
+
+  :global(.acc summary) {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 60px;
+    padding: 0.6rem 0;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+
+  :global(.acc summary::-webkit-details-marker) {
+    display: none;
+  }
+
+  :global(.acc summary .i) {
+    margin-left: auto;
+    transition: transform 0.25s var(--ease);
+  }
+
+  :global(.acc details[open] summary .i) {
+    transform: rotate(180deg);
+  }
+
+  :global(.acc p) {
+    padding: 0 2.5rem 1.3rem 0;
+    color: var(--slate);
+    max-width: 68ch;
+  }
+
+  :global(.acc .dn) {
+    flex: none;
+    width: 3.8rem;
+    color: var(--slate);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  :global(.acc .dt) {
+    font-stretch: 92%;
+  }
+
+  :global(.sheet-main .acc p) {
+    padding-left: 3.8rem;
+  }
+
+  :global(.inc) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  :global(.inc li) {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+  }
+
+  :global(.inc .i) {
+    color: var(--tea);
+    margin-top: 0.2rem;
+  }
+
+  /* Estimator */
+  :global(.est) {
+    background: var(--ink);
+    color: #ffffff;
+    border-radius: var(--r-m);
+    padding: 1.4rem;
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  @media (min-width: 860px) {
+    :global(.est) {
+      position: sticky;
+      top: 1rem;
+    }
+  }
+
+  :global(.est-row) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  :global(.stepper) {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  :global(.stepper button) {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    border-radius: var(--r-m);
+    color: #ffffff;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  :global(.stepper button:hover:not(:disabled)) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
+  }
+
+  :global(.stepper button:disabled) {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  :global(.stepper output) {
+    min-width: 2.4rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+
+  :global(.tiers) {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+  }
+
+  :global(.tiers legend) {
+    padding: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  :global(.tier) {
+    position: relative;
+  }
+
+  :global(.tier input) {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    width: 100%;
+    min-height: 0;
+  }
+
+  :global(.tier span) {
+    display: grid;
+    place-items: center;
+    min-height: 44px;
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    border-radius: var(--r-m);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+
+  :global(.tier input:checked + span) {
+    background: #ffffff;
+    color: var(--ink);
+    border-color: #ffffff;
+  }
+
+  :global(.tier input:focus-visible + span) {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  :global(.est-total) {
+    display: grid;
+    gap: 0.1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  :global(.est-total span) {
+    color: #C4D4DF;
+  }
+
+  :global(.est-total strong) {
+    font-stretch: 78%;
+    font-size: 2.8rem;
+    line-height: 1;
+    color: var(--gold);
+  }
+
+  :global(.est-total small) {
+    color: #C4D4DF;
+  }
+
+  :global(.est .fine) {
+    color: #9FB4C4;
+  }
+</style>

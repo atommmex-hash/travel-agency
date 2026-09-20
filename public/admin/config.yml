@@ -1,0 +1,111 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Local backend support for local testing with npx decap-server
+local_backend: true
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "trips"
+    label: "Trips & Packages"
+    folder: "src/content/trips"
+    create: true
+    format: "json"
+    slug: "{{id}}"
+    identifier_field: "title"
+    fields:
+      - { label: "Trip ID (URL slug, e.g. darjeeling-classic)", name: "id", widget: "string" }
+      - { label: "Trip Title", name: "title", widget: "string" }
+      - { label: "Destination", name: "destination", widget: "select", options: ["Darjeeling", "Sikkim", "Dooars", "Offbeat"] }
+      - { label: "Duration (Nights)", name: "nights", widget: "number", value_type: "int", min: 1 }
+      - { label: "Price per Person (INR, twin sharing)", name: "pricePerPerson", widget: "number", value_type: "int" }
+      - { label: "Highest Point (Metres)", name: "highestPointMetres", widget: "number", value_type: "int" }
+      - { label: "Badge Tag (optional, e.g. Bestseller, Snow line)", name: "tag", widget: "string", required: false }
+      - { label: "Feature on Homepage (spans 2 columns on desktop)", name: "featured", widget: "boolean", default: false, required: false }
+      - label: "Highlights (3 bullet points)"
+        name: "highlights"
+        widget: "list"
+        field: { label: "Highlight", name: "highlight", widget: "string" }
+      - label: "Day-by-Day Itinerary"
+        name: "days"
+        widget: "list"
+        fields:
+          - { label: "Day Label (e.g. Day 1)", name: "label", widget: "string" }
+          - { label: "Day Title", name: "title", widget: "string" }
+          - { label: "Description", name: "text", widget: "text" }
+      - label: "Included in Package"
+        name: "included"
+        widget: "list"
+        field: { label: "Inclusion item", name: "item", widget: "string" }
+      - { label: "Trip Photo (optional - automatically falls back to topographic contour plate)", name: "photo", widget: "image", required: false }
+      - label: "Contour Plate Settings"
+        name: "plate"
+        widget: "object"
+        fields:
+          - { label: "Seed", name: "seed", widget: "number", default: 7 }
+          - { label: "Center X (0 to 1)", name: "px", widget: "number", value_type: "float", default: 0.5 }
+          - { label: "Center Y (0 to 1)", name: "py", widget: "number", value_type: "float", default: 0.5 }
+          - label: "Background Gradient Colors [start, end]"
+            name: "bg"
+            widget: "list"
+            min: 2
+            max: 2
+
+  - name: "settings"
+    label: "Site Settings & Content"
+    files:
+      - name: "site"
+        label: "Agency Details & Hero"
+        file: "src/content/site.json"
+        format: "json"
+        fields:
+          - { label: "Agency Brand Name", name: "brand", widget: "string" }
+          - { label: "WhatsApp Number (digits with country code, e.g. 919000000000)", name: "whatsapp", widget: "string" }
+          - { label: "Phone (for click-to-call, e.g. +919000000000)", name: "phone", widget: "string" }
+          - { label: "Email Address", name: "email", widget: "string" }
+          - { label: "Opening Hours", name: "hours", widget: "string" }
+          - label: "Hero Banner"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Headline (H1)", name: "headline", widget: "string" }
+              - { label: "Lead Subheading", name: "lead", widget: "text" }
+              - label: "Hero Mountain Peak"
+                name: "peak"
+                widget: "object"
+                fields:
+                  - { label: "Peak Name", name: "name", widget: "string" }
+                  - { label: "Peak Elevation in Metres", name: "metres", widget: "number", value_type: "int" }
+          - { label: "Fine Print (response time guarantee)", name: "finePrint", widget: "string" }
+
+      - name: "stories"
+        label: "Customer Reviews & Stories"
+        file: "src/content/stories.json"
+        format: "json"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Subheading / Rating", name: "subheading", widget: "string" }
+          - label: "Reviews / Testimonials"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Review Quote", name: "quote", widget: "text" }
+              - { label: "Traveller Name(s)", name: "author", widget: "string" }
+              - { label: "Trip Name", name: "trip", widget: "string" }
+              - { label: "Traveller Origin City", name: "location", widget: "string" }
+
+      - name: "faq"
+        label: "Frequently Asked Questions"
+        file: "src/content/faq.json"
+        format: "json"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - label: "Questions & Answers"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Question", name: "question", widget: "string" }
+              - { label: "Answer", name: "answer", widget: "text" }

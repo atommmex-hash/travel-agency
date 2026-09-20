@@ -1,0 +1,149 @@
+---
+interface Props {
+  phone: string;
+  email: string;
+}
+
+const { phone, email } = Astro.props;
+---
+<section class="sec enquire" id="enquire" aria-labelledby="enq-h">
+  <div class="wrap two-col">
+    <div>
+      <h2 id="enq-h">Tell us when you are free</h2>
+      <p class="lead">We reply on WhatsApp with a plan and a price. Prefer to talk? Call us any day between 9 am and 9 pm.</p>
+      <div class="contact">
+        <a href={`tel:${phone}`} id="phoneLink">{phone}</a>
+        <span>{email}</span>
+      </div>
+    </div>
+
+    <form class="form" id="form" novalidate>
+      <label>
+        Your name
+        <input name="name" id="fName" autocomplete="name" required placeholder="Your full name" />
+      </label>
+
+      <div class="row2">
+        <label>
+          Travellers
+          <input name="n" id="fTravellers" type="number" inputmode="numeric" min="1" max="30" value="2" required />
+        </label>
+        <label>
+          Month
+          <select name="month" id="fMonth">
+            <option value="Not sure yet">Not sure yet</option>
+          </select>
+        </label>
+      </div>
+
+      <label>
+        Anything we should know <span>(optional)</span>
+        <textarea name="note" id="fNote" placeholder="Kids, parents, a trip you liked, a place you want to see"></textarea>
+      </label>
+
+      <button class="btn btn-gold" type="submit">
+        <svg class="i" aria-hidden="true"><use href="#i-chat"></use></svg>
+        <span>Send on WhatsApp</span>
+      </button>
+
+      <p class="fine form-msg" id="formMsg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .enquire {
+    background: var(--ink);
+    color: #ffffff;
+  }
+
+  .enquire .lead {
+    color: #C4D4DF;
+  }
+
+  .contact {
+    margin-top: 2rem;
+    display: grid;
+    gap: 0.4rem;
+    color: #C4D4DF;
+  }
+
+  .contact a {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-decoration: none;
+  }
+
+  .contact a:hover {
+    text-decoration: underline;
+  }
+
+  .form {
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: var(--r-l);
+    padding: clamp(1.3rem, 4vw, 2.2rem);
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .form label {
+    display: grid;
+    gap: 0.4rem;
+    font-weight: 700;
+  }
+
+  .form label span {
+    font-weight: 400;
+    color: var(--slate);
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    min-height: 52px;
+    padding: 0.75rem 1rem;
+    font: inherit;
+    font-size: 1rem; /* at least 16px to prevent iOS auto-zoom */
+    color: var(--ink);
+    background: #ffffff;
+    border: 1.5px solid var(--mist);
+    border-radius: var(--r-m);
+  }
+
+  textarea {
+    min-height: 104px;
+    resize: vertical;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--ink);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(242, 181, 58, 0.6);
+  }
+
+  .row2 {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  @media (min-width: 560px) {
+    .row2 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .form-msg {
+    min-height: 1.4em;
+    color: var(--alert);
+    font-weight: 600;
+  }
+
+  :global(.form-msg.success) {
+    color: var(--tea);
+  }
+</style>

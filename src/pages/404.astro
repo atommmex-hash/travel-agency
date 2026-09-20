@@ -1,0 +1,29 @@
+---
+import '../styles/tokens.css';
+import '../styles/base.css';
+import Icons from '../components/Icons.astro';
+import { siteData } from '../lib/content';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Page Not Found | {siteData.brand}</title>
+  <meta name="theme-color" content="#0E1A2B" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet" />
+</head>
+<body style="min-height:100vh;display:flex;flex-direction:column;background:var(--ink);color:#fff">
+  <Icons />
+  <main class="wrap" style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:4rem 0">
+    <span style="font-size:1.25rem;color:var(--gold);font-weight:700">404</span>
+    <h1 style="font-size:clamp(3rem,8vw,5.5rem);font-stretch:75%;line-height:1;margin:1rem 0">Off the trail.</h1>
+    <p class="lead" style="color:#C4D4DF;margin-bottom:2.5rem;max-width:48ch">
+      The page or itinerary you are looking for has moved or does not exist. Head back to browse our latest mountain trips.
+    </p>
+    <a class="btn btn-gold" href="/">Explore all trips</a>
+  </main>
+</body>
+</html>

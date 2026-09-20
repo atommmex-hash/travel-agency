@@ -1,0 +1,136 @@
+---
+interface Props {
+  destinations: string[];
+}
+
+const { destinations } = Astro.props;
+---
+<div class="filters">
+  <div>
+    <p class="f-label" id="l-dest">Where</p>
+    <div class="chips" id="destChips" role="group" aria-labelledby="l-dest">
+      <button class="chip" data-v="All" aria-pressed="true">All</button>
+      {destinations.map((d) => (
+        <button class="chip" data-v={d} aria-pressed="false">{d}</button>
+      ))}
+    </div>
+  </div>
+
+  <div>
+    <p class="f-label" id="l-dur">How long</p>
+    <div class="chips" id="durChips" role="group" aria-labelledby="l-dur">
+      <button class="chip" data-v="any" aria-pressed="true">Any length</button>
+      <button class="chip" data-v="short" aria-pressed="false">Up to 3 nights</button>
+      <button class="chip" data-v="mid" aria-pressed="false">4–5 nights</button>
+      <button class="chip" data-v="long" aria-pressed="false">6+ nights</button>
+    </div>
+  </div>
+
+  <div>
+    <label class="f-label" for="budget">
+      <span>Budget per person</span>
+      <output id="budgetOut">Any</output>
+    </label>
+    <input type="range" id="budget" min="8000" max="35000" step="1000" value="35000" aria-label="Budget per person" />
+  </div>
+</div>
+
+<p class="count" id="count" role="status" aria-live="polite"></p>
+
+<div class="empty" id="empty" hidden>
+  <p>No trips match those filters. Widen the budget or pick another destination.</p>
+  <button class="btn btn-line-ink" id="resetF">Reset filters</button>
+</div>
+
+<style>
+  .filters {
+    display: grid;
+    gap: 1.4rem;
+    margin-top: 2.2rem;
+    padding-block: 1.6rem;
+    border-block: 1px solid var(--mist);
+  }
+
+  @media (min-width: 900px) {
+    .filters {
+      grid-template-columns: 1.25fr 1.25fr 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  .f-label {
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .f-label output {
+    font-weight: 600;
+    color: var(--slate);
+  }
+
+  .chips {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 2px;
+    margin: -2px;
+  }
+
+  .chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .chips {
+      flex-wrap: wrap;
+      overflow: visible;
+    }
+  }
+
+  .chip {
+    flex: none;
+    min-height: 44px;
+    padding: 0 1rem;
+    border-radius: 10px;
+    border: 1.5px solid var(--mist);
+    background: var(--paper);
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  .chip:hover {
+    border-color: var(--ink-3);
+  }
+
+  .chip[aria-pressed="true"] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #ffffff;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    height: 44px;
+    accent-color: var(--ink);
+    cursor: pointer;
+  }
+
+  .count {
+    margin-top: 1.4rem;
+    color: var(--slate);
+    font-weight: 600;
+    min-height: 1.6em;
+  }
+
+  .empty {
+    padding: 3rem 0;
+    text-align: center;
+    display: grid;
+    gap: 1rem;
+    justify-items: center;
+  }
+</style>

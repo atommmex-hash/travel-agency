@@ -1,0 +1,77 @@
+---
+interface Props {
+  brand: string;
+}
+
+const { brand } = Astro.props;
+---
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <a class="logo" href="#top">
+        <span>{brand}</span>
+      </a>
+      <p style="margin-top:.6rem;max-width:38ch;color:#9FB4C4">
+        Custom hill-station and nature journeys planned and hosted by local experts.
+      </p>
+    </div>
+
+    <nav aria-label="Footer navigation">
+      <a href="#trips">Trips</a>
+      <a href="#booking">Booking</a>
+      <a href="#faq">FAQ</a>
+      <a href="#enquire">Contact</a>
+      <a href="/privacy">Privacy Policy</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    background: #091321;
+    color: #9FB4C4;
+    padding: 2.5rem 0 calc(2.5rem + 84px);
+  }
+
+  .foot-in {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 3rem;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .foot .logo {
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    font-stretch: 75%;
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: -0.01em;
+  }
+
+  .foot nav {
+    display: flex;
+    gap: 1.4rem;
+    flex-wrap: wrap;
+  }
+
+  .foot a {
+    text-decoration: none;
+    color: #9FB4C4;
+    transition: color 0.2s;
+  }
+
+  .foot a:hover {
+    color: #ffffff;
+  }
+
+  @media (min-width: 768px) {
+    .foot {
+      padding-bottom: 2.5rem;
+    }
+  }
+</style>

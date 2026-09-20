@@ -1,0 +1,221 @@
+---
+import { rings, pathOf, formatMetres } from '../lib/contours';
+
+interface Props {
+  headline: string;
+  lead: string;
+  peakName: string;
+  peakMetres: number;
+  finePrint: string;
+  whatsappUrl: string;
+}
+
+const { headline, lead, peakName, peakMetres, finePrint, whatsappUrl } = Astro.props;
+
+// Server-side generate deterministic SVG topography
+const W = 1440;
+const H = 900;
+const cx = 860;
+const cy = 470;
+const n = 26;
+const pts = 120;
+const R = rings({ seed: 7, cx, cy, n, rMax: 880, pts });
+const k = Math.round(pts * 0.08);
+---
+<section class="hero" aria-labelledby="hero-h">
+  <svg class="topo" id="topo" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <radialGradient id="glow">
+        <stop offset="0" stop-color="#F2B53A" stop-opacity=".55" />
+        <stop offset="1" stop-color="#F2B53A" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+    <circle class="glow" cx={cx} cy={cy} r="260" fill="url(#glow)" />
+    {R.map((line, i) => {
+      const hi = i >= n - 5;
+      const idx = i % 5 === 0;
+      const cls = hi ? 'ring ring-hi' : idx ? 'ring ring-idx' : 'ring ring-lo';
+      const op = hi ? (0.45 + (i - (n - 5)) * 0.13).toFixed(2) : undefined;
+      return (
+        <path
+          class={cls}
+          pathLength="1"
+          style={{
+            '--i': i,
+            ...(op ? { strokeOpacity: op } : {})
+          }}
+          d={pathOf(line)}
+        />
+      );
+    })}
+    {R.map((line, i) => {
+      if (i % 5 === 0) {
+        const p = line[k];
+        return (
+          <text class="elev tag-fade" x={p[0].toFixed(0)} y={p[1].toFixed(0)}>
+            {formatMetres(1000 + i * 300)}
+          </text>
+        );
+      }
+      return null;
+    })}
+    <g class="tag-fade">
+      <path d={`M${cx},${cy - 10}l8,15h-16z`} fill="#F2B53A" />
+      <text class="peak" x={cx + 16} y={cy + 5}>
+        {peakName} {formatMetres(peakMetres)}
+      </text>
+    </g>
+  </svg>
+
+  <div class="wrap hero-copy">
+    <h1 id="hero-h">{headline}</h1>
+    <p class="lead">{lead}</p>
+    <div class="hero-cta">
+      <a class="btn btn-gold" href="#trips">Find a trip</a>
+      <a class="btn btn-line" id="heroWa" href={whatsappUrl} target="_blank" rel="noopener">
+        <svg class="i" aria-hidden="true"><use href="#i-chat"></use></svg>
+        <span>Chat on WhatsApp</span>
+      </a>
+    </div>
+    <p class="fine">{finePrint}</p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    color: #ffffff;
+    background: linear-gradient(180deg, #0A1322 0%, var(--ink) 55%, #132339 100%);
+  }
+
+  .topo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .ring {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw 1.8s var(--ease) forwards;
+    animation-delay: calc(var(--i) * 65ms + 0.2s);
+  }
+
+  .ring-lo {
+    stroke: rgba(143, 184, 204, 0.22);
+    stroke-width: 1;
+  }
+
+  .ring-idx {
+    stroke: rgba(143, 184, 204, 0.5);
+    stroke-width: 1.6;
+  }
+
+  .ring-hi {
+    stroke: var(--gold);
+    stroke-width: 1.8;
+  }
+
+  .glow,
+  .tag-fade {
+    opacity: 0;
+    animation: fade 1.2s ease-out 2s forwards;
+  }
+
+  .tag-fade {
+    animation-delay: 2.4s;
+  }
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes fade {
+    to {
+      opacity: 1;
+    }
+  }
+
+  .elev {
+    font-size: 13px;
+    font-weight: 600;
+    fill: #A9CADB;
+    paint-order: stroke;
+    stroke: #0E1A2B;
+    stroke-width: 6px;
+    stroke-linejoin: round;
+  }
+
+  .peak {
+    font-size: 15px;
+    font-weight: 700;
+    fill: #ffffff;
+    paint-order: stroke;
+    stroke: #0E1A2B;
+    stroke-width: 6px;
+    stroke-linejoin: round;
+  }
+
+  .hero-copy {
+    position: relative;
+    z-index: 2;
+    padding: calc(68px + 3rem) 0 clamp(2.5rem, 7vh, 4.5rem);
+  }
+
+  .hero h1 {
+    font-stretch: 68%;
+    font-size: clamp(3.6rem, 12.5vw, 9.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    max-width: 11ch;
+  }
+
+  .hero .lead {
+    color: #C4D4DF;
+    margin-top: 1.5rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .hero .fine {
+    color: #9FB4C4;
+    margin-top: 1.25rem;
+    max-width: 52ch;
+  }
+
+  @media (max-width: 520px) {
+    .hero-cta .btn {
+      flex: 1 1 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ring {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+    .glow,
+    .tag-fade {
+      animation: none;
+      opacity: 1;
+    }
+  }
+</style>

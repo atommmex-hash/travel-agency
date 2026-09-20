@@ -1,0 +1,64 @@
+{
+  "id": "lachung-yumthang",
+  "title": "Lachung and Yumthang Valley",
+  "destination": "Sikkim",
+  "nights": 6,
+  "pricePerPerson": 32000,
+  "highestPointMetres": 4700,
+  "tag": "Snow line",
+  "featured": false,
+  "highlights": [
+    "Yumthang Valley meadows",
+    "Snow at Zero Point",
+    "North Sikkim drive"
+  ],
+  "days": [
+    {
+      "label": "Day 1",
+      "title": "Arrive in Gangtok",
+      "text": "Pickup from NJP or Bagdogra and a drive to Gangtok."
+    },
+    {
+      "label": "Day 2",
+      "title": "Drive to Lachung",
+      "text": "Waterfalls and mountain villages along the North Sikkim road."
+    },
+    {
+      "label": "Day 3",
+      "title": "Yumthang and Zero Point",
+      "text": "Rhododendron meadows in season, then snow views. Subject to road and weather."
+    },
+    {
+      "label": "Day 4",
+      "title": "Back to Gangtok",
+      "text": "A slow drive down with stops at viewpoints."
+    },
+    {
+      "label": "Day 5",
+      "title": "Gangtok leisure",
+      "text": "Ropeway, markets and a free afternoon."
+    },
+    {
+      "label": "Day 6",
+      "title": "Tsomgo Lake",
+      "text": "Optional day trip to the lake, permits arranged."
+    },
+    {
+      "label": "Day 7",
+      "title": "Departure",
+      "text": "Breakfast, then a drop to NJP or Bagdogra."
+    }
+  ],
+  "included": [
+    "Hotel and Lachung stay with meals",
+    "Private 4x4 for North Sikkim",
+    "All permits arranged",
+    "Station and airport transfers"
+  ],
+  "plate": {
+    "seed": 43,
+    "px": 0.58,
+    "py": 0.42,
+    "bg": ["#1D3A66", "#0E1A2B"]
+  }
+}

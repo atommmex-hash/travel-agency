@@ -1,0 +1,119 @@
+---
+// Booking steps and why-us section
+---
+<section class="sec sec-white" id="booking" aria-labelledby="book-h">
+  <div class="wrap two-col">
+    <div>
+      <h2 id="book-h">How booking works</h2>
+      <ol class="steps">
+        <li>
+          <div>
+            <b>Tell us your dates and who is coming</b>
+            <span>Use the form below or message us on WhatsApp. No account, no long forms.</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            <b>Get a plan within a day</b>
+            <span>A day-by-day itinerary and one price that includes permits and transfers.</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            <b>Confirm with a small advance</b>
+            <span>Pay by UPI or bank transfer. The balance is due a week before you leave.</span>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div>
+      <h2>Why travel with us</h2>
+      <dl class="facts">
+        <div>
+          <dt>Hosts you can name</dt>
+          <dd>Every homestay and driver is someone our team has met. You get their names and numbers before you travel.</dd>
+        </div>
+        <div>
+          <dt>One price</dt>
+          <dd>Permits, transfers, taxes and sightseeing are in the quote. Extras are listed up front, never added later.</dd>
+        </div>
+        <div>
+          <dt>Built around your pace</dt>
+          <dd>Travelling with parents or kids? We shorten drives and add rest days instead of cramming in stops.</dd>
+        </div>
+        <div>
+          <dt>Help on the road</dt>
+          <dd>A real person on WhatsApp for the whole trip, including the day a road closes.</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<style>
+  .steps {
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+    counter-reset: s;
+  }
+
+  .steps li {
+    counter-increment: s;
+    display: grid;
+    grid-template-columns: 3.2rem 1fr;
+    gap: 1rem;
+    padding: 1.4rem 0;
+    border-top: 1px solid var(--mist);
+  }
+
+  .steps li:last-child {
+    border-bottom: 1px solid var(--mist);
+  }
+
+  .steps li::before {
+    content: counter(s);
+    font-stretch: 70%;
+    font-weight: 800;
+    font-size: 3rem;
+    line-height: 0.9;
+    color: var(--ink);
+  }
+
+  .steps b {
+    display: block;
+    font-size: 1.125rem;
+  }
+
+  .steps span {
+    color: var(--slate);
+  }
+
+  .facts {
+    margin: 2rem 0 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .facts div {
+    padding: 1.4rem 0;
+    border-top: 1px solid var(--mist);
+  }
+
+  .facts div:last-child {
+    border-bottom: 1px solid var(--mist);
+  }
+
+  .facts dt {
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+
+  .facts dd {
+    margin: 0.25rem 0 0;
+    color: var(--slate);
+  }
+</style>

@@ -1,0 +1,255 @@
+/* ==========================================================
+   BASE STYLES: Typography, Reset, Layout & Accessibility
+   Source: design.md & sample.html
+   ========================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 84px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--snow);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant-numeric: tabular-nums;
+}
+
+body.lock {
+  overflow: hidden;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+p {
+  margin: 0;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 800;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* 3px gold focus ring on every interactive element */
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: var(--r-s);
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  background: var(--gold);
+  color: var(--ink);
+  padding: 0.7rem 1rem;
+  border-radius: var(--r-s);
+  font-weight: 700;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Layout container */
+.wrap {
+  width: min(var(--max-w), 100% - var(--pad) * 2);
+  margin-inline: auto;
+}
+
+/* Icons */
+.i {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Typography scale */
+h2 {
+  font-stretch: 78%;
+  font-size: clamp(2.2rem, 5.6vw, 3.8rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-stretch: 92%;
+  font-weight: 700;
+  font-size: 1.375rem;
+  line-height: 1.2;
+}
+
+.lead {
+  font-size: 1.125rem;
+  color: var(--slate);
+  max-width: 56ch;
+  margin-top: 1rem;
+}
+
+.muted {
+  color: var(--slate);
+}
+
+.fine {
+  font-size: 0.875rem;
+  color: var(--slate);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 52px;
+  padding: 0 1.4rem;
+  border-radius: var(--r-m);
+  border: 1.5px solid transparent;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.12s;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+.btn-gold:hover {
+  background: #F7C465;
+}
+
+.btn-ink {
+  background: var(--ink);
+  color: #FFFFFF;
+}
+
+.btn-ink:hover {
+  background: var(--ink-3);
+}
+
+.btn-line {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #FFFFFF;
+}
+
+.btn-line:hover {
+  border-color: #FFFFFF;
+}
+
+.btn-line-ink {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.btn-line-ink:hover {
+  background: var(--ink);
+  color: #FFFFFF;
+}
+
+.link {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  min-height: 44px;
+  padding: 0 0.4rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.cnt-badge {
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-grid;
+  place-items: center;
+}
+
+/* Section Spacing */
+.sec {
+  padding-block: var(--section-pad);
+}
+
+.sec-white {
+  background: var(--paper);
+}
+
+.two-col {
+  display: grid;
+  gap: 3rem;
+}
+
+@media (min-width: 900px) {
+  .two-col {
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+  }
+}

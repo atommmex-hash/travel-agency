@@ -1,0 +1,49 @@
+{
+  "id": "darjeeling-classic",
+  "title": "Darjeeling Tea and Toy Train",
+  "destination": "Darjeeling",
+  "nights": 3,
+  "pricePerPerson": 12500,
+  "highestPointMetres": 2590,
+  "tag": "Bestseller",
+  "featured": true,
+  "highlights": [
+    "Tiger Hill sunrise over Kanchenjunga",
+    "Toy train joyride",
+    "Tea estate walk and tasting"
+  ],
+  "days": [
+    {
+      "label": "Day 1",
+      "title": "Arrive and settle in",
+      "text": "Pickup from NJP or Bagdogra and a scenic climb to Darjeeling. Evening stroll along Mall Road and Chowrasta."
+    },
+    {
+      "label": "Day 2",
+      "title": "Sunrise and tea country",
+      "text": "Pre-dawn drive to Tiger Hill for the Kanchenjunga sunrise (weather permitting), then Batasia Loop and Ghum Monastery. Afternoon at a working tea estate."
+    },
+    {
+      "label": "Day 3",
+      "title": "Toy train and heritage",
+      "text": "Morning joyride on the Darjeeling Himalayan Railway, then the zoo and the mountaineering institute. Evening free for cafes."
+    },
+    {
+      "label": "Day 4",
+      "title": "Departure",
+      "text": "A slow breakfast with a view, then a comfortable drop to NJP or Bagdogra."
+    }
+  ],
+  "included": [
+    "Stay with daily breakfast",
+    "Private cab for all sightseeing",
+    "Toy train joyride ticket",
+    "Station and airport transfers"
+  ],
+  "plate": {
+    "seed": 3,
+    "px": 0.5,
+    "py": 0.5,
+    "bg": ["#14324A", "#0E1A2B"]
+  }
+}

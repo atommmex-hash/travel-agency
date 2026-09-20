@@ -1,0 +1,16 @@
+{
+  "brand": "Himal Trails",
+  "whatsapp": "919000000000",
+  "phone": "+919000000000",
+  "email": "hello@himaltrails.example",
+  "hours": "Daily, 9 am to 9 pm",
+  "hero": {
+    "headline": "Wake up at 2,042 metres.",
+    "lead": "Small-group trips through Darjeeling, Sikkim and the Dooars, planned and hosted by people who live in the hills.",
+    "peak": {
+      "name": "Kanchenjunga",
+      "metres": 8586
+    }
+  },
+  "finePrint": "We reply within 15 minutes, 9 am to 9 pm. Free date changes up to 7 days before you leave."
+}
