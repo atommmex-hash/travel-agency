@@ -46,12 +46,12 @@ const schemaJson = JSON.stringify({
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>{siteData.brand} | Darjeeling, Sikkim and Dooars trips</title>
-  <meta name="description" content={`${siteData.brand}: Small-group trips through Darjeeling, Sikkim and the Dooars. Clear prices, permits included, direct help on WhatsApp.`} />
-  <meta name="theme-color" content="#0E1A2B" />
+  <title>{siteData.brand} | Darjeeling & Sikkim Holiday Packages</title>
+  <meta name="description" content={`Book handcrafted Darjeeling, Sikkim, and Dooars holiday packages with ${siteData.brand}. Verified stays, private cabs, and transparent pricing.`} />
+  <meta name="theme-color" content="#008CFF" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content={`${siteData.brand} | Mountain trips`} />
+  <meta property="og:title" content={`${siteData.brand} | Himalayan Holiday Packages`} />
   <meta property="og:description" content={siteData.hero.lead} />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://himaltrails.example" />
@@ -64,7 +64,7 @@ const schemaJson = JSON.stringify({
   <script type="application/ld+json" set:html={schemaJson} />
 </head>
 <body id="top">
-  <a class="skip-link" href="#trips">Skip to trips</a>
+  <a class="skip-link" href="#trips">Skip to packages</a>
   <Icons />
 
   <Header brand={siteData.brand} />
@@ -80,8 +80,11 @@ const schemaJson = JSON.stringify({
     />
 
     <section class="sec wrap" id="trips" aria-labelledby="trips-h">
-      <h2 id="trips-h">Pick a way up</h2>
-      <p class="lead">Every trip lists its highest point, so you know what to pack and what to expect.</p>
+      <div class="packages-header">
+        <span class="sec-badge">TOP RATED PACKAGES</span>
+        <h2 id="trips-h">Explore Mountain Itineraries</h2>
+        <p class="lead">Every package includes private mountain transfers, verified hotel stays, and entry permits.</p>
+      </div>
 
       <TripFilters destinations={destinations} />
 
@@ -92,8 +95,8 @@ const schemaJson = JSON.stringify({
       </div>
 
       <noscript>
-        <p class="fine" style="margin-top:1rem;color:var(--slate)">
-          Showing all pre-rendered trips. Enable JavaScript to filter by budget and length or calculate estimates.
+        <p class="fine" style="margin-top:1rem;color:var(--text-muted)">
+          Showing all pre-rendered packages. Enable JavaScript for interactive budget filtering and cost estimates.
         </p>
       </noscript>
     </section>
@@ -117,7 +120,7 @@ const schemaJson = JSON.stringify({
 
   <SavedDialog />
 
-  <!-- Client-side Interactive Logic (Zero Framework Runtime) -->
+  <!-- Client-side Interactive Logic (MakeMyTrip Style Portal) -->
   <script is:inline define:vars={{ trips, siteData }}>
     (() => {
       'use strict';
@@ -212,14 +215,14 @@ const schemaJson = JSON.stringify({
         R.forEach((line, i) => {
           const hi = i >= R.length - 3;
           const idx = i % 4 === 0;
-          s += `<path d="${pathOf(line)}" fill="none" stroke="${hi ? '#F2B53A' : '#8FB8CC'}" stroke-opacity="${hi ? (0.55 + (i - (R.length - 3)) * 0.2).toFixed(2) : idx ? 0.42 : 0.2}" stroke-width="${hi ? 1.5 : idx ? 1.3 : 1}" stroke-linejoin="round"/>`;
+          s += `<path d="${pathOf(line)}" fill="none" stroke="${hi ? '#FFB400' : '#90CDF4'}" stroke-opacity="${hi ? (0.65 + (i - (R.length - 3)) * 0.15).toFixed(2) : idx ? 0.5 : 0.25}" stroke-width="${hi ? 1.5 : idx ? 1.3 : 1}" stroke-linejoin="round"/>`;
         });
-        s += `<path d="M${cx},${cy - 7}l6,11h-12z" fill="#F2B53A"/><text x="${cx + 12}" y="${cy + 4}" fill="#fff" font-size="13" font-weight="700" paint-order="stroke" stroke="#0E1A2B" stroke-width="5" stroke-linejoin="round">${metres(t.highestPointMetres)}</text></svg>`;
+        s += `<path d="M${cx},${cy - 7}l6,11h-12z" fill="#FFB400"/><text x="${cx + 12}" y="${cy + 4}" fill="#fff" font-size="13" font-weight="700" paint-order="stroke" stroke="#0E1A2B" stroke-width="5" stroke-linejoin="round">${metres(t.highestPointMetres)}</text></svg>`;
         return s;
       }
 
       /* ==========================================================
-         FILTERS & TRIPS
+         FILTERS & PACKAGES
          ========================================================== */
       const state = { dest: 'All', dur: 'any', max: 35000 };
       const durOk = (n) =>
@@ -232,21 +235,55 @@ const schemaJson = JSON.stringify({
 
       function cardHTML(t, i) {
         const altPercent = Math.min(100, (t.highestPointMetres / 5000) * 100);
-        return `<article class="card${t.featured ? ' feat' : ''}" style="--i:${i}; --p:${altPercent}%" data-id="${t.id}">
-          <div class="plate">${plate(t, 'c')}${t.tag ? `<span class="tag">${t.tag}</span>` : ''}
-            <button class="heart" data-save="${t.id}" aria-pressed="${saved.has(t.id)}" aria-label="Save ${t.title}">${ico('heart')}</button>
-          </div>
-          <div class="card-body">
-            <div class="card-top"><span class="dest">${t.destination}</span><span>${t.nights} nights</span></div>
-            <h3>${t.title}</h3>
-            <ul class="hl">${t.highlights.map((h) => `<li>${h}</li>`).join('')}</ul>
-            <div class="alt">
-              <div class="alt-row"><strong>${metres(t.highestPointMetres)}</strong><span>highest point</span></div>
-              <div class="alt-bar" style="--p:${altPercent}%"></div>
+        const daysCount = t.nights + 1;
+        const originalPrice = Math.round((t.pricePerPerson * 1.2) / 500) * 500;
+        const savings = originalPrice - t.pricePerPerson;
+
+        return `<article class="package-card${t.featured ? ' featured-deal' : ''}" style="--i:${i}; --p:${altPercent}%" data-id="${t.id}">
+          <div class="card-media">
+            ${plate(t, 'c')}
+            <div class="media-overlay-top">
+              ${
+                t.tag
+                  ? `<span class="badge-tag deal-flame"><span>🔥</span><span>${t.tag.toUpperCase()}</span></span>`
+                  : `<span class="badge-tag rating-star"><span>⭐</span><span>4.9 (120+)</span></span>`
+              }
+              <button class="heart-circle" data-save="${t.id}" aria-pressed="${saved.has(t.id)}" aria-label="Save ${t.title}">${ico('heart')}</button>
             </div>
-            <div class="card-foot">
-              <p class="price"><small>From</small><strong>${fmt(t.pricePerPerson)}</strong><small>per person</small></p>
-              <button class="btn btn-ink" data-open="${t.id}">View trip</button>
+            <div class="media-overlay-bottom">
+              <span class="alt-chip"><span>🏔️</span><span>${formatMetres(t.highestPointMetres)}</span></span>
+              <span class="duration-chip">${t.nights}N / ${daysCount}D</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="dest-row">
+              <span class="dest-badge">📍 ${t.destination}</span>
+              <span class="cancellation-badge">✓ Free Date Change</span>
+            </div>
+            <h3 class="package-title">${t.title}</h3>
+            <div class="amenities-row">
+              <span class="amenity-chip">🏨 Stay</span>
+              <span class="amenity-chip">🚗 Private Cab</span>
+              <span class="amenity-chip">🍳 Meals</span>
+              <span class="amenity-chip">🎫 Permits</span>
+            </div>
+            <ul class="highlights-list">
+              ${t.highlights.slice(0, 3).map((h) => `<li>${h}</li>`).join('')}
+            </ul>
+            <div class="card-footer">
+              <div class="price-block">
+                <div class="mrp-row">
+                  <span class="mrp">${fmt(originalPrice)}</span>
+                  <span class="save-tag">SAVE ${fmt(savings)}</span>
+                </div>
+                <div class="deal-price-row">
+                  <strong class="deal-price">${fmt(t.pricePerPerson)}</strong>
+                  <span class="per-person">/ person</span>
+                </div>
+              </div>
+              <div class="action-buttons">
+                <button class="btn btn-primary view-btn" data-open="${t.id}">View Deal</button>
+              </div>
             </div>
           </div>
         </article>`;
@@ -260,22 +297,37 @@ const schemaJson = JSON.stringify({
             t.pricePerPerson <= state.max
         );
         $('#grid').innerHTML = list.map(cardHTML).join('');
-        $('#count').textContent = list.length ? `${list.length} trip${list.length > 1 ? 's' : ''} shown` : '';
+        $('#count').textContent = list.length
+          ? `${list.length} package${list.length > 1 ? 's' : ''} available`
+          : '0 packages match';
         $('#empty').hidden = list.length > 0;
+
+        // Sync hero display labels
+        if ($('#heroDestVal')) {
+          $('#heroDestVal').textContent = state.dest === 'All' ? 'All Destinations' : state.dest;
+        }
+        if ($('#heroDurVal')) {
+          const durMap = { any: 'Any Length', short: 'Weekend (2–3N)', mid: 'Popular (4–5N)', long: 'Expedition (6N+)' };
+          $('#heroDurVal').textContent = durMap[state.dur] || 'Any Length';
+        }
       }
 
-      function chipRow(el, key) {
-        el.onclick = (e) => {
-          const b = e.target.closest('.chip');
-          if (!b) return;
-          state[key] = b.dataset.v;
-          $$('.chip', el).forEach((c) => c.setAttribute('aria-pressed', c === b));
-          renderTrips();
-        };
+      function setDestination(dest) {
+        state.dest = dest;
+        $$('#destChips .chip').forEach((c) => c.setAttribute('aria-pressed', c.dataset.v === dest));
+        $$('.search-tab').forEach((t) => {
+          const match = t.dataset.destPick === dest;
+          t.classList.toggle('active', match);
+          t.setAttribute('aria-selected', String(match));
+        });
+        renderTrips();
       }
 
       function budgetLabel() {
         $('#budgetOut').textContent = state.max >= 35000 ? 'Any' : 'Up to ' + fmt(state.max);
+        if ($('#heroBudgetVal')) {
+          $('#heroBudgetVal').textContent = state.max >= 35000 ? 'Flexible' : 'Up to ' + fmt(state.max);
+        }
       }
 
       function resetFilters() {
@@ -286,6 +338,11 @@ const schemaJson = JSON.stringify({
         budgetLabel();
         $$('#destChips .chip').forEach((c) => c.setAttribute('aria-pressed', c.dataset.v === 'All'));
         $$('#durChips .chip').forEach((c) => c.setAttribute('aria-pressed', c.dataset.v === 'any'));
+        $$('.search-tab').forEach((t) => {
+          const match = t.dataset.destPick === 'All';
+          t.classList.toggle('active', match);
+          t.setAttribute('aria-selected', String(match));
+        });
         renderTrips();
       }
 
@@ -309,10 +366,10 @@ const schemaJson = JSON.stringify({
         if (!t) return;
         if (saved.has(id)) {
           saved.delete(id);
-          toast('Removed from saved trips');
+          toast('Removed from saved shortlist');
         } else {
           saved.add(id);
-          toast(`Saved ${t.title}`);
+          toast(`Saved ${t.title} to shortlist`);
         }
         store.set('ht_saved', [...saved]);
         syncSaved();
@@ -320,17 +377,17 @@ const schemaJson = JSON.stringify({
 
       function renderSaved() {
         const list = [...saved].map((id) => TRIPS.find((t) => t.id === id)).filter(Boolean);
-        const msg = `Hi ${CONFIG.brand}! I'm shortlisting these trips: ${list.map((t) => t.title).join(', ')}. Can you help me plan?`;
+        const msg = `Hi ${CONFIG.brand}! I'm shortlisting these packages: ${list.map((t) => t.title).join(', ')}. Can you help me plan?`;
         $('#savedBody').innerHTML =
-          `<div class="sv"><h2>Saved trips</h2>` +
+          `<div class="sv"><h2>My Shortlist</h2>` +
           (list.length
             ? `<ul class="sv-list">${list
                 .map(
                   (t) =>
                     `<li><div><strong>${t.title}</strong><span>${t.nights} nights, from ${fmt(t.pricePerPerson)}</span></div><div class="sv-act"><button class="link" data-open="${t.id}">View</button><button class="link" data-save="${t.id}">Remove</button></div></li>`
                 )
-                .join('')}</ul><a class="btn btn-gold" target="_blank" rel="noopener" href="${wa(msg)}">${ico('chat')}Send shortlist on WhatsApp</a>`
-            : `<p class="muted" style="margin-bottom:1.5rem">Nothing saved yet. Tap the heart on a trip to keep it here, then send your shortlist in one message.</p><a class="btn btn-ink" href="#trips" data-close>Browse trips</a>`) +
+                .join('')}</ul><a class="btn btn-whatsapp" target="_blank" rel="noopener" href="${wa(msg)}">${ico('chat')}Send Shortlist on WhatsApp</a>`
+            : `<p class="muted" style="margin-bottom:1.5rem">No packages saved yet. Tap the heart on any card to save it here, then send your shortlist in one WhatsApp message.</p><a class="btn btn-primary" href="#trips" data-close>Browse Packages</a>`) +
           `</div>`;
       }
 
@@ -345,28 +402,28 @@ const schemaJson = JSON.stringify({
       function tripHTML(t) {
         return `<button class="x" data-close aria-label="Close">${ico('x')}</button>
         <div class="sheet-plate">${plate(t, 'd')}
-          <button class="heart" data-save="${t.id}" aria-pressed="${saved.has(t.id)}" aria-label="Save ${t.title}">${ico('heart')}</button>
+          <button class="heart-circle" data-save="${t.id}" aria-pressed="${saved.has(t.id)}" aria-label="Save ${t.title}">${ico('heart')}</button>
           <div class="sheet-title">
-            <p>${t.destination}, ${t.nights} nights</p>
+            <p>📍 ${t.destination} • ${t.nights} Nights / ${t.nights + 1} Days</p>
             <h2 id="tripTitle">${t.title}</h2>
           </div>
         </div>
         <div class="sheet-grid">
           <div class="sheet-main">
-            <h3>Day by day</h3>
+            <h3>Day-by-Day Itinerary</h3>
             <div class="acc">${t.days
               .map(
                 (d, i) =>
                   `<details${i === 0 ? ' open' : ''}><summary><span class="dn">${d.label}</span><span class="dt">${d.title}</span>${ico('chev')}</summary><p>${d.text}</p></details>`
               )
               .join('')}</div>
-            <h3>Included</h3>
+            <h3>What's Included</h3>
             <ul class="inc">${t.included.map((x) => `<li>${ico('check')}<span>${x}</span></li>`).join('')}</ul>
           </div>
           <aside class="est" aria-label="Trip estimate">
-            <h3>Estimate your trip</h3>
+            <h3>Estimate Package Cost</h3>
             <div class="est-row">
-              <span id="lblTrav">Travellers</span>
+              <span id="lblTrav" style="font-weight:700">Number of Travellers</span>
               <div class="stepper" role="group" aria-labelledby="lblTrav">
                 <button data-step="-1" aria-label="Fewer travellers">${ico('minus')}</button>
                 <output id="estN" aria-live="polite">2</output>
@@ -374,19 +431,19 @@ const schemaJson = JSON.stringify({
               </div>
             </div>
             <fieldset class="tiers">
-              <legend>Stay</legend>
+              <legend>Hotel Stay Category</legend>
               ${TIERS.map(
                 (x, i) =>
-                  `<label class="tier"><input type="radio" name="tier" value="${i}"${i === 0 ? ' checked' : ''}><span>${x.n}</span></label>`
+                  `<label class="tier"><input type="radio" name="tier" value="${i}"${i === 0 ? ' checked': ''}><span>${x.n}</span></label>`
               ).join('')}
             </fieldset>
             <div class="est-total">
-              <span>Approx. total</span>
+              <span>Estimated Total (Twin Sharing)</span>
               <strong id="estTotal"></strong>
               <small id="estPer"></small>
             </div>
-            <a class="btn btn-gold" id="estWa" target="_blank" rel="noopener">${ico('chat')}Get the exact quote</a>
-            <p class="fine">Twin-sharing rates. The final quote depends on dates and availability.</p>
+            <a class="btn btn-whatsapp" id="estWa" target="_blank" rel="noopener">${ico('chat')}Get Exact Quote on WhatsApp</a>
+            <p class="fine">Indicative quote. Final rate depends on travel dates and room availability.</p>
           </aside>
         </div>`;
       }
@@ -399,9 +456,9 @@ const schemaJson = JSON.stringify({
         const total = per * est.n;
         $('#estN').textContent = est.n;
         $('#estTotal').textContent = fmt(total);
-        $('#estPer').textContent = `${fmt(per)} per person, ${tier.n} stay`;
+        $('#estPer').textContent = `${fmt(per)} per person (${tier.n} accommodation)`;
         $('#estWa').href = wa(
-          `Hi ${CONFIG.brand}! I'm interested in "${t.title}" for ${est.n} traveller${est.n > 1 ? 's' : ''} (${tier.n} stay). Could you share availability and the final quote?`
+          `Hi ${CONFIG.brand}! I'm interested in the "${t.title}" package for ${est.n} traveller${est.n > 1 ? 's' : ''} (${tier.n} stay). Could you share availability and the final quote?`
         );
         $$('[data-step]', tripDlg).forEach(
           (b) =>
@@ -428,7 +485,7 @@ const schemaJson = JSON.stringify({
       }
 
       /* ==========================================================
-         EVENT DELEGATION
+         EVENT LISTENERS & DELEGATION
          ========================================================== */
       document.addEventListener('click', (e) => {
         const o = e.target.closest('[data-open]');
@@ -453,6 +510,37 @@ const schemaJson = JSON.stringify({
           const d = c.closest('dialog');
           if (d) d.close();
         }
+
+        // Hero Search Tabs click
+        const tab = e.target.closest('[data-dest-pick]');
+        if (tab) {
+          setDestination(tab.dataset.destPick);
+          return;
+        }
+
+        // Hero quick pills
+        const qPill = e.target.closest('[data-quick-dest]');
+        if (qPill) {
+          setDestination(qPill.dataset.quickDest);
+          document.getElementById('trips')?.scrollIntoView({ behavior: 'smooth' });
+          return;
+        }
+      });
+
+      // Destination chips click
+      $('#destChips')?.addEventListener('click', (e) => {
+        const b = e.target.closest('.chip');
+        if (!b) return;
+        setDestination(b.dataset.v);
+      });
+
+      // Duration chips click
+      $('#durChips')?.addEventListener('click', (e) => {
+        const b = e.target.closest('.chip');
+        if (!b) return;
+        state.dur = b.dataset.v;
+        $$('.chip', '#durChips').forEach((c) => c.setAttribute('aria-pressed', c === b));
+        renderTrips();
       });
 
       tripDlg.addEventListener('change', (e) => {
@@ -479,16 +567,11 @@ const schemaJson = JSON.stringify({
         renderTrips();
       });
       $('#resetF')?.addEventListener('click', resetFilters);
+      $('#resetFEmpty')?.addEventListener('click', resetFilters);
 
-      /* Header scroll and mobile menu */
-      const hdr = $('#hdr');
+      /* Mobile menu toggle */
       const nav = $('#nav');
       const menuBtn = $('#menuBtn');
-
-      function onScroll() {
-        hdr?.classList.toggle('solid', window.scrollY > 40 || nav?.classList.contains('open'));
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
 
       function setMenu(open) {
         nav?.classList.toggle('open', open);
@@ -499,7 +582,6 @@ const schemaJson = JSON.stringify({
           icon.innerHTML = `<use href="#i-${open ? 'x' : 'menu'}"/>`;
         }
         document.body.classList.toggle('lock', open);
-        onScroll();
       }
 
       menuBtn?.addEventListener('click', () => setMenu(!nav?.classList.contains('open')));
@@ -535,7 +617,7 @@ const schemaJson = JSON.stringify({
 
         if (!name) {
           if (msgEl) {
-            msgEl.textContent = 'Add your name so we know who to reply to.';
+            msgEl.textContent = 'Please enter your name.';
             msgEl.classList.remove('success');
           }
           e.target.elements.name?.focus();
@@ -547,39 +629,53 @@ const schemaJson = JSON.stringify({
           .filter(Boolean)
           .map((t) => t.title);
 
-        let msg = `Hi ${CONFIG.brand}! I'm ${name}. We are ${n} traveller${n > 1 ? 's' : ''}, thinking of ${month}.`;
-        if (savedList.length) msg += ` Saved trips: ${savedList.join(', ')}.`;
-        if (note) msg += ` ${note}`;
+        let msg = `Hi ${CONFIG.brand}! I'm ${name}. We are planning a mountain trip for ${n} traveller${n > 1 ? 's' : ''}, thinking of ${month}.`;
+        if (savedList.length) msg += ` Shortlisted packages: ${savedList.join(', ')}.`;
+        if (note) msg += ` Note: ${note}`;
 
         if (msgEl) {
-          msgEl.textContent = 'Opening WhatsApp with your message...';
+          msgEl.textContent = 'Opening WhatsApp with your holiday inquiry...';
           msgEl.classList.add('success');
         }
         window.open(wa(msg), '_blank', 'noopener');
       });
 
       /* Initialize */
-      chipRow($('#destChips'), 'dest');
-      chipRow($('#durChips'), 'dur');
       budgetLabel();
       syncSaved();
-      onScroll();
     })();
   </script>
 </body>
 </html>
 
 <style>
+  .packages-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .sec-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--primary);
+    background: var(--primary-light);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--r-pill);
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.05em;
+  }
+
   .grid {
     display: grid;
-    gap: 1.25rem;
-    margin-top: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: 1.5rem;
+    margin-top: 1.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   }
 
   @media (min-width: 1000px) {
     .grid {
       grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
     }
   }
 </style>

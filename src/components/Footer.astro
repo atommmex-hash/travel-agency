@@ -6,72 +6,187 @@ interface Props {
 const { brand } = Astro.props;
 ---
 <footer class="foot">
-  <div class="wrap foot-in">
-    <div>
-      <a class="logo" href="#top">
-        <span>{brand}</span>
-      </a>
-      <p style="margin-top:.6rem;max-width:38ch;color:#9FB4C4">
-        Custom hill-station and nature journeys planned and hosted by local experts.
-      </p>
+  <div class="wrap">
+    <div class="dest-strip">
+      <span class="strip-label">Popular Destinations:</span>
+      <div class="strip-links">
+        <a href="#trips">Darjeeling Packages</a>
+        <a href="#trips">Gangtok & Sikkim Treks</a>
+        <a href="#trips">Dooars Wildlife Safaris</a>
+        <a href="#trips">Kalimpong Homestays</a>
+        <a href="#trips">Pelling & Yuksom Heritage</a>
+        <a href="#trips">North Sikkim & Yumthang Valley</a>
+      </div>
     </div>
 
-    <nav aria-label="Footer navigation">
-      <a href="#trips">Trips</a>
-      <a href="#booking">Booking</a>
-      <a href="#faq">FAQ</a>
-      <a href="#enquire">Contact</a>
-      <a href="/privacy">Privacy Policy</a>
-    </nav>
+    <div class="foot-main">
+      <div class="foot-col brand-col">
+        <div class="foot-logo">
+          <span class="brand-title">{brand}</span>
+          <span class="brand-sub">Himalayan Holidays</span>
+        </div>
+        <p class="foot-desc">
+          Handcrafted mountain holidays and treks across Darjeeling, Sikkim, and the Dooars. Directly operated by local hosts and mountain drivers.
+        </p>
+      </div>
+
+      <div class="foot-col">
+        <h5>Quick Links</h5>
+        <nav class="foot-nav">
+          <a href="#trips">Holiday Packages</a>
+          <a href="#booking">How It Works</a>
+          <a href="#stories">Traveller Reviews</a>
+          <a href="#faq">FAQs</a>
+        </nav>
+      </div>
+
+      <div class="foot-col">
+        <h5>Support & Policies</h5>
+        <nav class="foot-nav">
+          <a href="#enquire">Contact Travel Desk</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/admin/">Owner Portal (CMS)</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p>© {new Date().getFullYear()} {brand}. All rights reserved.</p>
+      <p class="safety-note">🛡️ All Sikkim permits and local cab transfers arranged directly.</p>
+    </div>
   </div>
 </footer>
 
 <style>
   .foot {
-    background: #091321;
-    color: #9FB4C4;
-    padding: 2.5rem 0 calc(2.5rem + 84px);
+    background: #0B192C;
+    color: #A0AEC0;
+    padding: 3rem 0 calc(3rem + 72px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .foot-in {
+  .dest-strip {
     display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem 3rem;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-
-  .foot .logo {
-    color: #ffffff;
-    display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    text-decoration: none;
-    font-stretch: 75%;
-    font-weight: 800;
-    font-size: 1.4rem;
-    letter-spacing: -0.01em;
-  }
-
-  .foot nav {
-    display: flex;
-    gap: 1.4rem;
+    gap: 1rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 2.5rem;
     flex-wrap: wrap;
   }
 
-  .foot a {
-    text-decoration: none;
-    color: #9FB4C4;
-    transition: color 0.2s;
+  .strip-label {
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #ffffff;
+    letter-spacing: 0.05em;
   }
 
-  .foot a:hover {
+  .strip-links {
+    display: flex;
+    gap: 0.8rem 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .strip-links a {
+    color: #90CDF4;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: color 0.15s;
+  }
+
+  .strip-links a:hover {
     color: #ffffff;
+    text-decoration: underline;
+  }
+
+  .foot-main {
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .foot-main {
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+    }
+  }
+
+  .foot-logo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.75rem;
+  }
+
+  .brand-title {
+    color: #ffffff;
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .brand-sub {
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .foot-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    max-width: 42ch;
+  }
+
+  .foot-col h5 {
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin: 0 0 1rem 0;
+    letter-spacing: 0.02em;
+  }
+
+  .foot-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .foot-nav a {
+    color: #CBD5E0;
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 0.15s;
+  }
+
+  .foot-nav a:hover {
+    color: #ffffff;
+  }
+
+  .foot-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.82rem;
+    flex-wrap: wrap;
+  }
+
+  .safety-note {
+    color: #68D391;
+    font-weight: 600;
   }
 
   @media (min-width: 768px) {
     .foot {
-      padding-bottom: 2.5rem;
+      padding-bottom: 3rem;
     }
   }
 </style>

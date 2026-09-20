@@ -8,122 +8,232 @@ const { phone, email } = Astro.props;
 ---
 <section class="sec enquire" id="enquire" aria-labelledby="enq-h">
   <div class="wrap two-col">
-    <div>
-      <h2 id="enq-h">Tell us when you are free</h2>
-      <p class="lead">We reply on WhatsApp with a plan and a price. Prefer to talk? Call us any day between 9 am and 9 pm.</p>
-      <div class="contact">
-        <a href={`tel:${phone}`} id="phoneLink">{phone}</a>
-        <span>{email}</span>
+    <div class="enquire-info">
+      <span class="enquire-badge">CUSTOM MOUNTAIN GETAWAY</span>
+      <h2 id="enq-h" style="color:#ffffff">Get a Custom Holiday Quote</h2>
+      <p class="lead" style="color:rgba(255, 255, 255, 0.9)">
+        Tell us your dream destinations, dates, or family requirements. Our local mountain experts will craft a personalized day-by-day plan and quote.
+      </p>
+
+      <div class="enquire-features">
+        <div class="e-feat">
+          <span class="e-icon">⚡</span>
+          <div>
+            <b>15-Minute Response Time</b>
+            <span>Our travel desk is active 9 AM to 9 PM daily.</span>
+          </div>
+        </div>
+        <div class="e-feat">
+          <span class="e-icon">💯</span>
+          <div>
+            <b>Transparent All-Inclusive Pricing</b>
+            <span>Permits, private cab, and stays included upfront.</span>
+          </div>
+        </div>
+        <div class="e-feat">
+          <span class="e-icon">📲</span>
+          <div>
+            <b>No Spam Calls</b>
+            <span>We communicate directly via WhatsApp and email.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-strip">
+        <span>Prefer to speak directly?</span>
+        <a href={`tel:${phone}`} class="call-btn">
+          <span>📞 Call Us: {phone}</span>
+        </a>
       </div>
     </div>
 
-    <form class="form" id="form" novalidate>
-      <label>
-        Your name
-        <input name="name" id="fName" autocomplete="name" required placeholder="Your full name" />
-      </label>
-
-      <div class="row2">
-        <label>
-          Travellers
-          <input name="n" id="fTravellers" type="number" inputmode="numeric" min="1" max="30" value="2" required />
-        </label>
-        <label>
-          Month
-          <select name="month" id="fMonth">
-            <option value="Not sure yet">Not sure yet</option>
-          </select>
-        </label>
+    <!-- MMT-Style Enquiry Card -->
+    <div class="form-container">
+      <div class="form-header">
+        <h3>Plan Your Trip</h3>
+        <span class="form-subtitle">Takes less than 30 seconds • No payment required</span>
       </div>
 
-      <label>
-        Anything we should know <span>(optional)</span>
-        <textarea name="note" id="fNote" placeholder="Kids, parents, a trip you liked, a place you want to see"></textarea>
-      </label>
+      <form class="form" id="form" novalidate>
+        <label>
+          <span class="label-text">Your Name</span>
+          <input name="name" id="fName" autocomplete="name" required placeholder="e.g. Rahul Sharma" />
+        </label>
 
-      <button class="btn btn-gold" type="submit">
-        <svg class="i" aria-hidden="true"><use href="#i-chat"></use></svg>
-        <span>Send on WhatsApp</span>
-      </button>
+        <div class="row2">
+          <label>
+            <span class="label-text">Travellers</span>
+            <input name="n" id="fTravellers" type="number" inputmode="numeric" min="1" max="30" value="2" required />
+          </label>
+          <label>
+            <span class="label-text">Month of Travel</span>
+            <select name="month" id="fMonth">
+              <option value="Not sure yet">Not sure yet</option>
+            </select>
+          </label>
+        </div>
 
-      <p class="fine form-msg" id="formMsg" role="status" aria-live="polite"></p>
-    </form>
+        <label>
+          <span class="label-text">Special Requests / Preferences <span>(optional)</span></span>
+          <textarea name="note" id="fNote" placeholder="Travelling with kids, senior parents, or have a specific peak in mind?"></textarea>
+        </label>
+
+        <button class="btn btn-whatsapp submit-btn" type="submit">
+          <svg class="i" aria-hidden="true"><use href="#i-chat"></use></svg>
+          <span>Get Quote on WhatsApp</span>
+        </button>
+
+        <p class="fine form-msg" id="formMsg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
   </div>
 </section>
 
 <style>
   .enquire {
-    background: var(--ink);
+    background: linear-gradient(145deg, #0056C6 0%, #008CFF 60%, #00B4D8 100%);
     color: #ffffff;
+    position: relative;
+    overflow: hidden;
   }
 
-  .enquire .lead {
-    color: #C4D4DF;
+  .enquire-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--r-pill);
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.05em;
   }
 
-  .contact {
-    margin-top: 2rem;
+  .enquire-features {
     display: grid;
-    gap: 0.4rem;
-    color: #C4D4DF;
+    gap: 1.2rem;
+    margin: 2rem 0;
   }
 
-  .contact a {
+  .e-feat {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
+
+  .e-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  .e-feat b {
+    display: block;
+    font-size: 1.05rem;
     color: #ffffff;
-    font-weight: 700;
-    font-size: 1.25rem;
+  }
+
+  .e-feat span {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .contact-strip {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.9rem;
+  }
+
+  .call-btn {
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.15rem;
     text-decoration: none;
   }
 
-  .contact a:hover {
+  .call-btn:hover {
     text-decoration: underline;
   }
 
-  .form {
-    background: var(--paper);
-    color: var(--ink);
+  /* Form Container */
+  .form-container {
+    background: #ffffff;
+    color: var(--text-main);
     border-radius: var(--r-l);
-    padding: clamp(1.3rem, 4vw, 2.2rem);
+    box-shadow: 0 20px 50px rgba(0, 30, 80, 0.2);
+    overflow: hidden;
+  }
+
+  .form-header {
+    background: var(--bg-card-alt);
+    padding: 1.5rem 1.75rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .form-header h3 {
+    font-size: 1.35rem;
+    margin: 0;
+    color: var(--text-main);
+  }
+
+  .form-subtitle {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    font-weight: 600;
+  }
+
+  .form {
+    padding: 1.75rem;
     display: grid;
-    gap: 1.1rem;
+    gap: 1.2rem;
   }
 
   .form label {
     display: grid;
     gap: 0.4rem;
-    font-weight: 700;
   }
 
-  .form label span {
+  .label-text {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+
+  .label-text span {
     font-weight: 400;
-    color: var(--slate);
+    color: var(--text-light);
   }
 
   input,
   select,
   textarea {
     width: 100%;
-    min-height: 52px;
+    min-height: 48px;
     padding: 0.75rem 1rem;
     font: inherit;
-    font-size: 1rem; /* at least 16px to prevent iOS auto-zoom */
-    color: var(--ink);
-    background: #ffffff;
-    border: 1.5px solid var(--mist);
-    border-radius: var(--r-m);
+    font-size: 1rem;
+    color: var(--text-main);
+    background: var(--bg-card-alt);
+    border: 1.5px solid var(--border-subtle);
+    border-radius: var(--r-s);
+    transition: border-color 0.15s, background 0.15s;
   }
 
   textarea {
-    min-height: 104px;
+    min-height: 90px;
     resize: vertical;
   }
 
   input:focus,
   select:focus,
   textarea:focus {
-    border-color: var(--ink);
+    border-color: var(--primary);
+    background: #ffffff;
     outline: none;
-    box-shadow: 0 0 0 3px rgba(242, 181, 58, 0.6);
+    box-shadow: 0 0 0 3px rgba(0, 140, 255, 0.15);
   }
 
   .row2 {
@@ -131,19 +241,27 @@ const { phone, email } = Astro.props;
     gap: 1.1rem;
   }
 
-  @media (min-width: 560px) {
+  @media (min-width: 500px) {
     .row2 {
       grid-template-columns: 1fr 1fr;
     }
   }
 
+  .submit-btn {
+    width: 100%;
+    min-height: 52px;
+    font-size: 1.05rem;
+    margin-top: 0.4rem;
+  }
+
   .form-msg {
     min-height: 1.4em;
-    color: var(--alert);
-    font-weight: 600;
+    color: var(--accent-red);
+    font-weight: 700;
+    text-align: center;
   }
 
   :global(.form-msg.success) {
-    color: var(--tea);
+    color: var(--accent-green);
   }
 </style>

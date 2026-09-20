@@ -1,6 +1,5 @@
 /* ==========================================================
-   BASE STYLES: Typography, Reset, Layout & Accessibility
-   Source: design.md & sample.html
+   BASE STYLES: MakeMyTrip-Inspired Portal Aesthetics
    ========================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -22,8 +21,8 @@ body {
   font-family: var(--font);
   font-size: 1rem;
   line-height: 1.6;
-  color: var(--ink);
-  background: var(--snow);
+  color: var(--text-main);
+  background: var(--bg-page);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-variant-numeric: tabular-nums;
@@ -45,6 +44,7 @@ p {
 h1, h2, h3 {
   margin: 0;
   font-weight: 800;
+  color: var(--text-main);
 }
 
 button {
@@ -65,14 +65,13 @@ a {
   display: none !important;
 }
 
-/* 3px gold focus ring on every interactive element */
+/* Accessible focus ring */
 :focus-visible {
-  outline: 3px solid var(--gold);
+  outline: 3px solid var(--primary);
   outline-offset: 3px;
   border-radius: var(--r-s);
 }
 
-/* Screen reader only utility */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -85,18 +84,18 @@ a {
   border: 0;
 }
 
-/* Skip link */
 .skip-link {
   position: absolute;
   left: 1rem;
   top: -4rem;
   z-index: 100;
-  background: var(--gold);
-  color: var(--ink);
-  padding: 0.7rem 1rem;
-  border-radius: var(--r-s);
+  background: var(--primary);
+  color: #ffffff;
+  padding: 0.7rem 1.2rem;
+  border-radius: var(--r-pill);
   font-weight: 700;
   text-decoration: none;
+  box-shadow: var(--shadow-card);
   transition: top 0.2s ease;
 }
 
@@ -104,53 +103,49 @@ a {
   top: 1rem;
 }
 
-/* Layout container */
 .wrap {
   width: min(var(--max-w), 100% - var(--pad) * 2);
   margin-inline: auto;
 }
 
-/* Icons */
 .i {
   width: 20px;
   height: 20px;
   flex: none;
   stroke: currentColor;
   fill: none;
-  stroke-width: 1.8;
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
 /* Typography scale */
 h2 {
-  font-stretch: 78%;
-  font-size: clamp(2.2rem, 5.6vw, 3.8rem);
-  line-height: 1;
-  letter-spacing: -0.01em;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 h3 {
-  font-stretch: 92%;
   font-weight: 700;
-  font-size: 1.375rem;
-  line-height: 1.2;
+  font-size: 1.25rem;
+  line-height: 1.3;
 }
 
 .lead {
-  font-size: 1.125rem;
-  color: var(--slate);
-  max-width: 56ch;
-  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 60ch;
+  margin-top: 0.6rem;
 }
 
 .muted {
-  color: var(--slate);
+  color: var(--text-muted);
 }
 
 .fine {
   font-size: 0.875rem;
-  color: var(--slate);
+  color: var(--text-light);
 }
 
 /* Buttons */
@@ -159,55 +154,87 @@ h3 {
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  min-height: 52px;
+  min-height: 48px;
   padding: 0 1.4rem;
-  border-radius: var(--r-m);
+  border-radius: var(--r-pill);
   border: 1.5px solid transparent;
   font-weight: 700;
   text-decoration: none;
   text-align: center;
-  transition: background 0.2s, border-color 0.2s, transform 0.12s;
+  transition: transform 0.15s var(--ease), box-shadow 0.15s var(--ease), background 0.2s;
 }
 
 .btn:active {
   transform: translateY(1px);
 }
 
+.btn-primary {
+  background: var(--primary-gradient);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 140, 255, 0.35);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #007CE0 0%, #0047A5 100%);
+  box-shadow: 0 6px 20px rgba(0, 140, 255, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-whatsapp {
+  background: #25D366;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+}
+
+.btn-whatsapp:hover {
+  background: #20BA5A;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+  transform: translateY(-1px);
+}
+
 .btn-gold {
-  background: var(--gold);
-  color: var(--ink);
+  background: var(--cta-gradient);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(255, 109, 0, 0.35);
 }
 
 .btn-gold:hover {
-  background: #F7C465;
+  background: linear-gradient(135deg, #F06000 0%, #E63500 100%);
+  box-shadow: 0 6px 20px rgba(255, 109, 0, 0.45);
+  transform: translateY(-1px);
 }
 
 .btn-ink {
-  background: var(--ink);
-  color: #FFFFFF;
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 140, 255, 0.25);
 }
 
 .btn-ink:hover {
-  background: var(--ink-3);
+  background: var(--primary-dark);
+  transform: translateY(-1px);
 }
 
 .btn-line {
-  border-color: rgba(255, 255, 255, 0.4);
-  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.8);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
 }
 
 .btn-line:hover {
-  border-color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.25);
+  border-color: #ffffff;
 }
 
 .btn-line-ink {
-  border-color: var(--ink);
-  color: var(--ink);
+  border-color: var(--primary);
+  color: var(--primary);
+  background: #ffffff;
 }
 
 .btn-line-ink:hover {
-  background: var(--ink);
-  color: #FFFFFF;
+  background: var(--primary-light);
 }
 
 .link {
@@ -218,38 +245,40 @@ h3 {
   padding: 0 0.4rem;
   display: inline-flex;
   align-items: center;
+  color: var(--primary);
 }
 
 .cnt-badge {
-  min-width: 20px;
-  height: 20px;
-  padding: 0 5px;
-  border-radius: 10px;
-  background: var(--gold);
-  color: var(--ink);
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 11px;
+  background: var(--accent-red);
+  color: #ffffff;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 800;
   display: inline-grid;
   place-items: center;
 }
 
-/* Section Spacing */
+/* Sections */
 .sec {
   padding-block: var(--section-pad);
 }
 
 .sec-white {
-  background: var(--paper);
+  background: #ffffff;
 }
 
 .two-col {
   display: grid;
-  gap: 3rem;
+  gap: 2.5rem;
 }
 
 @media (min-width: 900px) {
   .two-col {
     grid-template-columns: 1fr 1fr;
-    gap: 5rem;
+    gap: 4rem;
+    align-items: center;
   }
 }

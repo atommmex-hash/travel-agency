@@ -1,119 +1,191 @@
 ---
-// Booking steps and why-us section
+// Booking steps and why-us section in MMT playful portal layout
 ---
 <section class="sec sec-white" id="booking" aria-labelledby="book-h">
   <div class="wrap two-col">
     <div>
-      <h2 id="book-h">How booking works</h2>
+      <span class="sec-badge">SEAMLESS PLANNING</span>
+      <h2 id="book-h">How Booking Works</h2>
+      <p class="lead" style="margin-bottom: 2rem">No complex checkout forms or hidden platform charges. Plan and confirm in 3 simple steps.</p>
+
       <ol class="steps">
         <li>
-          <div>
-            <b>Tell us your dates and who is coming</b>
-            <span>Use the form below or message us on WhatsApp. No account, no long forms.</span>
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <b>Pick Your Dates & Travellers</b>
+            <span>Choose any package or tell us your preferred dates on WhatsApp. No account creation needed.</span>
           </div>
         </li>
         <li>
-          <div>
-            <b>Get a plan within a day</b>
-            <span>A day-by-day itinerary and one price that includes permits and transfers.</span>
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <b>Get Custom Itinerary within 24 Hours</b>
+            <span>Receive an all-inclusive quote with permits, transfers, stays, and transparent day plans.</span>
           </div>
         </li>
         <li>
-          <div>
-            <b>Confirm with a small advance</b>
-            <span>Pay by UPI or bank transfer. The balance is due a week before you leave.</span>
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <b>Lock In with Small Advance</b>
+            <span>Pay via UPI or direct bank transfer. The remaining balance is payable just 7 days before departure.</span>
           </div>
         </li>
       </ol>
     </div>
 
     <div>
-      <h2>Why travel with us</h2>
-      <dl class="facts">
-        <div>
-          <dt>Hosts you can name</dt>
-          <dd>Every homestay and driver is someone our team has met. You get their names and numbers before you travel.</dd>
+      <span class="sec-badge">WHY CHOOSE US</span>
+      <h2>The Mountain Advantage</h2>
+      <p class="lead" style="margin-bottom: 2rem">Every package is planned and operated by locals who live and drive in the Himalayas.</p>
+
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">🏡</div>
+          <div>
+            <h4>100% Verified Homestays</h4>
+            <p>Personally inspected family homestays and mountain boutique resorts with scenic peak views.</p>
+          </div>
         </div>
-        <div>
-          <dt>One price</dt>
-          <dd>Permits, transfers, taxes and sightseeing are in the quote. Extras are listed up front, never added later.</dd>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🚗</div>
+          <div>
+            <h4>Expert Mountain Drivers</h4>
+            <p>Reliable local drivers experienced on tricky Himalayan roads. Clean private cabs for all transfers.</p>
+          </div>
         </div>
-        <div>
-          <dt>Built around your pace</dt>
-          <dd>Travelling with parents or kids? We shorten drives and add rest days instead of cramming in stops.</dd>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">💬</div>
+          <div>
+            <h4>Dedicated WhatsApp Support</h4>
+            <p>A real travel companion on WhatsApp from the day you book until you reach back home.</p>
+          </div>
         </div>
-        <div>
-          <dt>Help on the road</dt>
-          <dd>A real person on WhatsApp for the whole trip, including the day a road closes.</dd>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🔄</div>
+          <div>
+            <h4>Flexible Date Changes</h4>
+            <p>Weather or schedule change? Reschedule your trip dates for free up to 7 days before travel.</p>
+          </div>
         </div>
-      </dl>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
+  .sec-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--primary);
+    background: var(--primary-light);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--r-pill);
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.05em;
+  }
+
   .steps {
     list-style: none;
-    margin: 2rem 0 0;
+    margin: 0;
     padding: 0;
     display: grid;
-    gap: 0;
-    counter-reset: s;
+    gap: 1.25rem;
   }
 
   .steps li {
-    counter-increment: s;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    padding: 1.2rem;
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--r-m);
+    transition: transform 0.15s, border-color 0.15s;
+  }
+
+  .steps li:hover {
+    transform: translateX(4px);
+    border-color: var(--primary);
+  }
+
+  .step-num {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #ffffff;
+    font-weight: 900;
+    font-size: 1.1rem;
     display: grid;
-    grid-template-columns: 3.2rem 1fr;
+    place-items: center;
+    box-shadow: 0 4px 10px rgba(0, 140, 255, 0.3);
+  }
+
+  .step-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .step-body b {
+    font-size: 1.05rem;
+    color: var(--text-main);
+  }
+
+  .step-body span {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .benefits-grid {
+    display: grid;
     gap: 1rem;
-    padding: 1.4rem 0;
-    border-top: 1px solid var(--mist);
   }
 
-  .steps li:last-child {
-    border-bottom: 1px solid var(--mist);
+  @media (min-width: 500px) {
+    .benefits-grid {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
-  .steps li::before {
-    content: counter(s);
-    font-stretch: 70%;
+  .benefit-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.3rem;
+    background: #ffffff;
+    border: 1.5px solid var(--border-subtle);
+    border-radius: var(--r-m);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+  }
+
+  .benefit-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-card);
+  }
+
+  .benefit-icon {
+    font-size: 2rem;
+  }
+
+  .benefit-card h4 {
+    margin: 0 0 0.3rem 0;
+    font-size: 1.05rem;
     font-weight: 800;
-    font-size: 3rem;
-    line-height: 0.9;
-    color: var(--ink);
+    color: var(--text-main);
   }
 
-  .steps b {
-    display: block;
-    font-size: 1.125rem;
-  }
-
-  .steps span {
-    color: var(--slate);
-  }
-
-  .facts {
-    margin: 2rem 0 0;
-    display: grid;
-    gap: 0;
-  }
-
-  .facts div {
-    padding: 1.4rem 0;
-    border-top: 1px solid var(--mist);
-  }
-
-  .facts div:last-child {
-    border-bottom: 1px solid var(--mist);
-  }
-
-  .facts dt {
-    font-weight: 700;
-    font-size: 1.125rem;
-  }
-
-  .facts dd {
-    margin: 0.25rem 0 0;
-    color: var(--slate);
+  .benefit-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
   }
 </style>

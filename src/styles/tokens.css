@@ -1,25 +1,44 @@
 /* ==========================================================
-   TOKENS: Travel Agency Design System
-   Source: design.md section 3
+   TOKENS: MakeMyTrip-Inspired Playful Travel Portal Design
    ========================================================== */
 :root {
-  /* Colors */
-  --ink: #0E1A2B;
-  --ink-2: #16273D;
-  --ink-3: #22384F;
-  --snow: #F0F4F6;
-  --paper: #FFFFFF;
-  --mist: #D6E1E8;
-  --slate: #526579;
-  --glacier: #8FB8CC;
-  --gold: #F2B53A;
-  --tea: #2C7A5C;
-  --alert: #D64545;
+  /* Brand Primary (MakeMyTrip Electric Blue) */
+  --primary: #008CFF;
+  --primary-dark: #005EC4;
+  --primary-light: #EAF5FF;
+  --primary-gradient: linear-gradient(135deg, #008CFF 0%, #0056C6 100%);
+  --cta-gradient: linear-gradient(135deg, #FF6D00 0%, #FF3D00 100%);
 
-  /* Shape & Elevation */
-  --r-s: 6px;
-  --r-m: 12px;
-  --r-l: 20px;
+  /* Accent & Status Colors */
+  --accent-red: #E41D24;
+  --accent-green: #00A859;
+  --accent-amber: #FF9800;
+  --accent-purple: #7928CA;
+  --accent-cyan: #00B4D8;
+
+  /* Surfaces & Backgrounds */
+  --bg-page: #F4F7FB;
+  --bg-card: #FFFFFF;
+  --bg-card-alt: #F8FAFC;
+  --border-subtle: #E2E8F0;
+  --border-light: #EDF2F7;
+
+  /* Typography Colors */
+  --text-main: #1A202C;
+  --text-muted: #4A5568;
+  --text-light: #718096;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 75, 150, 0.06);
+  --shadow-card: 0 8px 24px rgba(0, 75, 150, 0.08);
+  --shadow-hover: 0 16px 36px rgba(0, 75, 150, 0.14);
+  --shadow-modal: 0 24px 60px rgba(0, 30, 70, 0.25);
+
+  /* Radii */
+  --r-s: 8px;
+  --r-m: 14px;
+  --r-l: 22px;
+  --r-pill: 999px;
 
   /* Typography */
   --font: 'Archivo', 'Helvetica Neue', Arial, system-ui, -apple-system, sans-serif;
@@ -27,8 +46,21 @@
   /* Motion */
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
-  /* Spacing */
+  /* Layout */
   --pad: clamp(1.25rem, 4vw, 2.5rem);
-  --section-pad: clamp(3.5rem, 8vw, 6.5rem);
+  --section-pad: clamp(3rem, 6vw, 5rem);
   --max-w: 1200px;
+
+  /* Compatibility Aliases */
+  --ink: #0E1A2B;
+  --ink-2: #16273D;
+  --ink-3: #22384F;
+  --snow: var(--bg-page);
+  --paper: var(--bg-card);
+  --mist: var(--border-subtle);
+  --slate: var(--text-muted);
+  --glacier: #90CDF4;
+  --gold: #FFB400;
+  --tea: var(--accent-green);
+  --alert: var(--accent-red);
 }

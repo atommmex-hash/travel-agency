@@ -7,18 +7,24 @@ interface Props {
 const { phone, whatsappUrl } = Astro.props;
 ---
 <aside class="dock" role="group" aria-label="Quick actions">
-  <a class="btn btn-line" href={`tel:${phone}`} aria-label="Call us">
-    <svg class="i" aria-hidden="true"><use href="#i-phone"></use></svg>
-    <span>Call</span>
+  <a class="dock-btn" href={`tel:${phone}`} aria-label="Call us">
+    <div class="dock-icon-circle">
+      <svg class="i" aria-hidden="true"><use href="#i-phone"></use></svg>
+    </div>
+    <span class="dock-label">Call</span>
   </a>
-  <a class="btn btn-gold wide" id="dockWa" href={whatsappUrl} target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+
+  <a class="btn btn-whatsapp dock-wa-btn" id="dockWa" href={whatsappUrl} target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
     <svg class="i" aria-hidden="true"><use href="#i-chat"></use></svg>
-    <span>WhatsApp</span>
+    <span>WhatsApp Quote</span>
   </a>
-  <button class="btn btn-line" id="dockSaved" aria-label="Saved trips">
-    <svg class="i" aria-hidden="true"><use href="#i-heart"></use></svg>
-    <span class="cnt-badge" id="dockCount" hidden>0</span>
-    <span class="sr-only">Saved trips</span>
+
+  <button class="dock-btn" id="dockSaved" aria-label="Saved trips">
+    <div class="dock-icon-circle" style="position:relative">
+      <svg class="i" aria-hidden="true"><use href="#i-heart"></use></svg>
+      <span class="cnt-badge dock-badge" id="dockCount" hidden>0</span>
+    </div>
+    <span class="dock-label">Saved</span>
   </button>
 </aside>
 
@@ -30,22 +36,58 @@ const { phone, whatsappUrl } = Astro.props;
     bottom: 0;
     z-index: 40;
     display: none;
-    gap: 0.5rem;
-    padding: 0.6rem 0.75rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
-    background: rgba(14, 26, 43, 0.94);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem calc(0.5rem + env(safe-area-inset-bottom, 0px));
+    background: #ffffff;
+    border-top: 1px solid var(--border-subtle);
+    box-shadow: 0 -4px 20px rgba(0, 40, 100, 0.08);
   }
 
-  .dock .btn {
+  .dock-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    min-width: 48px;
+  }
+
+  .dock-icon-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-card-alt);
+    display: grid;
+    place-items: center;
+    color: var(--text-main);
+  }
+
+  .dock-icon-circle .i {
+    width: 18px;
+    height: 18px;
+  }
+
+  .dock-badge {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    min-width: 18px;
+    height: 18px;
+    font-size: 0.65rem;
+    padding: 0 4px;
+  }
+
+  .dock-wa-btn {
     flex: 1;
-    min-height: 48px;
-    padding: 0 0.7rem;
-    font-size: 0.95rem;
-  }
-
-  .dock .btn.wide {
-    flex: 2;
+    min-height: 44px;
+    font-size: 0.92rem;
+    border-radius: var(--r-pill);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
   }
 
   @media (max-width: 767px) {

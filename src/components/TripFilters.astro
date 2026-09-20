@@ -4,71 +4,178 @@ interface Props {
 }
 
 const { destinations } = Astro.props;
+
+const destEmojis: Record<string, string> = {
+  Darjeeling: '🫖',
+  Sikkim: '🏔️',
+  Dooars: '🌲',
+  Offbeat: '🏡'
+};
 ---
-<div class="filters">
-  <div>
-    <p class="f-label" id="l-dest">Where</p>
-    <div class="chips" id="destChips" role="group" aria-labelledby="l-dest">
-      <button class="chip" data-v="All" aria-pressed="true">All</button>
-      {destinations.map((d) => (
-        <button class="chip" data-v={d} aria-pressed="false">{d}</button>
-      ))}
+<div class="filters-card">
+  <div class="filters-header">
+    <div class="header-left">
+      <span class="filters-badge">FILTER PACKAGES</span>
+      <h3 class="filters-title">Find Your Perfect Mountain Trip</h3>
     </div>
+    <button class="reset-link" id="resetF">Reset All</button>
   </div>
 
-  <div>
-    <p class="f-label" id="l-dur">How long</p>
-    <div class="chips" id="durChips" role="group" aria-labelledby="l-dur">
-      <button class="chip" data-v="any" aria-pressed="true">Any length</button>
-      <button class="chip" data-v="short" aria-pressed="false">Up to 3 nights</button>
-      <button class="chip" data-v="mid" aria-pressed="false">4–5 nights</button>
-      <button class="chip" data-v="long" aria-pressed="false">6+ nights</button>
+  <div class="filters-body">
+    <!-- Destination Pills -->
+    <div class="filter-group">
+      <p class="f-label" id="l-dest">
+        <span>Destination</span>
+      </p>
+      <div class="chips" id="destChips" role="group" aria-labelledby="l-dest">
+        <button class="chip" data-v="All" aria-pressed="true">
+          <span class="chip-emoji">🗺️</span>
+          <span>All Regions</span>
+        </button>
+        {destinations.map((d) => (
+          <button class="chip" data-v={d} aria-pressed="false">
+            <span class="chip-emoji">{destEmojis[d] || '📍'}</span>
+            <span>{d}</span>
+          </button>
+        ))}
+      </div>
     </div>
-  </div>
 
-  <div>
-    <label class="f-label" for="budget">
-      <span>Budget per person</span>
-      <output id="budgetOut">Any</output>
-    </label>
-    <input type="range" id="budget" min="8000" max="35000" step="1000" value="35000" aria-label="Budget per person" />
+    <!-- Duration Pills -->
+    <div class="filter-group">
+      <p class="f-label" id="l-dur">
+        <span>Trip Duration</span>
+      </p>
+      <div class="chips" id="durChips" role="group" aria-labelledby="l-dur">
+        <button class="chip" data-v="any" aria-pressed="true">
+          <span>Any Length</span>
+        </button>
+        <button class="chip" data-v="short" aria-pressed="false">
+          <span class="chip-emoji">⚡</span>
+          <span>Weekend (2–3N)</span>
+        </button>
+        <button class="chip" data-v="mid" aria-pressed="false">
+          <span class="chip-emoji">🎒</span>
+          <span>Popular (4–5N)</span>
+        </button>
+        <button class="chip" data-v="long" aria-pressed="false">
+          <span class="chip-emoji">🌄</span>
+          <span>Expedition (6N+)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Budget Slider -->
+    <div class="filter-group budget-group">
+      <div class="f-label-row">
+        <label class="f-label" for="budget">Max Budget per Person</label>
+        <output id="budgetOut" class="budget-badge">Any</output>
+      </div>
+      <input type="range" id="budget" min="8000" max="35000" step="1000" value="35000" aria-label="Budget per person" />
+      <div class="budget-scale">
+        <span>₹8,000</span>
+        <span>₹20,000</span>
+        <span>₹35,000+</span>
+      </div>
+    </div>
   </div>
 </div>
 
-<p class="count" id="count" role="status" aria-live="polite"></p>
+<div class="results-bar">
+  <div class="count-pill">
+    <span class="count-indicator"></span>
+    <span id="count" role="status" aria-live="polite">6 packages available</span>
+  </div>
+</div>
 
 <div class="empty" id="empty" hidden>
-  <p>No trips match those filters. Widen the budget or pick another destination.</p>
-  <button class="btn btn-line-ink" id="resetF">Reset filters</button>
+  <div class="empty-icon">🔍</div>
+  <h3>No packages match your filters</h3>
+  <p>Try widening your budget or clearing selected destinations to see all trips.</p>
+  <button class="btn btn-primary" id="resetFEmpty">View All Packages</button>
 </div>
 
 <style>
-  .filters {
+  .filters-card {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--r-l);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .filters-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .filters-title {
+    font-size: 1.2rem;
+    margin: 0.15rem 0 0;
+  }
+
+  .reset-link {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: underline;
+  }
+
+  .reset-link:hover {
+    color: var(--primary-dark);
+  }
+
+  .filters-body {
     display: grid;
     gap: 1.4rem;
-    margin-top: 2.2rem;
-    padding-block: 1.6rem;
-    border-block: 1px solid var(--mist);
   }
 
   @media (min-width: 900px) {
-    .filters {
-      grid-template-columns: 1.25fr 1.25fr 1fr;
-      gap: 2.5rem;
+    .filters-body {
+      grid-template-columns: 1.2fr 1.2fr 1fr;
+      gap: 2rem;
+      align-items: start;
     }
   }
 
-  .f-label {
-    font-weight: 700;
-    margin-bottom: 0.6rem;
+  .filter-group {
     display: flex;
-    justify-content: space-between;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.6rem;
   }
 
-  .f-label output {
-    font-weight: 600;
-    color: var(--slate);
+  .f-label {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--text-main);
+  }
+
+  .f-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .budget-badge {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #ffffff;
+    background: var(--primary);
+    padding: 0.2rem 0.65rem;
+    border-radius: var(--r-pill);
   }
 
   .chips {
@@ -78,59 +185,113 @@ const { destinations } = Astro.props;
     scrollbar-width: none;
     padding: 2px;
     margin: -2px;
+    flex-wrap: wrap;
   }
 
   .chips::-webkit-scrollbar {
     display: none;
   }
 
-  @media (min-width: 900px) {
-    .chips {
-      flex-wrap: wrap;
-      overflow: visible;
-    }
-  }
-
   .chip {
-    flex: none;
-    min-height: 44px;
-    padding: 0 1rem;
-    border-radius: 10px;
-    border: 1.5px solid var(--mist);
-    background: var(--paper);
-    font-weight: 600;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 40px;
+    padding: 0 0.9rem;
+    border-radius: var(--r-pill);
+    border: 1.5px solid var(--border-subtle);
+    background: var(--bg-card-alt);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: all 0.2s;
   }
 
   .chip:hover {
-    border-color: var(--ink-3);
+    border-color: var(--primary);
+    color: var(--primary);
   }
 
   .chip[aria-pressed="true"] {
-    background: var(--ink);
-    border-color: var(--ink);
-    color: #ffffff;
+    background: var(--primary-light);
+    border-color: var(--primary);
+    color: var(--primary);
+    box-shadow: 0 2px 8px rgba(0, 140, 255, 0.15);
+  }
+
+  .chip-emoji {
+    font-size: 1rem;
   }
 
   input[type="range"] {
     width: 100%;
-    height: 44px;
-    accent-color: var(--ink);
+    height: 8px;
+    background: #E2E8F0;
+    border-radius: 4px;
+    accent-color: var(--primary);
     cursor: pointer;
+    margin: 0.5rem 0 0.2rem;
   }
 
-  .count {
-    margin-top: 1.4rem;
-    color: var(--slate);
+  .budget-scale {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--text-light);
     font-weight: 600;
-    min-height: 1.6em;
+  }
+
+  .results-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+
+  .count-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    padding: 0.4rem 0.9rem;
+    border-radius: var(--r-pill);
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .count-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-green);
   }
 
   .empty {
-    padding: 3rem 0;
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--r-l);
+    padding: 3.5rem 1.5rem;
     text-align: center;
     display: grid;
-    gap: 1rem;
+    gap: 0.8rem;
     justify-items: center;
+    margin-top: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .empty-icon {
+    font-size: 2.8rem;
+  }
+
+  .empty h3 {
+    font-size: 1.35rem;
+  }
+
+  .empty p {
+    color: var(--text-muted);
+    max-width: 44ch;
   }
 </style>
