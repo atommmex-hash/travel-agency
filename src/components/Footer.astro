@@ -5,7 +5,7 @@ interface Props {
   email?: string;
 }
 
-const { brand, phone = "+919811980218", email = "contact@etripto.in" } = Astro.props;
+const { brand, phone = "+919000000000", email = "hello@himaltrails.example" } = Astro.props;
 ---
 <footer class="foot">
   <div class="wrap">
@@ -25,16 +25,13 @@ const { brand, phone = "+919811980218", email = "contact@etripto.in" } = Astro.p
       <div class="foot-col brand-col">
         <div class="foot-logo">
           <span class="brand-title">{brand}</span>
-          <span class="brand-sub">Gangtok, East Sikkim</span>
+          <span class="brand-sub">Himalayan Holidays</span>
         </div>
         <p class="foot-desc">
-          Leading tour and travel agency based in Gangtok, East Sikkim. Budget-friendly holiday packages with dedicated private cabs, comfortable stays, and hassle-free permits for North Sikkim, Nathula Pass, and Darjeeling.
+          Handcrafted mountain holidays and treks across Darjeeling, Sikkim, and the Eastern Himalayas. Planned and hosted by local drivers and mountain specialists.
         </p>
         <p class="foot-meta">
-          <strong>Office:</strong> Lower Arithang, Arithang Gangtok, East Sikkim - 737101
-        </p>
-        <p class="foot-meta">
-          <strong>Support:</strong> <a href={`tel:${phone}`}>{phone}</a> (24/7 Support) | <a href={`mailto:${email}`}>{email}</a>
+          <strong>Support:</strong> <a href={`tel:${phone}`}>{phone}</a> | <a href={`mailto:${email}`}>{email}</a>
         </p>
       </div>
 

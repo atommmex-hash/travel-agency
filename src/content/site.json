@@ -1,16 +1,16 @@
 {
-  "brand": "Etripto",
-  "whatsapp": "919811980218",
-  "phone": "+919811980218",
-  "email": "contact@etripto.in",
-  "hours": "24/7 Customer Support",
+  "brand": "Himal Trails",
+  "whatsapp": "919000000000",
+  "phone": "+919000000000",
+  "email": "hello@himaltrails.example",
+  "hours": "Daily, 9 am to 9 pm",
   "hero": {
-    "headline": "Book Budget Friendly Sikkim & Darjeeling Holidays",
-    "lead": "Top rated travel agency based in Gangtok, East Sikkim. Custom packages with private cabs, comfortable hotels, and 100% verified permits for North Sikkim, Nathula Pass and Gurudongmar Lake.",
+    "headline": "Book Handcrafted Sikkim & Darjeeling Holidays",
+    "lead": "Small-group & private trips through Darjeeling, Gangtok, and North Sikkim. Verified hotel stays, dedicated mountain cabs, and guaranteed high-altitude permits.",
     "peak": {
-      "name": "Kangchenjunga",
+      "name": "Kanchenjunga",
       "metres": 8586
     }
   },
-  "finePrint": "Rated 5.0 across 4,500+ travelers. 24/7 on-trip assistance from our local Gangtok travel desk."
+  "finePrint": "We reply within 15 minutes, 9 am to 9 pm. Free date changes up to 7 days before you leave."
 }
