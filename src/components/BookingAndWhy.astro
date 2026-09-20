@@ -1,5 +1,5 @@
 ---
-// Booking steps and why-us section in MMT playful portal layout
+// Booking steps and why-us section with clean vector icons (no emojis)
 ---
 <section class="sec sec-white" id="booking" aria-labelledby="book-h">
   <div class="wrap two-col">
@@ -40,7 +40,9 @@
 
       <div class="benefits-grid">
         <div class="benefit-card">
-          <div class="benefit-icon">🏡</div>
+          <div class="benefit-icon">
+            <svg class="i b-svg" aria-hidden="true"><use href="#i-home"></use></svg>
+          </div>
           <div>
             <h4>100% Verified Homestays</h4>
             <p>Personally inspected family homestays and mountain boutique resorts with scenic peak views.</p>
@@ -48,7 +50,9 @@
         </div>
 
         <div class="benefit-card">
-          <div class="benefit-icon">🚗</div>
+          <div class="benefit-icon">
+            <svg class="i b-svg" aria-hidden="true"><use href="#i-car"></use></svg>
+          </div>
           <div>
             <h4>Expert Mountain Drivers</h4>
             <p>Reliable local drivers experienced on tricky Himalayan roads. Clean private cabs for all transfers.</p>
@@ -56,7 +60,9 @@
         </div>
 
         <div class="benefit-card">
-          <div class="benefit-icon">💬</div>
+          <div class="benefit-icon">
+            <svg class="i b-svg" aria-hidden="true"><use href="#i-chat"></use></svg>
+          </div>
           <div>
             <h4>Dedicated WhatsApp Support</h4>
             <p>A real travel companion on WhatsApp from the day you book until you reach back home.</p>
@@ -64,7 +70,9 @@
         </div>
 
         <div class="benefit-card">
-          <div class="benefit-icon">🔄</div>
+          <div class="benefit-icon">
+            <svg class="i b-svg" aria-hidden="true"><use href="#i-refresh"></use></svg>
+          </div>
           <div>
             <h4>Flexible Date Changes</h4>
             <p>Weather or schedule change? Reschedule your trip dates for free up to 7 days before travel.</p>
@@ -173,7 +181,18 @@
   }
 
   .benefit-icon {
-    font-size: 2rem;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--r-s);
+    background: var(--primary-light);
+    color: var(--primary);
+    display: grid;
+    place-items: center;
+  }
+
+  .b-svg {
+    width: 22px;
+    height: 22px;
   }
 
   .benefit-card h4 {

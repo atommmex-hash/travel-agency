@@ -42,12 +42,12 @@ const savings = originalPrice - trip.pricePerPerson;
     <div class="media-overlay-top">
       {trip.tag ? (
         <span class="badge-tag deal-flame">
-          <span>🔥</span>
+          <svg class="i badge-svg" aria-hidden="true"><use href="#i-sparkle"></use></svg>
           <span>{trip.tag.toUpperCase()}</span>
         </span>
       ) : (
         <span class="badge-tag rating-star">
-          <span>⭐</span>
+          <svg class="i badge-svg star-icon" aria-hidden="true"><use href="#i-star"></use></svg>
           <span>4.9 (120+)</span>
         </span>
       )}
@@ -64,7 +64,7 @@ const savings = originalPrice - trip.pricePerPerson;
 
     <div class="media-overlay-bottom">
       <span class="alt-chip">
-        <span>🏔️</span>
+        <svg class="i chip-svg" aria-hidden="true"><use href="#i-mountain"></use></svg>
         <span>{formatMetres(trip.highestPointMetres)}</span>
       </span>
       <span class="duration-chip">
@@ -75,17 +75,32 @@ const savings = originalPrice - trip.pricePerPerson;
 
   <div class="card-content">
     <div class="dest-row">
-      <span class="dest-badge">📍 {trip.destination}</span>
-      <span class="cancellation-badge">✓ Free Date Change</span>
+      <span class="dest-badge">
+        <svg class="i pin-svg" aria-hidden="true"><use href="#i-pin"></use></svg>
+        <span>{trip.destination}</span>
+      </span>
+      <span class="cancellation-badge">Free Date Change</span>
     </div>
 
     <h3 class="package-title">{trip.title}</h3>
 
     <div class="amenities-row">
-      <span class="amenity-chip" title="Hotel / Homestay Stay">🏨 Stay</span>
-      <span class="amenity-chip" title="Private Cab Sightseeing">🚗 Private Cab</span>
-      <span class="amenity-chip" title="Breakfast / Meals">🍳 Meals</span>
-      <span class="amenity-chip" title="Sightseeing & Permits">🎫 Permits</span>
+      <span class="amenity-chip" title="Hotel / Homestay Stay">
+        <svg class="i amen-svg" aria-hidden="true"><use href="#i-home"></use></svg>
+        <span>Stay</span>
+      </span>
+      <span class="amenity-chip" title="Private Cab Sightseeing">
+        <svg class="i amen-svg" aria-hidden="true"><use href="#i-car"></use></svg>
+        <span>Private Cab</span>
+      </span>
+      <span class="amenity-chip" title="Breakfast / Meals">
+        <svg class="i amen-svg" aria-hidden="true"><use href="#i-utensils"></use></svg>
+        <span>Meals</span>
+      </span>
+      <span class="amenity-chip" title="Sightseeing & Permits">
+        <svg class="i amen-svg" aria-hidden="true"><use href="#i-ticket"></use></svg>
+        <span>Permits</span>
+      </span>
     </div>
 
     <ul class="highlights-list">
@@ -164,12 +179,17 @@ const savings = originalPrice - trip.pricePerPerson;
   .badge-tag {
     display: inline-flex;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.35rem;
     font-size: 0.75rem;
     font-weight: 800;
     padding: 0.3rem 0.65rem;
     border-radius: var(--r-pill);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+  }
+
+  .badge-svg {
+    width: 13px;
+    height: 13px;
   }
 
   .deal-flame {
@@ -181,6 +201,11 @@ const savings = originalPrice - trip.pricePerPerson;
     background: #ffffff;
     color: #B7791F;
     border: 1px solid #ECC94B;
+  }
+
+  .star-icon {
+    fill: #FFB400;
+    color: #FFB400;
   }
 
   .heart-circle {
@@ -218,7 +243,7 @@ const savings = originalPrice - trip.pricePerPerson;
   .duration-chip {
     display: inline-flex;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.35rem;
     font-size: 0.78rem;
     font-weight: 800;
     color: #ffffff;
@@ -226,6 +251,12 @@ const savings = originalPrice - trip.pricePerPerson;
     backdrop-filter: blur(6px);
     padding: 0.25rem 0.6rem;
     border-radius: var(--r-s);
+  }
+
+  .chip-svg {
+    width: 13px;
+    height: 13px;
+    color: currentColor;
   }
 
   .card-content {
@@ -244,7 +275,16 @@ const savings = originalPrice - trip.pricePerPerson;
   }
 
   .dest-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
     font-weight: 800;
+    color: var(--primary);
+  }
+
+  .pin-svg {
+    width: 14px;
+    height: 14px;
     color: var(--primary);
   }
 
@@ -273,6 +313,9 @@ const savings = originalPrice - trip.pricePerPerson;
   }
 
   .amenity-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
     font-size: 0.75rem;
     font-weight: 600;
     background: var(--bg-card-alt);
@@ -280,6 +323,12 @@ const savings = originalPrice - trip.pricePerPerson;
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
     color: var(--text-muted);
+  }
+
+  .amen-svg {
+    width: 13px;
+    height: 13px;
+    color: var(--primary);
   }
 
   .highlights-list {
@@ -299,9 +348,11 @@ const savings = originalPrice - trip.pricePerPerson;
   }
 
   .highlights-list li::before {
-    content: "✓";
+    content: "•";
     color: var(--primary);
     font-weight: 800;
+    font-size: 1.2rem;
+    line-height: 0.5;
   }
 
   .card-footer {

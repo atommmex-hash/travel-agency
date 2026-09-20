@@ -22,13 +22,19 @@ function getInitials(name: string): string {
     <span class="sec-badge">TESTIMONIALS</span>
     <h2 id="st-h">{stories.heading}</h2>
     <div class="rating-strip">
-      <span class="stars">⭐⭐⭐⭐⭐</span>
+      <div class="stars-group" aria-label="5 out of 5 stars">
+        <svg class="i star-svg" aria-hidden="true"><use href="#i-star"></use></svg>
+        <svg class="i star-svg" aria-hidden="true"><use href="#i-star"></use></svg>
+        <svg class="i star-svg" aria-hidden="true"><use href="#i-star"></use></svg>
+        <svg class="i star-svg" aria-hidden="true"><use href="#i-star"></use></svg>
+        <svg class="i star-svg" aria-hidden="true"><use href="#i-star"></use></svg>
+      </div>
       <span class="rating-text"><strong>4.9 / 5</strong> Based on 1,200+ Verified Mountain Travellers</span>
     </div>
   </div>
 
   <div class="reviews-grid" role="list">
-    {stories.items.map((item, idx) => (
+    {stories.items.map((item) => (
       <div class="review-card" role="listitem">
         <div class="review-top">
           <div class="author-avatar">
@@ -38,7 +44,13 @@ function getInitials(name: string): string {
             <b>{item.author}</b>
             <span class="verified-tag">✓ Verified Traveller</span>
           </div>
-          <span class="card-stars">★★★★★</span>
+          <div class="card-stars" aria-label="5 stars">
+            <svg class="i star-mini" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="i star-mini" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="i star-mini" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="i star-mini" aria-hidden="true"><use href="#i-star"></use></svg>
+            <svg class="i star-mini" aria-hidden="true"><use href="#i-star"></use></svg>
+          </div>
         </div>
 
         <blockquote class="review-quote">
@@ -46,8 +58,14 @@ function getInitials(name: string): string {
         </blockquote>
 
         <div class="review-footer">
-          <span class="trip-tag">🏔️ {item.trip}</span>
-          <span class="origin-tag">📍 {item.location}</span>
+          <span class="trip-tag">
+            <svg class="i footer-svg" aria-hidden="true"><use href="#i-mountain"></use></svg>
+            <span>{item.trip}</span>
+          </span>
+          <span class="origin-tag">
+            <svg class="i footer-svg" aria-hidden="true"><use href="#i-pin"></use></svg>
+            <span>{item.location}</span>
+          </span>
         </div>
       </div>
     ))}
@@ -74,13 +92,21 @@ function getInitials(name: string): string {
   .rating-strip {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.75rem;
     margin-top: 0.6rem;
     flex-wrap: wrap;
   }
 
-  .stars {
-    font-size: 1.1rem;
+  .stars-group {
+    display: inline-flex;
+    gap: 0.2rem;
+  }
+
+  .star-svg {
+    width: 20px;
+    height: 20px;
+    color: #FFB400;
+    fill: #FFB400;
   }
 
   .rating-text {
@@ -155,9 +181,15 @@ function getInitials(name: string): string {
   }
 
   .card-stars {
-    color: #F6AD55;
-    font-size: 0.95rem;
-    letter-spacing: 0.1em;
+    display: inline-flex;
+    gap: 0.15rem;
+  }
+
+  .star-mini {
+    width: 14px;
+    height: 14px;
+    color: #FFB400;
+    fill: #FFB400;
   }
 
   .review-quote {
@@ -172,18 +204,30 @@ function getInitials(name: string): string {
   .review-footer {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.35rem;
     padding-top: 0.9rem;
     border-top: 1px solid var(--border-subtle);
-    font-size: 0.8rem;
+    font-size: 0.82rem;
   }
 
   .trip-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     font-weight: 700;
     color: var(--primary);
   }
 
   .origin-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     color: var(--text-light);
+  }
+
+  .footer-svg {
+    width: 14px;
+    height: 14px;
+    color: currentColor;
   }
 </style>

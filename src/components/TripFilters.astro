@@ -4,13 +4,6 @@ interface Props {
 }
 
 const { destinations } = Astro.props;
-
-const destEmojis: Record<string, string> = {
-  Darjeeling: '🫖',
-  Sikkim: '🏔️',
-  Dooars: '🌲',
-  Offbeat: '🏡'
-};
 ---
 <div class="filters-card">
   <div class="filters-header">
@@ -29,12 +22,12 @@ const destEmojis: Record<string, string> = {
       </p>
       <div class="chips" id="destChips" role="group" aria-labelledby="l-dest">
         <button class="chip" data-v="All" aria-pressed="true">
-          <span class="chip-emoji">🗺️</span>
+          <svg class="i chip-svg" aria-hidden="true"><use href="#i-sparkle"></use></svg>
           <span>All Regions</span>
         </button>
         {destinations.map((d) => (
           <button class="chip" data-v={d} aria-pressed="false">
-            <span class="chip-emoji">{destEmojis[d] || '📍'}</span>
+            <svg class="i chip-svg" aria-hidden="true"><use href="#i-pin"></use></svg>
             <span>{d}</span>
           </button>
         ))}
@@ -51,15 +44,12 @@ const destEmojis: Record<string, string> = {
           <span>Any Length</span>
         </button>
         <button class="chip" data-v="short" aria-pressed="false">
-          <span class="chip-emoji">⚡</span>
           <span>Weekend (2–3N)</span>
         </button>
         <button class="chip" data-v="mid" aria-pressed="false">
-          <span class="chip-emoji">🎒</span>
           <span>Popular (4–5N)</span>
         </button>
         <button class="chip" data-v="long" aria-pressed="false">
-          <span class="chip-emoji">🌄</span>
           <span>Expedition (6N+)</span>
         </button>
       </div>
@@ -89,7 +79,9 @@ const destEmojis: Record<string, string> = {
 </div>
 
 <div class="empty" id="empty" hidden>
-  <div class="empty-icon">🔍</div>
+  <div class="empty-icon-wrap">
+    <svg class="i empty-svg" aria-hidden="true"><use href="#i-compass"></use></svg>
+  </div>
   <h3>No packages match your filters</h3>
   <p>Try widening your budget or clearing selected destinations to see all trips.</p>
   <button class="btn btn-primary" id="resetFEmpty">View All Packages</button>
@@ -219,8 +211,10 @@ const destEmojis: Record<string, string> = {
     box-shadow: 0 2px 8px rgba(0, 140, 255, 0.15);
   }
 
-  .chip-emoji {
-    font-size: 1rem;
+  .chip-svg {
+    width: 14px;
+    height: 14px;
+    color: currentColor;
   }
 
   input[type="range"] {
@@ -282,8 +276,19 @@ const destEmojis: Record<string, string> = {
     box-shadow: var(--shadow-sm);
   }
 
-  .empty-icon {
-    font-size: 2.8rem;
+  .empty-icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: grid;
+    place-items: center;
+  }
+
+  .empty-svg {
+    width: 32px;
+    height: 32px;
   }
 
   .empty h3 {

@@ -120,7 +120,7 @@ const schemaJson = JSON.stringify({
 
   <SavedDialog />
 
-  <!-- Client-side Interactive Logic (MakeMyTrip Style Portal) -->
+  <!-- Client-side Interactive Logic (No Emojis, Pure SVG Icons) -->
   <script is:inline define:vars={{ trips, siteData }}>
     (() => {
       'use strict';
@@ -223,7 +223,7 @@ const schemaJson = JSON.stringify({
 
       /* ==========================================================
          FILTERS & PACKAGES
-         ========================================================== */
+         ========================================================= */
       const state = { dest: 'All', dur: 'any', max: 35000 };
       const durOk = (n) =>
         state.dur === 'any' ||
@@ -245,27 +245,27 @@ const schemaJson = JSON.stringify({
             <div class="media-overlay-top">
               ${
                 t.tag
-                  ? `<span class="badge-tag deal-flame"><span>🔥</span><span>${t.tag.toUpperCase()}</span></span>`
-                  : `<span class="badge-tag rating-star"><span>⭐</span><span>4.9 (120+)</span></span>`
+                  ? `<span class="badge-tag deal-flame"><svg class="i badge-svg" aria-hidden="true"><use href="#i-sparkle"/></svg><span>${t.tag.toUpperCase()}</span></span>`
+                  : `<span class="badge-tag rating-star"><svg class="i badge-svg star-icon" aria-hidden="true"><use href="#i-star"/></svg><span>4.9 (120+)</span></span>`
               }
               <button class="heart-circle" data-save="${t.id}" aria-pressed="${saved.has(t.id)}" aria-label="Save ${t.title}">${ico('heart')}</button>
             </div>
             <div class="media-overlay-bottom">
-              <span class="alt-chip"><span>🏔️</span><span>${formatMetres(t.highestPointMetres)}</span></span>
+              <span class="alt-chip"><svg class="i chip-svg" aria-hidden="true"><use href="#i-mountain"/></svg><span>${formatMetres(t.highestPointMetres)}</span></span>
               <span class="duration-chip">${t.nights}N / ${daysCount}D</span>
             </div>
           </div>
           <div class="card-content">
             <div class="dest-row">
-              <span class="dest-badge">📍 ${t.destination}</span>
-              <span class="cancellation-badge">✓ Free Date Change</span>
+              <span class="dest-badge"><svg class="i pin-svg" aria-hidden="true"><use href="#i-pin"/></svg><span>${t.destination}</span></span>
+              <span class="cancellation-badge">Free Date Change</span>
             </div>
             <h3 class="package-title">${t.title}</h3>
             <div class="amenities-row">
-              <span class="amenity-chip">🏨 Stay</span>
-              <span class="amenity-chip">🚗 Private Cab</span>
-              <span class="amenity-chip">🍳 Meals</span>
-              <span class="amenity-chip">🎫 Permits</span>
+              <span class="amenity-chip"><svg class="i amen-svg" aria-hidden="true"><use href="#i-home"/></svg><span>Stay</span></span>
+              <span class="amenity-chip"><svg class="i amen-svg" aria-hidden="true"><use href="#i-car"/></svg><span>Private Cab</span></span>
+              <span class="amenity-chip"><svg class="i amen-svg" aria-hidden="true"><use href="#i-utensils"/></svg><span>Meals</span></span>
+              <span class="amenity-chip"><svg class="i amen-svg" aria-hidden="true"><use href="#i-ticket"/></svg><span>Permits</span></span>
             </div>
             <ul class="highlights-list">
               ${t.highlights.slice(0, 3).map((h) => `<li>${h}</li>`).join('')}
@@ -404,7 +404,7 @@ const schemaJson = JSON.stringify({
         <div class="sheet-plate">${plate(t, 'd')}
           <button class="heart-circle" data-save="${t.id}" aria-pressed="${saved.has(t.id)}" aria-label="Save ${t.title}">${ico('heart')}</button>
           <div class="sheet-title">
-            <p>📍 ${t.destination} • ${t.nights} Nights / ${t.nights + 1} Days</p>
+            <p>${t.destination} • ${t.nights} Nights / ${t.nights + 1} Days</p>
             <h2 id="tripTitle">${t.title}</h2>
           </div>
         </div>

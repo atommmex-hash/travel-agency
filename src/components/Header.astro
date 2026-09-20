@@ -24,19 +24,19 @@ const { brand } = Astro.props;
 
     <nav class="nav" id="nav" aria-label="Main navigation">
       <a href="#trips" class="nav-item">
-        <span class="nav-icon">🏔️</span>
+        <svg class="i nav-svg" aria-hidden="true"><use href="#i-mountain"></use></svg>
         <span>Packages</span>
       </a>
       <a href="#booking" class="nav-item">
-        <span class="nav-icon">✨</span>
+        <svg class="i nav-svg" aria-hidden="true"><use href="#i-shield"></use></svg>
         <span>Why Us</span>
       </a>
       <a href="#stories" class="nav-item">
-        <span class="nav-icon">⭐</span>
+        <svg class="i nav-svg" aria-hidden="true"><use href="#i-star"></use></svg>
         <span>Reviews</span>
       </a>
       <a href="#faq" class="nav-item">
-        <span class="nav-icon">💬</span>
+        <svg class="i nav-svg" aria-hidden="true"><use href="#i-chat"></use></svg>
         <span>FAQ</span>
       </a>
       <a class="btn btn-whatsapp" href="#enquire">
@@ -127,7 +127,7 @@ const { brand } = Astro.props;
   .nav-item {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.45rem;
     text-decoration: none;
     font-weight: 700;
     font-size: 0.95rem;
@@ -142,8 +142,10 @@ const { brand } = Astro.props;
     background: var(--primary-light);
   }
 
-  .nav-icon {
-    font-size: 1.05rem;
+  .nav-svg {
+    width: 17px;
+    height: 17px;
+    color: var(--primary);
   }
 
   .saved-pill-btn {

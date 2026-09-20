@@ -17,24 +17,30 @@ const { phone, email } = Astro.props;
 
       <div class="enquire-features">
         <div class="e-feat">
-          <span class="e-icon">⚡</span>
+          <div class="e-icon">
+            <svg class="i ef-svg" aria-hidden="true"><use href="#i-clock"></use></svg>
+          </div>
           <div>
             <b>15-Minute Response Time</b>
             <span>Our travel desk is active 9 AM to 9 PM daily.</span>
           </div>
         </div>
         <div class="e-feat">
-          <span class="e-icon">💯</span>
+          <div class="e-icon">
+            <svg class="i ef-svg" aria-hidden="true"><use href="#i-shield"></use></svg>
+          </div>
           <div>
             <b>Transparent All-Inclusive Pricing</b>
             <span>Permits, private cab, and stays included upfront.</span>
           </div>
         </div>
         <div class="e-feat">
-          <span class="e-icon">📲</span>
+          <div class="e-icon">
+            <svg class="i ef-svg" aria-hidden="true"><use href="#i-chat"></use></svg>
+          </div>
           <div>
-            <b>No Spam Calls</b>
-            <span>We communicate directly via WhatsApp and email.</span>
+            <b>Direct Communication</b>
+            <span>We coordinate directly via WhatsApp and phone.</span>
           </div>
         </div>
       </div>
@@ -42,7 +48,8 @@ const { phone, email } = Astro.props;
       <div class="contact-strip">
         <span>Prefer to speak directly?</span>
         <a href={`tel:${phone}`} class="call-btn">
-          <span>📞 Call Us: {phone}</span>
+          <svg class="i ef-svg" aria-hidden="true"><use href="#i-phone"></use></svg>
+          <span>Call Us: {phone}</span>
         </a>
       </div>
     </div>
@@ -123,8 +130,18 @@ const { phone, email } = Astro.props;
   }
 
   .e-icon {
-    font-size: 1.4rem;
-    line-height: 1;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  .ef-svg {
+    width: 18px;
+    height: 18px;
   }
 
   .e-feat b {
@@ -148,6 +165,9 @@ const { phone, email } = Astro.props;
   }
 
   .call-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     color: #ffffff;
     font-weight: 800;
     font-size: 1.15rem;

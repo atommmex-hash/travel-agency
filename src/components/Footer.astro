@@ -52,7 +52,10 @@ const { brand } = Astro.props;
 
     <div class="foot-bottom">
       <p>© {new Date().getFullYear()} {brand}. All rights reserved.</p>
-      <p class="safety-note">🛡️ All Sikkim permits and local cab transfers arranged directly.</p>
+      <p class="safety-note">
+        <svg class="i shield-svg" aria-hidden="true"><use href="#i-shield"></use></svg>
+        <span>All Sikkim permits and local cab transfers arranged directly.</span>
+      </p>
     </div>
   </div>
 </footer>
@@ -180,8 +183,16 @@ const { brand } = Astro.props;
   }
 
   .safety-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     color: #68D391;
     font-weight: 600;
+  }
+
+  .shield-svg {
+    width: 15px;
+    height: 15px;
   }
 
   @media (min-width: 768px) {
