@@ -38,7 +38,15 @@ const schemaJson = JSON.stringify({
   "telephone": siteData.phone,
   "email": siteData.email,
   "areaServed": destinations,
-  "url": "https://himaltrails.example"
+  "url": "https://etripto.in",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Lower Arithang",
+    "addressLocality": "Gangtok",
+    "addressRegion": "East Sikkim",
+    "postalCode": "737101",
+    "addressCountry": "IN"
+  }
 });
 ---
 <!DOCTYPE html>
@@ -46,15 +54,15 @@ const schemaJson = JSON.stringify({
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>{siteData.brand} | Darjeeling & Sikkim Holiday Packages</title>
-  <meta name="description" content={`Book handcrafted Darjeeling, Sikkim, and Dooars holiday packages with ${siteData.brand}. Verified stays, private cabs, and transparent pricing.`} />
+  <title>{siteData.brand} | Book Sikkim & Darjeeling Tour Packages</title>
+  <meta name="description" content={`Book budget friendly Sikkim, Gangtok, and Darjeeling holiday packages with ${siteData.brand}. Verified hotel stays, private cabs, and 100% arranged permits.`} />
   <meta name="theme-color" content="#008CFF" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content={`${siteData.brand} | Himalayan Holiday Packages`} />
+  <meta property="og:title" content={`${siteData.brand} | Sikkim & Darjeeling Holiday Tour Packages`} />
   <meta property="og:description" content={siteData.hero.lead} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://himaltrails.example" />
+  <meta property="og:url" content="https://etripto.in" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -110,7 +118,7 @@ const schemaJson = JSON.stringify({
     <EnquiryForm phone={siteData.phone} email={siteData.email} />
   </main>
 
-  <Footer brand={siteData.brand} />
+  <Footer brand={siteData.brand} phone={siteData.phone} email={siteData.email} />
 
   <MobileDock phone={siteData.phone} whatsappUrl={generalWaUrl} />
 

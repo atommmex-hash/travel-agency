@@ -1,44 +1,67 @@
 {
   "id": "dooars-jungle",
-  "title": "Dooars Jungle and Rivers",
-  "destination": "Dooars",
-  "nights": 2,
-  "pricePerPerson": 8900,
-  "highestPointMetres": 100,
-  "tag": "Weekend",
+  "title": "Grand Sikkim & Darjeeling with North Sikkim & Tiger Hill",
+  "destination": "Sikkim & Darjeeling",
+  "nights": 6,
+  "pricePerPerson": 18900,
+  "highestPointMetres": 5430,
+  "tag": "Signature",
   "featured": false,
   "highlights": [
-    "Jeep safari in Gorumara",
-    "Riverside evenings",
-    "Tea garden drive"
+    "Sacred Gurudongmar Lake (17,800 ft) & Yumthang Valley",
+    "Indo-China border at Nathula Pass & Tsomgo Lake",
+    "Tiger Hill golden sunrise over Mt. Kanchenjunga",
+    "Evening walks on Gangtok MG Marg & Darjeeling Chowrasta"
   ],
   "days": [
     {
       "label": "Day 1",
-      "title": "Arrive and river evening",
-      "text": "Transfer from NJP or Siliguri to a jungle-edge resort. Riverside walk and a village tea garden drive."
+      "title": "NJP / IXB to Gangtok - Hill Drive & MG Marg",
+      "text": "Pickup from NJP Railway Station or Bagdogra Airport (IXB). Scenic drive along the Teesta River to Gangtok. Check into your hotel and spend the evening enjoying MG Marg."
     },
     {
       "label": "Day 2",
-      "title": "Jeep safari",
-      "text": "Morning jeep safari in Gorumara National Park, a slow afternoon and an evening cultural programme."
+      "title": "Gangtok to Lachen - Waterfalls Trail",
+      "text": "Scenic journey to North Sikkim, stopping at Butterfly Waterfall, Seven Sisters Waterfall, and Chungthang Dam before arriving in high-altitude Lachen."
     },
     {
       "label": "Day 3",
-      "title": "Departure",
-      "text": "Breakfast and a drop to NJP or Siliguri."
+      "title": "Lachen to Gurudongmar Lake & Transfer to Lachung",
+      "text": "Dawn expedition to sacred Gurudongmar Lake at 17,800 ft surrounded by snow peaks. Lunch in Lachen, followed by drive past Bhimnala Waterfall to Lachung."
+    },
+    {
+      "label": "Day 4",
+      "title": "Lachung to Yumthang Valley & Return to Gangtok",
+      "text": "Morning exploration of Yumthang Valley (Valley of Flowers). Lunch in Lachung, then scenic drive back to Gangtok for evening relaxation."
+    },
+    {
+      "label": "Day 5",
+      "title": "Gangtok to Nathula Pass, Tsomgo Lake & Baba Mandir",
+      "text": "Day tour to Nathula Pass on the Indo-China border (14,140 ft), glaciated Tsomgo (Changu) Lake, and Baba Harbhajan Singh Memorial Temple."
+    },
+    {
+      "label": "Day 6",
+      "title": "Gangtok to Darjeeling - Tea Hills Transfer & City Sightseeing",
+      "text": "Transfer across tea-clad hills from Gangtok to Darjeeling. Afternoon visit to the Himalayan Mountaineering Institute, Padmaja Naidu Zoo, and Japanese Peace Pagoda."
+    },
+    {
+      "label": "Day 7",
+      "title": "Darjeeling Tiger Hill Sunrise & Drop to NJP / IXB",
+      "text": "Early morning drive to Tiger Hill for sunrise over Mt. Kanchenjunga, visit Batasia Loop, return for breakfast, and transfer to NJP Railway Station or Bagdogra Airport."
     }
   ],
   "included": [
-    "Resort stay with all meals",
-    "Jeep safari arranged",
-    "Naturalist-led walk",
-    "Pickup and drop from NJP or Siliguri"
+    "Dedicated private vehicle (Innova / Xylo) for all 7 days",
+    "6 Nights hotel stays (3N Gangtok, 1N Lachen, 1N Lachung, 1N Darjeeling)",
+    "All meals in North Sikkim and daily breakfast & dinner in Gangtok and Darjeeling",
+    "North Sikkim, Nathula Pass & Tsomgo Lake permits pre-arranged",
+    "Pick-up and drop-off at NJP Station / Bagdogra Airport"
   ],
+  "photo": "https://etripto.in/uploads/0000/96/2023/06/29/best-places-to-visit-in-gangtok-sikkim.jpg",
   "plate": {
-    "seed": 27,
-    "px": 0.55,
-    "py": 0.6,
-    "bg": ["#0F3D34", "#0E1A2B"]
+    "seed": 42,
+    "px": 0.5,
+    "py": 0.5,
+    "bg": ["#14324A", "#0E1A2B"]
   }
 }

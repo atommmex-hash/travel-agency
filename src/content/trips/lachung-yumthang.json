@@ -1,64 +1,62 @@
 {
   "id": "lachung-yumthang",
-  "title": "Lachung and Yumthang Valley",
-  "destination": "Sikkim",
-  "nights": 6,
-  "pricePerPerson": 32000,
-  "highestPointMetres": 4700,
-  "tag": "Snow line",
-  "featured": false,
+  "title": "North Sikkim, Gurudongmar & Yumthang Valley",
+  "destination": "North Sikkim & Gangtok",
+  "nights": 5,
+  "pricePerPerson": 14400,
+  "highestPointMetres": 5430,
+  "tag": "Most Popular",
+  "featured": true,
   "highlights": [
-    "Yumthang Valley meadows",
-    "Snow at Zero Point",
-    "North Sikkim drive"
+    "Sacred Gurudongmar Lake at 17,800 ft",
+    "Yumthang Valley - the Valley of Flowers",
+    "Nathula Pass & glacial Tsomgo Lake excursion",
+    "Seven Sisters, Butterfly & Bhimnala Waterfalls"
   ],
   "days": [
     {
       "label": "Day 1",
-      "title": "Arrive in Gangtok",
-      "text": "Pickup from NJP or Bagdogra and a drive to Gangtok."
+      "title": "NJP / IXB to Gangtok - Arrival & Leisure",
+      "text": "Pickup from Bagdogra Airport (IXB) or NJP Railway Station. Scenic drive to Gangtok. Check into your hotel, relax, and spend the evening enjoying the lively atmosphere of MG Marg."
     },
     {
       "label": "Day 2",
-      "title": "Drive to Lachung",
-      "text": "Waterfalls and mountain villages along the North Sikkim road."
+      "title": "Gangtok to Lachen via Chungthang Waterfalls",
+      "text": "Morning departure for North Sikkim in a dedicated SUV. Drive through alpine landscapes, stopping at Butterfly Waterfall, Seven Sisters Waterfall, Chungthang Dam, and Naga Waterfall. Evening arrival in Lachen."
     },
     {
       "label": "Day 3",
-      "title": "Yumthang and Zero Point",
-      "text": "Rhododendron meadows in season, then snow views. Subject to road and weather."
+      "title": "Lachen to Sacred Gurudongmar Lake & Transfer to Lachung",
+      "text": "Early morning drive to the legendary Gurudongmar Lake at 17,800 ft, surrounded by glaciated peaks. Return to Lachen for lunch, then travel past Bhimnala Waterfall to reach Lachung for an overnight stay."
     },
     {
       "label": "Day 4",
-      "title": "Back to Gangtok",
-      "text": "A slow drive down with stops at viewpoints."
+      "title": "Lachung to Yumthang Valley & Return to Gangtok",
+      "text": "Visit Yumthang Valley, renowned as the Valley of Flowers, with views of alpine meadows and hot springs. After lunch in Lachung, make the scenic drive back to Gangtok."
     },
     {
       "label": "Day 5",
-      "title": "Gangtok leisure",
-      "text": "Ropeway, markets and a free afternoon."
+      "title": "Gangtok to Nathula Pass, Tsomgo Lake & Baba Mandir",
+      "text": "Day tour to Nathula Pass on the Indo-China border (14,140 ft), Tsomgo (Changu) Lake, and the revered Baba Harbhajan Singh Memorial Temple."
     },
     {
       "label": "Day 6",
-      "title": "Tsomgo Lake",
-      "text": "Optional day trip to the lake, permits arranged."
-    },
-    {
-      "label": "Day 7",
-      "title": "Departure",
-      "text": "Breakfast, then a drop to NJP or Bagdogra."
+      "title": "Gangtok to NJP / IXB Departure",
+      "text": "Morning breakfast and departure transfer to NJP Railway Station or Bagdogra Airport for your onward travel."
     }
   ],
   "included": [
-    "Hotel and Lachung stay with meals",
-    "Private 4x4 for North Sikkim",
-    "All permits arranged",
-    "Station and airport transfers"
+    "Dedicated mountain SUV (Innova / Xylo) for all transfers",
+    "5 Nights hotel stays (3N Gangtok, 1N Lachen, 1N Lachung)",
+    "All meals in North Sikkim (Breakfast, Lunch, Dinner) & breakfast in Gangtok",
+    "Gurudongmar, Yumthang & Nathula Pass restricted area permits",
+    "Pick-up and drop from NJP Railway Station / Bagdogra Airport"
   ],
+  "photo": "https://etripto.in/uploads/0000/1/2024/07/10/lachen.jpg",
   "plate": {
-    "seed": 43,
-    "px": 0.58,
-    "py": 0.42,
-    "bg": ["#1D3A66", "#0E1A2B"]
+    "seed": 19,
+    "px": 0.5,
+    "py": 0.5,
+    "bg": ["#1B382B", "#0E1A2B"]
   }
 }

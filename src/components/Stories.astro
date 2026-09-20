@@ -22,14 +22,14 @@ function getInitials(name: string): string {
     <span class="sec-badge">TESTIMONIALS</span>
     <h2 id="st-h">{stories.heading}</h2>
     <div class="rating-strip">
-      <div class="stars-group" aria-label="5 out of 5 stars">
+      <div class="stars-row" aria-label="5 stars">
         <svg class="i star-svg" aria-hidden="true"><use href="#i-star"></use></svg>
         <svg class="i star-svg" aria-hidden="true"><use href="#i-star"></use></svg>
         <svg class="i star-svg" aria-hidden="true"><use href="#i-star"></use></svg>
         <svg class="i star-svg" aria-hidden="true"><use href="#i-star"></use></svg>
         <svg class="i star-svg" aria-hidden="true"><use href="#i-star"></use></svg>
       </div>
-      <span class="rating-text"><strong>4.9 / 5</strong> Based on 1,200+ Verified Mountain Travellers</span>
+      <span class="rating-text"><strong>5.0 / 5</strong> Based on 4,500+ Verified Google Reviews</span>
     </div>
   </div>
 
@@ -42,7 +42,7 @@ function getInitials(name: string): string {
           </div>
           <div class="author-details">
             <b>{item.author}</b>
-            <span class="verified-tag">✓ Verified Traveller</span>
+            <span class="verified-tag"><svg class="i mini-check" aria-hidden="true"><use href="#i-check"></use></svg> Verified Traveller</span>
           </div>
           <div class="card-stars" aria-label="5 stars">
             <svg class="i star-mini" aria-hidden="true"><use href="#i-star"></use></svg>
@@ -175,9 +175,17 @@ function getInitials(name: string): string {
   }
 
   .verified-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
     font-size: 0.72rem;
     font-weight: 700;
     color: var(--accent-green);
+  }
+
+  .mini-check {
+    width: 12px;
+    height: 12px;
   }
 
   .card-stars {

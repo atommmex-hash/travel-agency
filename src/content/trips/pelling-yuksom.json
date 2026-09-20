@@ -1,59 +1,72 @@
 {
   "id": "pelling-yuksom",
-  "title": "Pelling and Yuksom Heritage",
-  "destination": "Sikkim",
-  "nights": 5,
-  "pricePerPerson": 24500,
-  "highestPointMetres": 2150,
-  "tag": "",
+  "title": "Complete Sikkim: North Sikkim, Nathula & Pelling",
+  "destination": "North & West Sikkim",
+  "nights": 7,
+  "pricePerPerson": 21500,
+  "highestPointMetres": 5430,
+  "tag": "Comprehensive",
   "featured": false,
   "highlights": [
-    "Kanchenjunga views from Pelling",
-    "Pemayangtse Monastery",
-    "Yuksom, the first capital"
+    "Sacred Gurudongmar Lake & Yumthang Valley",
+    "Indo-China border at Nathula Pass & Tsomgo Lake",
+    "Buddha Park Ravangla & Char Dham Namchi",
+    "Pelling Glass Skywalk & Rabdentse Ruins"
   ],
   "days": [
     {
       "label": "Day 1",
-      "title": "Arrive in Pelling",
-      "text": "Drive from NJP or Bagdogra and settle in for a first look at the peaks."
+      "title": "NJP / IXB to Gangtok - Welcome to Sikkim",
+      "text": "Pickup from NJP Railway Station or Bagdogra Airport. Scenic 4-5 hour drive alongside the Teesta River. Check into your Gangtok hotel and explore MG Marg."
     },
     {
       "label": "Day 2",
-      "title": "Pelling sights",
-      "text": "Pemayangtse Monastery, Rabdentse ruins and the Chenrezig statue and Skywalk."
+      "title": "Gangtok to Lachen - Waterfalls & Valleys",
+      "text": "Travel into the northern Himalayas, stopping at Seven Sisters Waterfall, Butterfly Waterfall, and Chungthang Dam before reaching Lachen."
     },
     {
       "label": "Day 3",
-      "title": "To Yuksom",
-      "text": "Drive to Yuksom, Sikkim's first capital, and walk to Dubdi Monastery."
+      "title": "Lachen to Gurudongmar Lake & Transfer to Lachung",
+      "text": "Dawn expedition to high-altitude Gurudongmar Lake at 17,800 ft. Afternoon lunch in Lachen, then onward past Bhimnala Waterfall to picturesque Lachung."
     },
     {
       "label": "Day 4",
-      "title": "Yuksom slow day",
-      "text": "Village walk and a free afternoon."
+      "title": "Lachung to Yumthang Valley & Return to Gangtok",
+      "text": "Morning exploration of Yumthang Valley of Flowers, followed by the return drive through mountain roads back to Gangtok for rest."
     },
     {
       "label": "Day 5",
-      "title": "Khecheopalri Lake",
-      "text": "The wishing lake and a short forest trail on the way back."
+      "title": "Gangtok to Nathula Pass, Tsomgo Lake & Baba Mandir",
+      "text": "High-altitude border excursion to Nathula Pass (14,140 ft), holy Tsomgo (Changu) Lake, and Baba Harbhajan Singh Memorial Temple."
     },
     {
       "label": "Day 6",
-      "title": "Departure",
-      "text": "Breakfast, then a drop to NJP or Bagdogra."
+      "title": "Gangtok to Pelling via Ravangla Buddha Park & Namchi",
+      "text": "Cross into West Sikkim, visiting the 130-foot Shakyamuni Buddha statue at Ravangla and the pilgrim shrines of Char Dham in Namchi before checking in at Pelling."
+    },
+    {
+      "label": "Day 7",
+      "title": "Pelling Local Sightseeing - Skywalk & Heritage",
+      "text": "Visit Pelling Glass Skywalk, Chenrezig Statue, the ancient Rabdentse Palace ruins, Pemayangtse Monastery, and Rimbi Waterfalls."
+    },
+    {
+      "label": "Day 8",
+      "title": "Pelling to NJP / IXB Departure",
+      "text": "Wake up to panoramic Kanchenjunga views, then enjoy a relaxed descent to NJP Railway Station or Bagdogra Airport for departure."
     }
   ],
   "included": [
-    "Hotel with breakfast and dinner",
-    "Private cab",
-    "Monastery entry fees",
-    "Station and airport transfers"
+    "Dedicated private vehicle for all 8 days",
+    "7 Nights hotel accommodation (Gangtok, Lachen, Lachung, Pelling)",
+    "All meals in North Sikkim and daily breakfast & dinner in Gangtok and Pelling",
+    "All protected area inner-line and army permits arranged",
+    "Pick-up and drop-off at NJP Station / Bagdogra Airport"
   ],
+  "photo": "https://etripto.in/uploads/0000/96/2023/05/29/ravangla-buddha-park-sikkim.jpg",
   "plate": {
-    "seed": 35,
-    "px": 0.45,
-    "py": 0.48,
-    "bg": ["#2A2F5C", "#0E1A2B"]
+    "seed": 23,
+    "px": 0.38,
+    "py": 0.62,
+    "bg": ["#1F3A29", "#0F1F17"]
   }
 }

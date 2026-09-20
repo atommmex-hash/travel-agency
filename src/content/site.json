@@ -1,16 +1,16 @@
 {
-  "brand": "Himal Trails",
-  "whatsapp": "919000000000",
-  "phone": "+919000000000",
-  "email": "hello@himaltrails.example",
-  "hours": "Daily, 9 am to 9 pm",
+  "brand": "Etripto",
+  "whatsapp": "919811980218",
+  "phone": "+919811980218",
+  "email": "contact@etripto.in",
+  "hours": "24/7 Customer Support",
   "hero": {
-    "headline": "Wake up at 2,042 metres.",
-    "lead": "Small-group trips through Darjeeling, Sikkim and the Dooars, planned and hosted by people who live in the hills.",
+    "headline": "Book Budget Friendly Sikkim & Darjeeling Holidays",
+    "lead": "Top rated travel agency based in Gangtok, East Sikkim. Custom packages with private cabs, comfortable hotels, and 100% verified permits for North Sikkim, Nathula Pass and Gurudongmar Lake.",
     "peak": {
-      "name": "Kanchenjunga",
+      "name": "Kangchenjunga",
       "metres": 8586
     }
   },
-  "finePrint": "We reply within 15 minutes, 9 am to 9 pm. Free date changes up to 7 days before you leave."
+  "finePrint": "Rated 5.0 across 4,500+ travelers. 24/7 on-trip assistance from our local Gangtok travel desk."
 }

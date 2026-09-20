@@ -1,21 +1,23 @@
 ---
 interface Props {
   brand: string;
+  phone?: string;
+  email?: string;
 }
 
-const { brand } = Astro.props;
+const { brand, phone = "+919811980218", email = "contact@etripto.in" } = Astro.props;
 ---
 <footer class="foot">
   <div class="wrap">
     <div class="dest-strip">
       <span class="strip-label">Popular Destinations:</span>
       <div class="strip-links">
-        <a href="#trips">Darjeeling Packages</a>
-        <a href="#trips">Gangtok & Sikkim Treks</a>
-        <a href="#trips">Dooars Wildlife Safaris</a>
-        <a href="#trips">Kalimpong Homestays</a>
-        <a href="#trips">Pelling & Yuksom Heritage</a>
-        <a href="#trips">North Sikkim & Yumthang Valley</a>
+        <a href="#trips">Gangtok Packages</a>
+        <a href="#trips">North Sikkim & Gurudongmar</a>
+        <a href="#trips">Nathula Pass & Tsomgo Lake</a>
+        <a href="#trips">Darjeeling Tiger Hill</a>
+        <a href="#trips">Pelling & Ravangla Buddha Park</a>
+        <a href="#trips">Kalimpong & Mirik Lake</a>
       </div>
     </div>
 
@@ -23,10 +25,16 @@ const { brand } = Astro.props;
       <div class="foot-col brand-col">
         <div class="foot-logo">
           <span class="brand-title">{brand}</span>
-          <span class="brand-sub">Himalayan Holidays</span>
+          <span class="brand-sub">Gangtok, East Sikkim</span>
         </div>
         <p class="foot-desc">
-          Handcrafted mountain holidays and treks across Darjeeling, Sikkim, and the Dooars. Directly operated by local hosts and mountain drivers.
+          Leading tour and travel agency based in Gangtok, East Sikkim. Budget-friendly holiday packages with dedicated private cabs, comfortable stays, and hassle-free permits for North Sikkim, Nathula Pass, and Darjeeling.
+        </p>
+        <p class="foot-meta">
+          <strong>Office:</strong> Lower Arithang, Arithang Gangtok, East Sikkim - 737101
+        </p>
+        <p class="foot-meta">
+          <strong>Support:</strong> <a href={`tel:${phone}`}>{phone}</a> (24/7 Support) | <a href={`mailto:${email}`}>{email}</a>
         </p>
       </div>
 
@@ -143,6 +151,23 @@ const { brand } = Astro.props;
     font-size: 0.9rem;
     line-height: 1.6;
     max-width: 42ch;
+    margin-bottom: 0.75rem;
+  }
+
+  .foot-meta {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: #CBD5E0;
+    margin: 0.25rem 0;
+  }
+
+  .foot-meta a {
+    color: #90CDF4;
+    text-decoration: none;
+  }
+
+  .foot-meta a:hover {
+    text-decoration: underline;
   }
 
   .foot-col h5 {

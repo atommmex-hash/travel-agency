@@ -1,49 +1,57 @@
 {
   "id": "kalimpong-homestay",
-  "title": "Kalimpong Homestay Escape",
-  "destination": "Offbeat",
-  "nights": 3,
-  "pricePerPerson": 11200,
-  "highestPointMetres": 1700,
-  "tag": "Offbeat pick",
+  "title": "Darjeeling, Mirik Lake & Kalimpong Panorama",
+  "destination": "Darjeeling & Kalimpong",
+  "nights": 4,
+  "pricePerPerson": 12800,
+  "highestPointMetres": 2590,
+  "tag": "Family Special",
   "featured": false,
   "highlights": [
-    "Family-run homestay",
-    "Cactus and orchid nurseries",
-    "Early birdwatching walk"
+    "Tiger Hill sunrise over Mt. Kanchenjunga",
+    "Mirik Lake boating & Pashupati Nepal border market",
+    "Lamahatta pine forest & Tinchuley tea viewpoints",
+    "Kalimpong Deolo Hill panoramic vistas"
   ],
   "days": [
     {
       "label": "Day 1",
-      "title": "Meet your hosts",
-      "text": "Drive up to your family-run homestay near Kalimpong. Home-cooked dinner with the family."
+      "title": "NJP / IXB to Darjeeling - Arrival & Mall Road",
+      "text": "Pickup from Bagdogra Airport (IXB) or NJP Railway Station. Scenic mountain drive to Darjeeling, check in, and evening stroll at Chowrasta."
     },
     {
       "label": "Day 2",
-      "title": "Hills and nurseries",
-      "text": "Deolo Hill viewpoint, cactus and orchid nurseries, and Durpin Dara."
+      "title": "Tiger Hill Sunrise & Darjeeling City Sightseeing",
+      "text": "Early morning sunrise at Tiger Hill (2,590 m), Batasia Loop, and Ghoom Monastery. Afternoon tour of Himalayan Mountaineering Institute, Zoo, and Japanese Peace Pagoda."
     },
     {
       "label": "Day 3",
-      "title": "Birds and bazaar",
-      "text": "Early birdwatching walk with a local guide, then the Kalimpong market and monasteries."
+      "title": "Mirik Lake & Pashupati Nepal Border Day Excursion",
+      "text": "Day tour to peaceful Mirik Lake flanked by tea gardens. Enjoy boating on Sumendu Lake and visit the Pashupati border market on the Nepal boundary."
     },
     {
       "label": "Day 4",
-      "title": "Departure",
-      "text": "Breakfast with the family and a drop to NJP or Bagdogra."
+      "title": "Darjeeling to Kalimpong via Lamahatta & Tinchuley",
+      "text": "Travel to Kalimpong via Lamahatta eco-park pine trails and Tinchuley valley. Visit Deolo Hill, Kalimpong Golf Course, and Mangal Dham temple."
+    },
+    {
+      "label": "Day 5",
+      "title": "Kalimpong to NJP / IXB Departure",
+      "text": "Breakfast with valley views, followed by your descent along the Teesta River back to NJP Railway Station or Bagdogra Airport."
     }
   ],
   "included": [
-    "Homestay with all meals",
-    "Local guide for walks",
-    "Pickup and drop",
-    "Evening bonfire (weather permitting)"
+    "Private dedicated cab for all 5 days",
+    "4 Nights hotel accommodation (2N Darjeeling, 2N Kalimpong)",
+    "Daily breakfast",
+    "Mirik Lake & Indo-Nepal border excursion",
+    "Airport / railway station transfers"
   ],
+  "photo": "https://etripto.in/uploads/0010/10032/2026/02/16/namchi.png",
   "plate": {
-    "seed": 19,
-    "px": 0.4,
-    "py": 0.55,
-    "bg": ["#123A3F", "#0E1A2B"]
+    "seed": 31,
+    "px": 0.55,
+    "py": 0.52,
+    "bg": ["#17335C", "#0E1A2B"]
   }
 }

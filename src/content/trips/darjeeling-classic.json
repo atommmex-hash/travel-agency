@@ -1,49 +1,47 @@
 {
   "id": "darjeeling-classic",
-  "title": "Darjeeling Tea and Toy Train",
+  "title": "Darjeeling Tiger Hill Sunrise & Tea Gardens",
   "destination": "Darjeeling",
-  "nights": 3,
-  "pricePerPerson": 12500,
+  "nights": 2,
+  "pricePerPerson": 7500,
   "highestPointMetres": 2590,
-  "tag": "Bestseller",
-  "featured": true,
+  "tag": "Weekend Getaway",
+  "featured": false,
   "highlights": [
-    "Tiger Hill sunrise over Kanchenjunga",
-    "Toy train joyride",
-    "Tea estate walk and tasting"
+    "Tiger Hill sunrise over Mt. Kanchenjunga",
+    "Batasia Loop & historic Ghoom Monastery",
+    "Himalayan Mountaineering Institute & Zoo",
+    "Evening tea tastings on Darjeeling Mall Road"
   ],
   "days": [
     {
       "label": "Day 1",
-      "title": "Arrive and settle in",
-      "text": "Pickup from NJP or Bagdogra and a scenic climb to Darjeeling. Evening stroll along Mall Road and Chowrasta."
+      "title": "NJP / IXB to Darjeeling - Foothill Drive & Chowrasta",
+      "text": "Pickup from Bagdogra Airport (IXB) or NJP Railway Station. Scenic 3-4 hour climb winding through emerald tea gardens. Check into your hotel and enjoy an evening stroll along Darjeeling Chowrasta."
     },
     {
       "label": "Day 2",
-      "title": "Sunrise and tea country",
-      "text": "Pre-dawn drive to Tiger Hill for the Kanchenjunga sunrise (weather permitting), then Batasia Loop and Ghum Monastery. Afternoon at a working tea estate."
+      "title": "Darjeeling Full Day Heritage & Nature Sightseeing",
+      "text": "Comprehensive city tour visiting Padmaja Naidu Himalayan Zoological Park (Red Panda & Snow Leopard sanctuary), Himalayan Mountaineering Institute, Darjeeling Ropeway, Japanese Peace Pagoda, and Tibetan Refugee Centre."
     },
     {
       "label": "Day 3",
-      "title": "Toy train and heritage",
-      "text": "Morning joyride on the Darjeeling Himalayan Railway, then the zoo and the mountaineering institute. Evening free for cafes."
-    },
-    {
-      "label": "Day 4",
-      "title": "Departure",
-      "text": "A slow breakfast with a view, then a comfortable drop to NJP or Bagdogra."
+      "title": "Tiger Hill Sunrise & Drop to NJP / IXB",
+      "text": "Early morning drive to Tiger Hill (2,590 m) to witness the sunrise over Kanchenjunga. Visit Batasia Loop and Ghoom Monastery on the return, enjoy breakfast, and depart to NJP Railway Station or Bagdogra Airport."
     }
   ],
   "included": [
-    "Stay with daily breakfast",
-    "Private cab for all sightseeing",
-    "Toy train joyride ticket",
-    "Station and airport transfers"
+    "Private cab for all transfers and city sightseeing",
+    "2 Nights hotel accommodation in Darjeeling",
+    "Daily breakfast",
+    "Early morning Tiger Hill and Batasia Loop excursion",
+    "Railway station or Bagdogra Airport pickup and drop"
   ],
+  "photo": "https://etripto.in/uploads/0010/10032/2026/02/18/darjeeling-city.png",
   "plate": {
-    "seed": 3,
-    "px": 0.5,
-    "py": 0.5,
+    "seed": 7,
+    "px": 0.42,
+    "py": 0.58,
     "bg": ["#14324A", "#0E1A2B"]
   }
 }

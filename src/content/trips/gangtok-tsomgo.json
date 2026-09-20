@@ -1,50 +1,48 @@
 {
   "id": "gangtok-tsomgo",
-  "title": "Gangtok and Tsomgo Lake",
-  "destination": "Sikkim",
-  "nights": 4,
-  "pricePerPerson": 18900,
-  "highestPointMetres": 3780,
-  "tag": "",
-  "featured": false,
+  "title": "Gangtok & Nathula Pass Classic",
+  "destination": "Gangtok & East Sikkim",
+  "nights": 3,
+  "pricePerPerson": 8400,
+  "highestPointMetres": 4310,
+  "tag": "Bestseller",
+  "featured": true,
   "highlights": [
-    "Day trip to Tsomgo Lake",
-    "Rumtek Monastery",
-    "Evenings on MG Marg"
+    "Nathula Pass Indo-China Border at 14,140 ft",
+    "Glacial Tsomgo (Changu) Lake & Baba Mandir",
+    "Gangtok viewpoints: Hanuman Tok, Tashi & Ganesh Tok",
+    "Evening leisure walks on MG Marg"
   ],
   "days": [
     {
       "label": "Day 1",
-      "title": "Arrive in Gangtok",
-      "text": "Pickup from NJP or Bagdogra and a scenic drive to Gangtok. Evening on MG Marg."
+      "title": "NJP / IXB to Gangtok - Hill Drive & MG Marg",
+      "text": "Pickup from NJP Railway Station or Bagdogra Airport (IXB). Enjoy a 4-5 hour scenic drive along the Teesta River to Gangtok. Check into your hotel and spend the evening soaking in the mountain atmosphere on MG Marg."
     },
     {
       "label": "Day 2",
-      "title": "Tsomgo Lake and Baba Mandir",
-      "text": "Full-day excursion to the high-altitude lake. We arrange the permits."
+      "title": "Nathula Pass, Tsomgo Lake & Baba Mandir Excursion",
+      "text": "Early morning drive to the Indo-China border at Nathula Pass (14,140 ft). Explore the sacred glacial Tsomgo (Changu) Lake and visit the revered Baba Harbhajan Singh Memorial Temple with permits pre-arranged."
     },
     {
       "label": "Day 3",
-      "title": "Monasteries and viewpoints",
-      "text": "Rumtek Monastery, Ganesh Tok and the Do-Drul Chorten, with time for momos."
+      "title": "Gangtok Full Day Sightseeing & Culture Tour",
+      "text": "Comprehensive city sightseeing visiting Hanuman Tok, Ganesh Tok, Tashi Viewpoint, Bakthang Waterfalls, Do-Drul Chorten, Gonjang Monastery, the Flower Exhibition Centre, and the Gangtok Ropeway ride."
     },
     {
       "label": "Day 4",
-      "title": "Ropeway and leisure",
-      "text": "Gangtok ropeway, the flower exhibition centre and a free afternoon."
-    },
-    {
-      "label": "Day 5",
-      "title": "Departure",
-      "text": "Breakfast, then a drop to NJP or Bagdogra."
+      "title": "Gangtok to NJP / IXB Departure",
+      "text": "Breakfast with valley views, followed by your transfer back to NJP Railway Station or Bagdogra Airport with cherished memories of Sikkim."
     }
   ],
   "included": [
-    "Hotel with breakfast and dinner",
-    "Private cab",
-    "Sikkim permits arranged",
-    "Station and airport transfers"
+    "Private cab (Innova / Xylo / Scorpio) for all 4 days",
+    "3 Nights hotel accommodation in Gangtok",
+    "Daily breakfast and dinner",
+    "Nathula Pass & East Sikkim restricted area permits",
+    "Station / Airport pick-up and drop-off"
   ],
+  "photo": "https://etripto.in/uploads/0000/1/2024/07/12/nathulapass.jpg",
   "plate": {
     "seed": 11,
     "px": 0.62,
