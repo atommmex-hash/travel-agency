@@ -37,6 +37,19 @@ img, svg {
   max-width: 100%;
 }
 
+.i {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
 p {
   margin: 0;
 }

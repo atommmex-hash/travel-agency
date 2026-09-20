@@ -155,16 +155,19 @@ const savings = originalPrice - trip.pricePerPerson;
     overflow: hidden;
   }
 
-  :global(.card-media svg) {
+  :global(.card-media > svg),
+  :global(.card-media .plate-canvas) {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
   }
 
   .card-media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
   }
 
   .media-overlay-top {
@@ -174,22 +177,34 @@ const savings = originalPrice - trip.pricePerPerson;
     justify-content: space-between;
     align-items: center;
     z-index: 2;
+    pointer-events: none;
+  }
+
+  .media-overlay-top > * {
+    pointer-events: auto;
   }
 
   .badge-tag {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 800;
-    padding: 0.3rem 0.65rem;
+    padding: 0.25rem 0.65rem;
     border-radius: var(--r-pill);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+    line-height: 1.2;
+    white-space: nowrap;
+    width: auto;
+    height: auto;
   }
 
   .badge-svg {
-    width: 13px;
-    height: 13px;
+    width: 12px !important;
+    height: 12px !important;
+    max-width: 12px;
+    max-height: 12px;
+    flex-shrink: 0;
   }
 
   .deal-flame {
@@ -209,15 +224,25 @@ const savings = originalPrice - trip.pricePerPerson;
   }
 
   .heart-circle {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     display: grid;
     place-items: center;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     color: var(--text-main);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: all 0.15s;
+    flex-shrink: 0;
+  }
+
+  .heart-circle .i,
+  .heart-circle svg {
+    width: 18px !important;
+    height: 18px !important;
+    max-width: 18px;
+    max-height: 18px;
+    flex-shrink: 0;
   }
 
   .heart-circle:hover {
@@ -237,6 +262,11 @@ const savings = originalPrice - trip.pricePerPerson;
     justify-content: space-between;
     align-items: center;
     z-index: 2;
+    pointer-events: none;
+  }
+
+  .media-overlay-bottom > * {
+    pointer-events: auto;
   }
 
   .alt-chip,
@@ -244,18 +274,25 @@ const savings = originalPrice - trip.pricePerPerson;
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 800;
     color: #ffffff;
     background: rgba(0, 15, 35, 0.75);
     backdrop-filter: blur(6px);
-    padding: 0.25rem 0.6rem;
+    padding: 0.25rem 0.55rem;
     border-radius: var(--r-s);
+    line-height: 1.2;
+    white-space: nowrap;
+    width: auto;
+    height: auto;
   }
 
   .chip-svg {
-    width: 13px;
-    height: 13px;
+    width: 12px !important;
+    height: 12px !important;
+    max-width: 12px;
+    max-height: 12px;
+    flex-shrink: 0;
     color: currentColor;
   }
 

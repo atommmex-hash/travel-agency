@@ -115,7 +115,7 @@ export function generatePlateSvg(opts: PlateOptions): string {
 
   const marker = `<path d="M${cx},${cy - 7}l6,11h-12z" fill="#F2B53A"/><text x="${cx + 12}" y="${cy + 4}" fill="#fff" font-size="13" font-weight="700" paint-order="stroke" stroke="#0E1A2B" stroke-width="5" stroke-linejoin="round">${formatMetres(opts.alt)}</text>`;
 
-  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  return `<svg class="plate-canvas" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
   <defs>
     <linearGradient id="${gradId}" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="${opts.bg[0]}"/>
