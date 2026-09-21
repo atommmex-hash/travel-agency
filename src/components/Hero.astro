@@ -208,8 +208,9 @@ const { headline = 'Explore Mountain Holidays' } = Astro.props;
     position: relative;
     background: linear-gradient(145deg, #0056C6 0%, #008CFF 60%, #38B6FF 100%);
     color: #ffffff;
-    padding: clamp(1.25rem, 3vw, 2rem) 0 clamp(2.5rem, 4.5vw, 4rem);
-    overflow: hidden;
+    padding: clamp(1.25rem, 3vw, 2rem) 0 clamp(3.5rem, 6vw, 5rem);
+    overflow: visible;
+    z-index: 10;
   }
 
   .hero-bg {
@@ -271,6 +272,8 @@ const { headline = 'Explore Mountain Holidays' } = Astro.props;
     box-shadow: 0 20px 50px rgba(0, 45, 110, 0.22);
     padding: 0.75rem 1.5rem 1.5rem;
     text-align: left;
+    position: relative;
+    z-index: 30;
   }
 
   .search-tabs {
@@ -349,6 +352,7 @@ const { headline = 'Explore Mountain Holidays' } = Astro.props;
     background: #ffffff;
     box-shadow: 0 4px 16px rgba(0, 140, 255, 0.18);
     border-radius: var(--r-s) var(--r-s) 0 0;
+    z-index: 60;
   }
 
   .field-content {
@@ -404,16 +408,20 @@ const { headline = 'Explore Mountain Holidays' } = Astro.props;
     left: 0;
     min-width: 270px;
     max-width: 320px;
+    max-height: min(380px, 70vh);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     background: #ffffff;
     border-radius: var(--r-m);
     border: 1px solid var(--border-subtle);
-    box-shadow: 0 16px 36px rgba(0, 35, 90, 0.18);
+    box-shadow: 0 18px 42px rgba(0, 35, 90, 0.22);
     padding: 0.4rem;
     z-index: 100;
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
     animation: dropFade 0.15s ease-out;
+    scrollbar-width: thin;
   }
 
   #dropdownBudget {
