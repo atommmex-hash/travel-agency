@@ -30,8 +30,7 @@ A fast, accessible, static website for a regional travel agency, designed for hi
 ├── src/
 │   ├── components/          # Semantic Astro components
 │   │   ├── Header.astro     # Fixed header with blur backdrop and mobile overlay
-│   │   ├── Hero.astro       # Topographic contour draw-in with reduced-motion fallback
-│   │   ├── TripFilters.astro# Destination, duration, and budget controls
+│   │   ├── Hero.astro       # MMT-style floating search card & destination filter controls
 │   │   ├── TripCard.astro   # Card with elevation bar, highlights, and price
 │   │   ├── TripDialog.astro # Accessible <dialog> sheet with day-by-day accordion & estimator
 │   │   ├── SavedDialog.astro# Shortlist modal with WhatsApp sharing

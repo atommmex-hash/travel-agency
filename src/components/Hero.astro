@@ -30,53 +30,141 @@ const { headline, lead, peakName, peakMetres, finePrint, whatsappUrl } = Astro.p
     <!-- MMT-Style Floating Search & Filter Box -->
     <div class="search-card" role="search" aria-label="Find packages">
       <div class="search-tabs" role="tablist">
-        <button class="search-tab active" data-dest-pick="All" role="tab" aria-selected="true">
+        <button type="button" class="search-tab active" data-dest-pick="All" role="tab" aria-selected="true">
           <svg class="i tab-svg" aria-hidden="true"><use href="#i-sparkle"></use></svg>
           <span>All Packages</span>
         </button>
-        <button class="search-tab" data-dest-pick="Darjeeling" role="tab" aria-selected="false">
+        <button type="button" class="search-tab" data-dest-pick="Darjeeling" role="tab" aria-selected="false">
           <svg class="i tab-svg" aria-hidden="true"><use href="#i-compass"></use></svg>
           <span>Darjeeling</span>
         </button>
-        <button class="search-tab" data-dest-pick="Sikkim" role="tab" aria-selected="false">
+        <button type="button" class="search-tab" data-dest-pick="Sikkim" role="tab" aria-selected="false">
           <svg class="i tab-svg" aria-hidden="true"><use href="#i-mountain"></use></svg>
           <span>Sikkim</span>
         </button>
-        <button class="search-tab" data-dest-pick="Dooars" role="tab" aria-selected="false">
+        <button type="button" class="search-tab" data-dest-pick="North Sikkim" role="tab" aria-selected="false">
           <svg class="i tab-svg" aria-hidden="true"><use href="#i-pin"></use></svg>
-          <span>Dooars Jungle</span>
+          <span>North Sikkim</span>
         </button>
-        <button class="search-tab" data-dest-pick="Offbeat" role="tab" aria-selected="false">
+        <button type="button" class="search-tab" data-dest-pick="Kalimpong" role="tab" aria-selected="false">
           <svg class="i tab-svg" aria-hidden="true"><use href="#i-home"></use></svg>
           <span>Homestays</span>
         </button>
       </div>
 
       <div class="search-fields">
-        <div class="field-box">
-          <span class="field-label">DESTINATION</span>
-          <span class="field-value" id="heroDestVal">All Destinations</span>
-          <span class="field-sub">Darjeeling, Gangtok, Pelling & more</span>
+        <!-- DESTINATION FIELD -->
+        <div class="field-box" id="fieldBoxDest" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" aria-label="Select Destination">
+          <div class="field-content">
+            <span class="field-label">DESTINATION</span>
+            <div class="field-value-row">
+              <span class="field-value" id="heroDestVal">All Destinations</span>
+              <svg class="i chev-svg" aria-hidden="true"><use href="#i-chev"></use></svg>
+            </div>
+            <span class="field-sub" id="heroDestSub">Darjeeling, Gangtok, Pelling & more</span>
+          </div>
+
+          <div class="field-dropdown" id="dropdownDest" role="listbox" hidden>
+            <button type="button" class="dropdown-item active" data-dest="All" role="option">
+              <b>All Destinations</b>
+              <span>Darjeeling, Gangtok, Pelling, Kalimpong</span>
+            </button>
+            <button type="button" class="dropdown-item" data-dest="Gangtok" role="option">
+              <b>Gangtok & East Sikkim</b>
+              <span>Tsomgo Lake, Nathula Pass, MG Marg</span>
+            </button>
+            <button type="button" class="dropdown-item" data-dest="North Sikkim" role="option">
+              <b>North Sikkim</b>
+              <span>Gurudongmar Lake, Lachen, Yumthang</span>
+            </button>
+            <button type="button" class="dropdown-item" data-dest="Darjeeling" role="option">
+              <b>Darjeeling</b>
+              <span>Tiger Hill Sunrise, Toy Train, Chowrasta</span>
+            </button>
+            <button type="button" class="dropdown-item" data-dest="Pelling" role="option">
+              <b>West Sikkim & Pelling</b>
+              <span>Glass Skywalk, Rabdentse, Buddha Park</span>
+            </button>
+            <button type="button" class="dropdown-item" data-dest="Kalimpong" role="option">
+              <b>Kalimpong & Mirik</b>
+              <span>Pine trails, Lamahatta, quiet homestays</span>
+            </button>
+          </div>
         </div>
 
         <div class="field-divider"></div>
 
-        <div class="field-box">
-          <span class="field-label">TRIP DURATION</span>
-          <span class="field-value" id="heroDurVal">Any Length</span>
-          <span class="field-sub">Weekend 2N to Grand 6N+</span>
+        <!-- TRIP DURATION FIELD -->
+        <div class="field-box" id="fieldBoxDur" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" aria-label="Select Trip Duration">
+          <div class="field-content">
+            <span class="field-label">TRIP DURATION</span>
+            <div class="field-value-row">
+              <span class="field-value" id="heroDurVal">Any Length</span>
+              <svg class="i chev-svg" aria-hidden="true"><use href="#i-chev"></use></svg>
+            </div>
+            <span class="field-sub" id="heroDurSub">Weekend 2N to Grand 6N+</span>
+          </div>
+
+          <div class="field-dropdown" id="dropdownDur" role="listbox" hidden>
+            <button type="button" class="dropdown-item active" data-dur="any" role="option">
+              <b>Any Length</b>
+              <span>All package durations</span>
+            </button>
+            <button type="button" class="dropdown-item" data-dur="short" role="option">
+              <b>Weekend (2–3 Nights)</b>
+              <span>Quick getaways & short escapes</span>
+            </button>
+            <button type="button" class="dropdown-item" data-dur="mid" role="option">
+              <b>Popular (4–5 Nights)</b>
+              <span>Standard family & couple trips</span>
+            </button>
+            <button type="button" class="dropdown-item" data-dur="long" role="option">
+              <b>Expedition (6+ Nights)</b>
+              <span>In-depth mountain explorations</span>
+            </button>
+          </div>
         </div>
 
         <div class="field-divider"></div>
 
-        <div class="field-box">
-          <span class="field-label">BUDGET PER PERSON</span>
-          <span class="field-value" id="heroBudgetVal">Flexible</span>
-          <span class="field-sub">From ₹8,900 to ₹35,000</span>
+        <!-- BUDGET PER PERSON FIELD -->
+        <div class="field-box" id="fieldBoxBudget" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" aria-label="Select Budget">
+          <div class="field-content">
+            <span class="field-label">BUDGET PER PERSON</span>
+            <div class="field-value-row">
+              <span class="field-value" id="heroBudgetVal">Flexible</span>
+              <svg class="i chev-svg" aria-hidden="true"><use href="#i-chev"></use></svg>
+            </div>
+            <span class="field-sub" id="heroBudgetSub">From ₹7,500 to ₹35,000+</span>
+          </div>
+
+          <div class="field-dropdown" id="dropdownBudget" role="listbox" hidden>
+            <button type="button" class="dropdown-item active" data-budget="35000" role="option">
+              <b>Flexible (All Budgets)</b>
+              <span>Show all packages</span>
+            </button>
+            <button type="button" class="dropdown-item" data-budget="10000" role="option">
+              <b>Under ₹10,000</b>
+              <span>Budget friendly mountain escapes</span>
+            </button>
+            <button type="button" class="dropdown-item" data-budget="15000" role="option">
+              <b>Under ₹15,000</b>
+              <span>Popular mid-range tours</span>
+            </button>
+            <button type="button" class="dropdown-item" data-budget="20000" role="option">
+              <b>Under ₹20,000</b>
+              <span>Comprehensive multi-day tours</span>
+            </button>
+            <button type="button" class="dropdown-item" data-budget="35000" role="option">
+              <b>Above ₹20,000</b>
+              <span>Grand expeditions & signature stays</span>
+            </button>
+          </div>
         </div>
 
-        <a class="btn btn-gold search-btn" href="#trips" id="heroSearchTrigger">
-          <svg class="i" aria-hidden="true" style="stroke-width:2.5">
+        <!-- SEARCH BUTTON -->
+        <a class="btn btn-gold search-btn" href="#trips" id="heroSearchTrigger" aria-label="Search Holidays">
+          <svg class="i search-btn-svg" aria-hidden="true">
             <circle cx="11" cy="11" r="7" />
             <path d="M21 21L16.65 16.65" />
           </svg>
@@ -87,10 +175,10 @@ const { headline, lead, peakName, peakMetres, finePrint, whatsappUrl } = Astro.p
       <div class="search-pills-row">
         <span class="pills-label">Popular Searches:</span>
         <div class="pills-list">
-          <button class="mini-pill" data-quick-dest="Darjeeling">Tiger Hill Sunrise</button>
-          <button class="mini-pill" data-quick-dest="Sikkim">Tsomgo Lake</button>
-          <button class="mini-pill" data-quick-dest="Dooars">Gorumara Safari</button>
-          <button class="mini-pill" data-quick-dest="Offbeat">Kalimpong Homestay</button>
+          <button type="button" class="mini-pill" data-quick-dest="Darjeeling">Tiger Hill Sunrise</button>
+          <button type="button" class="mini-pill" data-quick-dest="Gangtok">Tsomgo Lake</button>
+          <button type="button" class="mini-pill" data-quick-dest="North Sikkim">Gurudongmar Lake</button>
+          <button type="button" class="mini-pill" data-quick-dest="Kalimpong">Kalimpong Homestay</button>
         </div>
       </div>
     </div>
@@ -280,31 +368,137 @@ const { headline, lead, peakName, peakMetres, finePrint, whatsappUrl } = Astro.p
   }
 
   .field-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0.65rem;
+    border-radius: var(--r-s);
+    cursor: pointer;
+    transition: background 0.15s, box-shadow 0.15s;
+    user-select: none;
+    outline: none;
+  }
+
+  .field-box:hover,
+  .field-box:focus-visible {
+    background: #EBF8FF;
+  }
+
+  .field-box.open {
+    background: #ffffff;
+    box-shadow: 0 4px 16px rgba(0, 140, 255, 0.18);
+    border-radius: var(--r-s) var(--r-s) 0 0;
+  }
+
+  .field-content {
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
-    cursor: pointer;
   }
 
   .field-label {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 800;
     color: var(--primary);
     letter-spacing: 0.05em;
   }
 
+  .field-value-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+  }
+
   .field-value {
-    font-size: 1.15rem;
+    font-size: 1.12rem;
     font-weight: 800;
     color: var(--text-main);
+    line-height: 1.2;
+  }
+
+  .chev-svg {
+    width: 14px;
+    height: 14px;
+    color: var(--primary);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .field-box.open .chev-svg {
+    transform: rotate(180deg);
   }
 
   .field-sub {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--text-light);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .field-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    min-width: 270px;
+    max-width: 320px;
+    background: #ffffff;
+    border-radius: var(--r-m);
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 16px 36px rgba(0, 35, 90, 0.18);
+    padding: 0.4rem;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    animation: dropFade 0.15s ease-out;
+  }
+
+  #dropdownBudget {
+    right: 0;
+    left: auto;
+  }
+
+  @keyframes dropFade {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .dropdown-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--r-s);
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.12s;
+    width: 100%;
+  }
+
+  .dropdown-item:hover,
+  .dropdown-item:focus-visible {
+    background: var(--primary-light);
+    outline: none;
+  }
+
+  .dropdown-item.active {
+    background: #EBF8FF;
+    border-left: 3px solid var(--primary);
+  }
+
+  .dropdown-item b {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: var(--text-main);
+  }
+
+  .dropdown-item span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
   }
 
   .field-divider {
@@ -320,6 +514,16 @@ const { headline, lead, peakName, peakMetres, finePrint, whatsappUrl } = Astro.p
     letter-spacing: 0.02em;
     box-shadow: 0 6px 18px rgba(255, 109, 0, 0.4);
     white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .search-btn-svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.5;
   }
 
   .search-pills-row {
@@ -398,6 +602,12 @@ const { headline, lead, peakName, peakMetres, finePrint, whatsappUrl } = Astro.p
     }
     .field-divider {
       display: none;
+    }
+    .field-dropdown, #dropdownBudget {
+      left: 0;
+      right: 0;
+      min-width: 100%;
+      max-width: 100%;
     }
     .search-btn {
       width: 100%;

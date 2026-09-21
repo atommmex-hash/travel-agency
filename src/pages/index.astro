@@ -5,7 +5,6 @@ import '../styles/base.css';
 import Icons from '../components/Icons.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import TripFilters from '../components/TripFilters.astro';
 import TripCard from '../components/TripCard.astro';
 import BookingAndWhy from '../components/BookingAndWhy.astro';
 import Stories from '../components/Stories.astro';
@@ -86,7 +85,27 @@ const schemaJson = JSON.stringify({
         <p class="lead">Every package includes private mountain transfers, verified hotel stays, and entry permits.</p>
       </div>
 
-      <TripFilters destinations={destinations} />
+      <!-- Results status bar (Replacing duplicate second filter card) -->
+      <div class="results-bar">
+        <div class="results-info">
+          <span class="count-indicator"></span>
+          <span id="count" role="status" aria-live="polite">{trips.length} packages available</span>
+          <span id="activeFilterBadge" class="active-filter-badge" hidden></span>
+        </div>
+        <button type="button" class="btn-reset-filters" id="btnResetFilters" hidden>
+          <svg class="i reset-svg" aria-hidden="true"><use href="#i-refresh"/></svg>
+          <span>Clear All Filters</span>
+        </button>
+      </div>
+
+      <div class="empty-state" id="empty" hidden>
+        <div class="empty-icon-wrap">
+          <svg class="i empty-svg" aria-hidden="true"><use href="#i-compass"/></svg>
+        </div>
+        <h3>No packages match your search</h3>
+        <p>Try widening your duration or budget in the search box above to explore more mountain trips.</p>
+        <button type="button" class="btn btn-primary" id="btnResetEmpty">Show All Packages</button>
+      </div>
 
       <div class="grid" id="grid">
         {trips.map((trip, idx) => (
@@ -289,60 +308,119 @@ const schemaJson = JSON.stringify({
         </article>`;
       }
 
+      const destOk = (t) => {
+        if (state.dest === 'All') return true;
+        const d = state.dest.toLowerCase();
+        const td = (t.destination || '').toLowerCase();
+        const tt = (t.title || '').toLowerCase();
+        return td.includes(d) || tt.includes(d);
+      };
+
       function renderTrips() {
         const list = TRIPS.filter(
-          (t) =>
-            (state.dest === 'All' || t.destination === state.dest) &&
-            durOk(t.nights) &&
-            t.pricePerPerson <= state.max
+          (t) => destOk(t) && durOk(t.nights) && t.pricePerPerson <= state.max
         );
         $('#grid').innerHTML = list.map(cardHTML).join('');
-        $('#count').textContent = list.length
-          ? `${list.length} package${list.length > 1 ? 's' : ''} available`
-          : '0 packages match';
-        $('#empty').hidden = list.length > 0;
 
-        // Sync hero display labels
+        if ($('#count')) {
+          $('#count').textContent = list.length
+            ? `${list.length} package${list.length > 1 ? 's' : ''} available`
+            : '0 packages match';
+        }
+        if ($('#empty')) {
+          $('#empty').hidden = list.length > 0;
+        }
+
+        const hasFilter = state.dest !== 'All' || state.dur !== 'any' || state.max < 35000;
+        const resetBtn = $('#btnResetFilters');
+        const badge = $('#activeFilterBadge');
+        if (resetBtn) resetBtn.hidden = !hasFilter;
+        if (badge) {
+          if (hasFilter) {
+            const parts = [];
+            if (state.dest !== 'All') parts.push(state.dest);
+            if (state.dur === 'short') parts.push('2-3 Nights');
+            if (state.dur === 'mid') parts.push('4-5 Nights');
+            if (state.dur === 'long') parts.push('6+ Nights');
+            if (state.max < 35000) parts.push(`Up to ${fmt(state.max)}`);
+            badge.textContent = `Filtered: ${parts.join(' • ')}`;
+            badge.hidden = false;
+          } else {
+            badge.hidden = true;
+          }
+        }
+
+        updateSearchCardUI();
+      }
+
+      function updateSearchCardUI() {
+        // Destination field
         if ($('#heroDestVal')) {
           $('#heroDestVal').textContent = state.dest === 'All' ? 'All Destinations' : state.dest;
         }
-        if ($('#heroDurVal')) {
-          const durMap = { any: 'Any Length', short: 'Weekend (2–3N)', mid: 'Popular (4–5N)', long: 'Expedition (6N+)' };
-          $('#heroDurVal').textContent = durMap[state.dur] || 'Any Length';
+        $$('#dropdownDest .dropdown-item').forEach((item) => {
+          const match = item.dataset.dest === state.dest;
+          item.classList.toggle('active', match);
+          item.setAttribute('aria-selected', String(match));
+        });
+
+        // Duration field
+        const durLabels = {
+          any: { title: 'Any Length', sub: 'Weekend 2N to Grand 6N+' },
+          short: { title: 'Weekend (2–3N)', sub: 'Quick getaways & short escapes' },
+          mid: { title: 'Popular (4–5N)', sub: 'Standard family & couple trips' },
+          long: { title: 'Expedition (6N+)', sub: 'In-depth mountain explorations' }
+        };
+        const curDur = durLabels[state.dur] || durLabels.any;
+        if ($('#heroDurVal')) $('#heroDurVal').textContent = curDur.title;
+        if ($('#heroDurSub')) $('#heroDurSub').textContent = curDur.sub;
+        $$('#dropdownDur .dropdown-item').forEach((item) => {
+          const match = item.dataset.dur === state.dur;
+          item.classList.toggle('active', match);
+          item.setAttribute('aria-selected', String(match));
+        });
+
+        // Budget field
+        if ($('#heroBudgetVal')) {
+          $('#heroBudgetVal').textContent = state.max >= 35000 ? 'Flexible' : 'Up to ' + fmt(state.max);
         }
+        if ($('#heroBudgetSub')) {
+          $('#heroBudgetSub').textContent = state.max >= 35000 ? 'From ₹7,500 to ₹35,000+' : `Packages within ${fmt(state.max)}`;
+        }
+        $$('#dropdownBudget .dropdown-item').forEach((item) => {
+          const bVal = Number(item.dataset.budget);
+          const match = state.max === bVal || (state.max >= 35000 && bVal >= 35000);
+          item.classList.toggle('active', match);
+          item.setAttribute('aria-selected', String(match));
+        });
+
+        // Tabs
+        $$('.search-tab').forEach((tab) => {
+          const tabDest = tab.dataset.destPick;
+          let match = false;
+          if (tabDest === 'All' && state.dest === 'All') match = true;
+          else if (tabDest !== 'All' && state.dest.toLowerCase().includes(tabDest.toLowerCase())) match = true;
+          tab.classList.toggle('active', match);
+          tab.setAttribute('aria-selected', String(match));
+        });
+
+        // Popular pills
+        $$('.mini-pill').forEach((pill) => {
+          const pillDest = pill.dataset.quickDest;
+          const match = state.dest.toLowerCase().includes(pillDest.toLowerCase());
+          pill.classList.toggle('active', match);
+        });
       }
 
       function setDestination(dest) {
         state.dest = dest;
-        $$('#destChips .chip').forEach((c) => c.setAttribute('aria-pressed', c.dataset.v === dest));
-        $$('.search-tab').forEach((t) => {
-          const match = t.dataset.destPick === dest;
-          t.classList.toggle('active', match);
-          t.setAttribute('aria-selected', String(match));
-        });
         renderTrips();
-      }
-
-      function budgetLabel() {
-        $('#budgetOut').textContent = state.max >= 35000 ? 'Any' : 'Up to ' + fmt(state.max);
-        if ($('#heroBudgetVal')) {
-          $('#heroBudgetVal').textContent = state.max >= 35000 ? 'Flexible' : 'Up to ' + fmt(state.max);
-        }
       }
 
       function resetFilters() {
         state.dest = 'All';
         state.dur = 'any';
         state.max = 35000;
-        $('#budget').value = 35000;
-        budgetLabel();
-        $$('#destChips .chip').forEach((c) => c.setAttribute('aria-pressed', c.dataset.v === 'All'));
-        $$('#durChips .chip').forEach((c) => c.setAttribute('aria-pressed', c.dataset.v === 'any'));
-        $$('.search-tab').forEach((t) => {
-          const match = t.dataset.destPick === 'All';
-          t.classList.toggle('active', match);
-          t.setAttribute('aria-selected', String(match));
-        });
         renderTrips();
       }
 
@@ -514,6 +592,7 @@ const schemaJson = JSON.stringify({
         // Hero Search Tabs click
         const tab = e.target.closest('[data-dest-pick]');
         if (tab) {
+          closeAllDropdowns();
           setDestination(tab.dataset.destPick);
           return;
         }
@@ -521,27 +600,82 @@ const schemaJson = JSON.stringify({
         // Hero quick pills
         const qPill = e.target.closest('[data-quick-dest]');
         if (qPill) {
+          closeAllDropdowns();
           setDestination(qPill.dataset.quickDest);
           document.getElementById('trips')?.scrollIntoView({ behavior: 'smooth' });
           return;
         }
+
+        // Dropdown item selection inside Hero search card
+        const dItem = e.target.closest('.dropdown-item');
+        if (dItem) {
+          if (dItem.dataset.dest !== undefined) {
+            state.dest = dItem.dataset.dest;
+          } else if (dItem.dataset.dur !== undefined) {
+            state.dur = dItem.dataset.dur;
+          } else if (dItem.dataset.budget !== undefined) {
+            state.max = Number(dItem.dataset.budget);
+          }
+          closeAllDropdowns();
+          renderTrips();
+          return;
+        }
+
+        // Hero field box toggle
+        const fBox = e.target.closest('.field-box');
+        if (fBox) {
+          const wasOpen = fBox.classList.contains('open');
+          closeAllDropdowns();
+          if (!wasOpen) {
+            fBox.classList.add('open');
+            fBox.setAttribute('aria-expanded', 'true');
+            const dd = fBox.querySelector('.field-dropdown');
+            if (dd) dd.hidden = false;
+          }
+          return;
+        }
+
+        // Clicking outside any field box or dropdown closes all dropdowns
+        closeAllDropdowns();
       });
 
-      // Destination chips click
-      $('#destChips')?.addEventListener('click', (e) => {
-        const b = e.target.closest('.chip');
-        if (!b) return;
-        setDestination(b.dataset.v);
+      function closeAllDropdowns() {
+        $$('.field-box').forEach((box) => {
+          box.classList.remove('open');
+          box.setAttribute('aria-expanded', 'false');
+          const dd = box.querySelector('.field-dropdown');
+          if (dd) dd.hidden = true;
+        });
+      }
+
+      // Keyboard support for field boxes (Enter / Space to toggle)
+      $$('.field-box').forEach((box) => {
+        box.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const wasOpen = box.classList.contains('open');
+            closeAllDropdowns();
+            if (!wasOpen) {
+              box.classList.add('open');
+              box.setAttribute('aria-expanded', 'true');
+              const dd = box.querySelector('.field-dropdown');
+              if (dd) {
+                dd.hidden = false;
+                dd.querySelector('button')?.focus();
+              }
+            }
+          }
+        });
       });
 
-      // Duration chips click
-      $('#durChips')?.addEventListener('click', (e) => {
-        const b = e.target.closest('.chip');
-        if (!b) return;
-        state.dur = b.dataset.v;
-        $$('.chip', '#durChips').forEach((c) => c.setAttribute('aria-pressed', c === b));
-        renderTrips();
+      // Search Holidays CTA button
+      $('#heroSearchTrigger')?.addEventListener('click', () => {
+        closeAllDropdowns();
       });
+
+      // Reset filters from results status bar or empty state
+      $('#btnResetFilters')?.addEventListener('click', resetFilters);
+      $('#btnResetEmpty')?.addEventListener('click', resetFilters);
 
       tripDlg.addEventListener('change', (e) => {
         if (e.target.name === 'tier') {
@@ -561,13 +695,6 @@ const schemaJson = JSON.stringify({
 
       $('#dockSaved')?.addEventListener('click', openSaved);
       $('#hdrSaved')?.addEventListener('click', openSaved);
-      $('#budget')?.addEventListener('input', (e) => {
-        state.max = Number(e.target.value);
-        budgetLabel();
-        renderTrips();
-      });
-      $('#resetF')?.addEventListener('click', resetFilters);
-      $('#resetFEmpty')?.addEventListener('click', resetFilters);
 
       /* Mobile menu toggle */
       const nav = $('#nav');
@@ -641,7 +768,7 @@ const schemaJson = JSON.stringify({
       });
 
       /* Initialize */
-      budgetLabel();
+      renderTrips();
       syncSaved();
     })();
   </script>
@@ -663,6 +790,122 @@ const schemaJson = JSON.stringify({
     border-radius: var(--r-pill);
     margin-bottom: 0.6rem;
     letter-spacing: 0.05em;
+  }
+
+  .results-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.85rem 1.25rem;
+    background: #ffffff;
+    border: 1.5px solid var(--border-subtle);
+    border-radius: var(--r-m);
+    box-shadow: 0 2px 10px rgba(0, 50, 120, 0.04);
+    margin-bottom: 1rem;
+  }
+
+  .results-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .count-indicator {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #06D6A0;
+    display: inline-block;
+    box-shadow: 0 0 0 3px rgba(6, 214, 160, 0.22);
+    flex-shrink: 0;
+  }
+
+  #count {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--text-main);
+  }
+
+  .active-filter-badge {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    background: var(--primary-light);
+    padding: 0.22rem 0.7rem;
+    border-radius: var(--r-pill);
+    border: 1px solid rgba(0, 140, 255, 0.2);
+  }
+
+  .btn-reset-filters {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #EF476F;
+    background: #FFF0F3;
+    border: 1px solid #FFD1DC;
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--r-pill);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-reset-filters:hover {
+    background: #FFE0E6;
+    color: #D62246;
+    border-color: #FFAEC0;
+  }
+
+  .reset-svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3.5rem 1.5rem;
+    background: #ffffff;
+    border: 2px dashed var(--border-subtle);
+    border-radius: var(--r-l);
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .empty-icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .empty-svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .empty-state h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+  }
+
+  .empty-state p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    max-width: 480px;
+    margin: 0 auto 1.5rem;
   }
 
   .grid {
