@@ -1,5 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import { siteData } from '../lib/content';
+import bannerNorthSikkim from '../assets/banners/banner-north-sikkim.jpg';
+import bannerDarjeeling from '../assets/banners/banner-darjeeling.jpg';
+import bannerPelling from '../assets/banners/banner-pelling.jpg';
+import bannerTsomgo from '../assets/banners/banner-tsomgo.jpg';
 
 interface Props {
   whatsappPhone?: string;
@@ -18,7 +23,7 @@ const banners = [
     perks: ['Dedicated Mountain 4x4 SUV', '100% Arranged Army Permits', '5N/6D All Meals in Hills'],
     price: '₹14,400',
     mrp: '₹17,500',
-    image: '/images/banners/banner-north-sikkim.jpg',
+    image: bannerNorthSikkim,
     alt: 'Scenic mountain road expedition to North Sikkim and Gurudongmar lake'
   },
   {
@@ -31,7 +36,7 @@ const banners = [
     perks: ['Private Sightseeing Cab', 'Batasia Loop & Ghoom Monastery', '2N/3D Daily Breakfast'],
     price: '₹7,500',
     mrp: '₹9,000',
-    image: '/images/banners/banner-darjeeling.jpg',
+    image: bannerDarjeeling,
     alt: 'Vintage steam toy train through green Darjeeling tea gardens with snowy peaks'
   },
   {
@@ -44,7 +49,7 @@ const banners = [
     perks: ['Complete 7N/8D Mountain Circuit', 'Dedicated Private Cab', 'Breakfast & Dinner'],
     price: '₹21,500',
     mrp: '₹25,800',
-    image: '/images/banners/banner-pelling.jpg',
+    image: bannerPelling,
     alt: 'Golden Buddha statue and monastery in Pelling overlooking Kanchenjunga'
   },
   {
@@ -57,7 +62,7 @@ const banners = [
     perks: ['Guaranteed Border Permits', 'Scorpio / Innova Sightseeing', '3N/4D MG Marg Stays'],
     price: '₹8,400',
     mrp: '₹10,500',
-    image: '/images/banners/banner-tsomgo.jpg',
+    image: bannerTsomgo,
     alt: 'Glacial Tsomgo Lake with decorated yaks and snowy mountain pass'
   }
 ];
@@ -79,13 +84,13 @@ const waBase = `https://wa.me/${whatsappPhone}?text=`;
             data-slide-index={idx}
           >
             <div class="slide-media">
-              <img
+              <Image
                 src={b.image}
                 alt={b.alt}
                 loading={idx === 0 ? "eager" : "lazy"}
                 decoding="async"
-                width="1200"
-                height="560"
+                width={1200}
+                height={560}
               />
               <div class="slide-scrim"></div>
             </div>

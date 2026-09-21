@@ -5,6 +5,9 @@ export default defineConfig({
   output: 'static',
   site: 'https://himaltrails.example',
   compressHTML: true,
+  image: {
+    domains: ['images.unsplash.com']
+  },
   build: {
     format: 'directory'
   }

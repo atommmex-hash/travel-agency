@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import { generatePlateSvg, formatMetres } from '../lib/contours';
 import { formatINR } from '../lib/estimator';
 
@@ -34,7 +35,14 @@ const savings = originalPrice - trip.pricePerPerson;
 >
   <div class="card-media">
     {trip.photo ? (
-      <img src={trip.photo} alt={trip.title} loading="lazy" width="400" height="260" />
+      <Image
+        src={trip.photo}
+        alt={trip.title}
+        width={400}
+        height={260}
+        loading="lazy"
+        decoding="async"
+      />
     ) : (
       <Fragment set:html={plateSvg} />
     )}
