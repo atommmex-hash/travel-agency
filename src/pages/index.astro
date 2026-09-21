@@ -149,12 +149,6 @@ const schemaJson = JSON.stringify({
         whatsapp: siteData.whatsapp
       };
 
-      const TIERS = [
-        { n: 'Comfort', m: 1 },
-        { n: 'Premium', m: 1.35 },
-        { n: 'Luxury', m: 1.8 }
-      ];
-
       const TRIPS = trips;
 
       const $ = (s, r = document) => r.querySelector(s);
@@ -494,7 +488,7 @@ const schemaJson = JSON.stringify({
       const tripDlg = $('#tripDlg');
       const savedDlg = $('#savedDlg');
       let current = null;
-      let est = { n: 2, tier: 0 };
+      let est = { n: 2, rooms: 1 };
 
       function tripHTML(t) {
         return `<button class="x" data-close aria-label="Close">${ico('x')}</button>
@@ -520,20 +514,27 @@ const schemaJson = JSON.stringify({
           <aside class="est" aria-label="Trip estimate">
             <h3>Estimate Package Cost</h3>
             <div class="est-row">
-              <span id="lblTrav" style="font-weight:700">Number of Travellers</span>
+              <div class="est-row-label">
+                <span id="lblTrav" style="font-weight:700">Number of Travellers</span>
+                <small style="color:var(--text-muted);display:block;font-size:0.75rem">How many people?</small>
+              </div>
               <div class="stepper" role="group" aria-labelledby="lblTrav">
-                <button data-step="-1" aria-label="Fewer travellers">${ico('minus')}</button>
-                <output id="estN" aria-live="polite">2</output>
-                <button data-step="1" aria-label="More travellers">${ico('plus')}</button>
+                <button type="button" data-step-trav="-1" aria-label="Fewer travellers">${ico('minus')}</button>
+                <output id="estN" aria-live="polite">${est.n}</output>
+                <button type="button" data-step-trav="1" aria-label="More travellers">${ico('plus')}</button>
               </div>
             </div>
-            <fieldset class="tiers">
-              <legend>Hotel Stay Category</legend>
-              ${TIERS.map(
-                (x, i) =>
-                  `<label class="tier"><input type="radio" name="tier" value="${i}"${i === 0 ? ' checked': ''}><span>${x.n}</span></label>`
-              ).join('')}
-            </fieldset>
+            <div class="est-row">
+              <div class="est-row-label">
+                <span id="lblRooms" style="font-weight:700">Number of Rooms</span>
+                <small style="color:var(--text-muted);display:block;font-size:0.75rem">How many rooms needed?</small>
+              </div>
+              <div class="stepper" role="group" aria-labelledby="lblRooms">
+                <button type="button" data-step-room="-1" aria-label="Fewer rooms">${ico('minus')}</button>
+                <output id="estRooms" aria-live="polite">${est.rooms}</output>
+                <button type="button" data-step-room="1" aria-label="More rooms">${ico('plus')}</button>
+              </div>
+            </div>
             <div class="est-total">
               <span>Estimated Total (Twin Sharing)</span>
               <strong id="estTotal"></strong>
@@ -548,26 +549,39 @@ const schemaJson = JSON.stringify({
       function updateEst() {
         const t = current;
         if (!t) return;
-        const tier = TIERS[est.tier];
-        const per = Math.round((t.pricePerPerson * tier.m) / 100) * 100;
+        const per = t.pricePerPerson;
         const total = per * est.n;
-        $('#estN').textContent = est.n;
-        $('#estTotal').textContent = fmt(total);
-        $('#estPer').textContent = `${fmt(per)} per person (${tier.n} accommodation)`;
-        $('#estWa').href = wa(
-          `Hi ${CONFIG.brand}! I'm interested in the "${t.title}" package for ${est.n} traveller${est.n > 1 ? 's' : ''} (${tier.n} stay). Could you share availability and the final quote?`
-        );
-        $$('[data-step]', tripDlg).forEach(
-          (b) =>
-            (b.disabled =
-              (b.dataset.step === '-1' && est.n <= 1) || (b.dataset.step === '1' && est.n >= 12))
-        );
+        const nEl = $('#estN');
+        const rEl = $('#estRooms');
+        const totEl = $('#estTotal');
+        const perEl = $('#estPer');
+        const waEl = $('#estWa');
+
+        if (nEl) nEl.textContent = est.n;
+        if (rEl) rEl.textContent = est.rooms;
+        if (totEl) totEl.textContent = fmt(total);
+        if (perEl) {
+          perEl.textContent = `${fmt(per)} per person • ${est.n} Guest${est.n > 1 ? 's' : ''}, ${est.rooms} Room${est.rooms > 1 ? 's' : ''}`;
+        }
+        if (waEl) {
+          waEl.href = wa(
+            `Hi ${CONFIG.brand}! I'm interested in the "${t.title}" package for ${est.n} traveller${est.n > 1 ? 's' : ''} and ${est.rooms} room${est.rooms > 1 ? 's' : ''}. Could you share availability and the final quote?`
+          );
+        }
+        $$('[data-step-trav]', tripDlg).forEach((b) => {
+          const step = Number(b.dataset.stepTrav);
+          b.disabled = (step === -1 && est.n <= 1) || (step === 1 && est.n >= 16);
+        });
+        $$('[data-step-room]', tripDlg).forEach((b) => {
+          const step = Number(b.dataset.stepRoom);
+          b.disabled = (step === -1 && est.rooms <= 1) || (step === 1 && (est.rooms >= est.n || est.rooms >= 8));
+        });
       }
 
       function openTrip(id) {
         current = TRIPS.find((t) => t.id === id);
         if (!current) return;
-        est = { n: 2, tier: 0 };
+        est = { n: 2, rooms: 1 };
         $('#tripBody').innerHTML = tripHTML(current);
         updateEst();
         document.body.classList.add('lock');
@@ -596,9 +610,23 @@ const schemaJson = JSON.stringify({
           toggleSave(sv.dataset.save);
           return;
         }
-        const st = e.target.closest('[data-step]');
-        if (st) {
-          est.n = Math.min(12, Math.max(1, est.n + Number(st.dataset.step)));
+        const stTrav = e.target.closest('[data-step-trav]');
+        if (stTrav) {
+          const delta = Number(stTrav.dataset.stepTrav);
+          est.n = Math.min(16, Math.max(1, est.n + delta));
+          if (est.rooms < Math.ceil(est.n / 3)) {
+            est.rooms = Math.ceil(est.n / 3);
+          }
+          if (est.rooms > est.n) {
+            est.rooms = est.n;
+          }
+          updateEst();
+          return;
+        }
+        const stRoom = e.target.closest('[data-step-room]');
+        if (stRoom) {
+          const delta = Number(stRoom.dataset.stepRoom);
+          est.rooms = Math.min(est.n, Math.min(8, Math.max(1, est.rooms + delta)));
           updateEst();
           return;
         }
@@ -703,13 +731,6 @@ const schemaJson = JSON.stringify({
       // Reset filters from results status bar or empty state
       $('#btnResetFilters')?.addEventListener('click', resetFilters);
       $('#btnResetEmpty')?.addEventListener('click', resetFilters);
-
-      tripDlg.addEventListener('change', (e) => {
-        if (e.target.name === 'tier') {
-          est.tier = Number(e.target.value);
-          updateEst();
-        }
-      });
 
       [tripDlg, savedDlg].forEach((d) => {
         d.addEventListener('click', (e) => {
