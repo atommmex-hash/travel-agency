@@ -14,6 +14,11 @@ describe('WhatsApp Link & Message Builder', () => {
     expect(sanitizePhone('919876543210')).toBe('919876543210');
   });
 
+  it('builds raw whatsapp URL with sanitized phone and encoded text', () => {
+    const url = buildWhatsAppUrl('+91 900-000-0000', 'Hello World!');
+    expect(url).toBe('https://wa.me/919000000000?text=Hello%20World!');
+  });
+
   it('builds general enquiry URL', () => {
     const url = buildGeneralEnquiryUrl('Himal Trails', '919000000000');
     expect(url).toBe(

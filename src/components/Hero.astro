@@ -1,14 +1,14 @@
 ---
 interface Props {
-  headline: string;
+  headline?: string;
   lead: string;
-  peakName: string;
-  peakMetres: number;
-  finePrint: string;
-  whatsappUrl: string;
+  peakName?: string;
+  peakMetres?: number;
+  finePrint?: string;
+  whatsappUrl?: string;
 }
 
-const { headline, lead, peakName, peakMetres, finePrint, whatsappUrl } = Astro.props;
+const { headline = 'Explore Mountain Holidays', lead } = Astro.props;
 ---
 <section class="hero" aria-labelledby="hero-h">
   <div class="hero-bg">
@@ -23,7 +23,7 @@ const { headline, lead, peakName, peakMetres, finePrint, whatsappUrl } = Astro.p
         <svg class="i badge-svg" aria-hidden="true"><use href="#i-mountain"></use></svg>
         <span>Eastern Himalayas Specialist</span>
       </div>
-      <h1 id="hero-h">Explore Mountain Holidays</h1>
+      <h1 id="hero-h">{headline}</h1>
       <p class="hero-sub">{lead}</p>
     </div>
 

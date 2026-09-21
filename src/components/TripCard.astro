@@ -130,7 +130,7 @@ const savings = originalPrice - trip.pricePerPerson;
   </div>
 </article>
 
-<style>
+<style is:global>
   .package-card {
     display: flex;
     flex-direction: column;
@@ -138,13 +138,13 @@ const savings = originalPrice - trip.pricePerPerson;
     border: 1px solid var(--border-subtle);
     border-radius: var(--r-m);
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    box-shadow: 0 4px 16px rgba(0, 50, 120, 0.06);
+    transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), border-color 0.25s var(--ease);
   }
 
   .package-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-hover);
+    transform: translateY(-5px);
+    box-shadow: 0 16px 36px rgba(0, 50, 120, 0.13);
     border-color: #BEE3F8;
   }
 
@@ -155,8 +155,17 @@ const savings = originalPrice - trip.pricePerPerson;
     overflow: hidden;
   }
 
-  :global(.card-media > svg),
-  :global(.card-media .plate-canvas) {
+  .card-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, transparent 40%, transparent 60%, rgba(0, 15, 35, 0.65) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .card-media > svg,
+  .card-media .plate-canvas {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -168,6 +177,11 @@ const savings = originalPrice - trip.pricePerPerson;
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.45s var(--ease);
+  }
+
+  .package-card:hover .card-media img {
+    transform: scale(1.05);
   }
 
   .media-overlay-top {
@@ -192,7 +206,7 @@ const savings = originalPrice - trip.pricePerPerson;
     font-weight: 800;
     padding: 0.25rem 0.65rem;
     border-radius: var(--r-pill);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     line-height: 1.2;
     white-space: nowrap;
     width: auto;
@@ -232,7 +246,7 @@ const savings = originalPrice - trip.pricePerPerson;
     background: rgba(255, 255, 255, 0.95);
     color: var(--text-main);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.15s;
+    transition: transform 0.15s ease, background 0.15s ease;
     flex-shrink: 0;
   }
 
@@ -250,7 +264,7 @@ const savings = originalPrice - trip.pricePerPerson;
     background: #ffffff;
   }
 
-  :global(.heart-circle[aria-pressed="true"] .i) {
+  .heart-circle[aria-pressed="true"] .i {
     fill: var(--accent-red);
     stroke: var(--accent-red);
   }
@@ -352,13 +366,13 @@ const savings = originalPrice - trip.pricePerPerson;
   .amenity-chip {
     display: inline-flex;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.35rem;
     font-size: 0.75rem;
     font-weight: 600;
     background: var(--bg-card-alt);
     border: 1px solid var(--border-subtle);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
+    padding: 0.22rem 0.55rem;
+    border-radius: 6px;
     color: var(--text-muted);
   }
 
@@ -424,10 +438,11 @@ const savings = originalPrice - trip.pricePerPerson;
   .save-tag {
     font-size: 0.7rem;
     font-weight: 800;
-    background: #EBF8FF;
+    background: #EAF5FF;
     color: var(--primary);
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
+    padding: 0.12rem 0.45rem;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
   }
 
   .deal-price-row {
@@ -437,9 +452,10 @@ const savings = originalPrice - trip.pricePerPerson;
   }
 
   .deal-price {
-    font-size: 1.45rem;
+    font-size: 1.5rem;
     font-weight: 900;
-    color: var(--text-main);
+    color: var(--primary-dark);
+    letter-spacing: -0.02em;
   }
 
   .per-person {
@@ -457,20 +473,20 @@ const savings = originalPrice - trip.pricePerPerson;
   }
 
   @media (min-width: 1000px) {
-    :global(.package-card.featured-deal) {
+    .package-card.featured-deal {
       grid-column: span 2;
       flex-direction: row;
     }
-    :global(.package-card.featured-deal .card-media) {
+    .package-card.featured-deal .card-media {
       aspect-ratio: auto;
       flex: 1 1 48%;
       min-height: 100%;
     }
-    :global(.package-card.featured-deal .card-content) {
+    .package-card.featured-deal .card-content {
       flex: 1 1 52%;
       padding: 1.5rem;
     }
-    :global(.package-card.featured-deal .package-title) {
+    .package-card.featured-deal .package-title {
       font-size: 1.45rem;
     }
   }

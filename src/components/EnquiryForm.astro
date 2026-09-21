@@ -46,11 +46,17 @@ const { phone, email } = Astro.props;
       </div>
 
       <div class="contact-strip">
-        <span>Prefer to speak directly?</span>
-        <a href={`tel:${phone}`} class="call-btn">
-          <svg class="i ef-svg" aria-hidden="true"><use href="#i-phone"></use></svg>
-          <span>Call Us: {phone}</span>
-        </a>
+        <span>Prefer to reach out directly?</span>
+        <div class="contact-links" style="display:flex;gap:0.75rem;flex-wrap:wrap">
+          <a href={`tel:${phone}`} class="call-btn">
+            <svg class="i ef-svg" aria-hidden="true"><use href="#i-phone"></use></svg>
+            <span>Call: {phone}</span>
+          </a>
+          <a href={`mailto:${email}`} class="call-btn" style="background:rgba(255,255,255,0.15)">
+            <svg class="i ef-svg" aria-hidden="true"><use href="#i-mail"></use></svg>
+            <span>{email}</span>
+          </a>
+        </div>
       </div>
     </div>
 
