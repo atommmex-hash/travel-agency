@@ -1,4 +1,6 @@
 ---
+import PromoCarousel from './PromoCarousel.astro';
+
 interface Props {
   headline?: string;
   lead: string;
@@ -26,6 +28,9 @@ const { headline = 'Explore Mountain Holidays', lead } = Astro.props;
       <h1 id="hero-h">{headline}</h1>
       <p class="hero-sub">{lead}</p>
     </div>
+
+    <!-- Commercial Ad Banner Carousel (Trending & Newly Launched) -->
+    <PromoCarousel />
 
     <!-- MMT-Style Floating Search & Filter Box -->
     <div class="search-card" role="search" aria-label="Find packages">
@@ -296,7 +301,7 @@ const { headline = 'Explore Mountain Holidays', lead } = Astro.props;
     font-size: clamp(1.05rem, 2.5vw, 1.25rem);
     color: rgba(255, 255, 255, 0.92);
     max-width: 62ch;
-    margin: 0.8rem auto 2.2rem;
+    margin: 0.75rem auto 1.6rem;
     line-height: 1.5;
   }
 

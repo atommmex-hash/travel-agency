@@ -1,0 +1,671 @@
+---
+import { siteData } from '../lib/content';
+
+interface Props {
+  whatsappPhone?: string;
+}
+
+const { whatsappPhone = siteData.whatsapp } = Astro.props;
+
+const banners = [
+  {
+    id: 'promo-north-sikkim',
+    tripId: 'lachung-yumthang',
+    badge: 'TRENDING EXPEDITION',
+    badgeType: 'trending',
+    title: 'North Sikkim & Gurudongmar Expedition',
+    subtitle: 'Sacred Glacial Lake at 17,800 ft, Valley of Flowers & High Passes',
+    perks: ['Dedicated Mountain 4x4 SUV', '100% Arranged Army Permits', '5N/6D All Meals in Hills'],
+    price: '₹14,400',
+    mrp: '₹17,500',
+    image: '/images/banners/banner-north-sikkim.jpg',
+    alt: 'Scenic mountain road expedition to North Sikkim and Gurudongmar lake'
+  },
+  {
+    id: 'promo-darjeeling',
+    tripId: 'darjeeling-classic',
+    badge: 'NEWLY LAUNCHED',
+    badgeType: 'new',
+    title: 'Darjeeling Toy Train & Sunrise Heritage',
+    subtitle: 'Golden Tiger Hill Sunrise over Kanchenjunga & Heritage Tea Estate Stays',
+    perks: ['Private Sightseeing Cab', 'Batasia Loop & Ghoom Monastery', '2N/3D Daily Breakfast'],
+    price: '₹7,500',
+    mrp: '₹9,000',
+    image: '/images/banners/banner-darjeeling.jpg',
+    alt: 'Vintage steam toy train through green Darjeeling tea gardens with snowy peaks'
+  },
+  {
+    id: 'promo-pelling',
+    tripId: 'pelling-yuksom',
+    badge: 'POPULAR CIRCUIT',
+    badgeType: 'popular',
+    title: 'West Sikkim Skywalk & Grand Monasteries',
+    subtitle: 'Pelling Glass Skywalk, 130ft Buddha Statue & Ancient Rabdentse Ruins',
+    perks: ['Complete 7N/8D Mountain Circuit', 'Dedicated Private Cab', 'Breakfast & Dinner'],
+    price: '₹21,500',
+    mrp: '₹25,800',
+    image: '/images/banners/banner-pelling.jpg',
+    alt: 'Golden Buddha statue and monastery in Pelling overlooking Kanchenjunga'
+  },
+  {
+    id: 'promo-tsomgo',
+    tripId: 'gangtok-tsomgo',
+    badge: 'LIMITED SEASON DEAL',
+    badgeType: 'limited',
+    title: 'Gangtok, Glacial Tsomgo & Nathula Pass',
+    subtitle: 'Indo-China Frontier at 14,140 ft, Sacred Changu Lake & Gangtok Ropeway',
+    perks: ['Guaranteed Border Permits', 'Scorpio / Innova Sightseeing', '3N/4D MG Marg Stays'],
+    price: '₹8,400',
+    mrp: '₹10,500',
+    image: '/images/banners/banner-tsomgo.jpg',
+    alt: 'Glacial Tsomgo Lake with decorated yaks and snowy mountain pass'
+  }
+];
+
+const waBase = `https://wa.me/${whatsappPhone}?text=`;
+---
+
+<div class="promo-carousel-container" role="region" aria-roledescription="carousel" aria-label="Featured Holiday Deals">
+  <div class="carousel-viewport" id="promoViewport">
+    <div class="carousel-track" id="promoTrack">
+      {banners.map((b, idx) => {
+        const waMsg = encodeURIComponent(`Hi ${siteData.brand}! I'm interested in the featured deal: "${b.title}" starting at ${b.price}. Can you share availability and dates?`);
+        return (
+          <div
+            class="carousel-slide"
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${idx + 1} of ${banners.length}: ${b.title}`}
+            data-slide-index={idx}
+          >
+            <div class="slide-media">
+              <img
+                src={b.image}
+                alt={b.alt}
+                loading={idx === 0 ? "eager" : "lazy"}
+                decoding="async"
+                width="1200"
+                height="560"
+              />
+              <div class="slide-scrim"></div>
+            </div>
+
+            <div class="slide-content">
+              <div class="slide-badge-row">
+                <span class={`promo-badge badge-${b.badgeType}`}>
+                  <svg class="i badge-i" aria-hidden="true"><use href="#i-sparkle"></use></svg>
+                  <span>{b.badge}</span>
+                </span>
+                <span class="slide-counter" aria-hidden="true">{idx + 1} / {banners.length}</span>
+              </div>
+
+              <h2 class="slide-title">{b.title}</h2>
+              <p class="slide-subtitle">{b.subtitle}</p>
+
+              <ul class="slide-perks" aria-label="Key Inclusions">
+                {b.perks.map((p) => (
+                  <li>
+                    <svg class="i perk-i" aria-hidden="true"><use href="#i-check"></use></svg>
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div class="slide-footer">
+                <div class="slide-pricing">
+                  <span class="price-mrp">{b.mrp}</span>
+                  <div class="price-main-row">
+                    <strong class="price-val">{b.price}</strong>
+                    <span class="price-unit">/ person</span>
+                  </div>
+                </div>
+
+                <div class="slide-actions">
+                  <button
+                    type="button"
+                    class="btn btn-gold slide-btn-deal"
+                    data-open={b.tripId}
+                    aria-label={`View deal for ${b.title}`}
+                  >
+                    <span>View Deal</span>
+                    <svg class="i btn-i" aria-hidden="true"><use href="#i-chev"></use></svg>
+                  </button>
+
+                  <a
+                    href={`${waBase}${waMsg}`}
+                    target="_blank"
+                    rel="noopener"
+                    class="btn btn-whatsapp slide-btn-wa"
+                    aria-label={`Get quote on WhatsApp for ${b.title}`}
+                  >
+                    <svg class="i btn-i" aria-hidden="true"><use href="#i-chat"></use></svg>
+                    <span class="wa-btn-label">Instant Quote</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Carousel Nav Buttons -->
+    <button
+      type="button"
+      class="carousel-nav-btn prev-btn"
+      id="promoPrevBtn"
+      aria-label="Previous promotional slide"
+    >
+      <svg class="i nav-i" aria-hidden="true"><use href="#i-chev"></use></svg>
+    </button>
+
+    <button
+      type="button"
+      class="carousel-nav-btn next-btn"
+      id="promoNextBtn"
+      aria-label="Next promotional slide"
+    >
+      <svg class="i nav-i" aria-hidden="true"><use href="#i-chev"></use></svg>
+    </button>
+
+    <!-- Carousel Pagination Indicators -->
+    <div class="carousel-dots" id="promoDots" role="tablist" aria-label="Slide Selection">
+      {banners.map((b, idx) => (
+        <button
+          type="button"
+          class={`carousel-dot${idx === 0 ? ' active' : ''}`}
+          role="tab"
+          aria-selected={idx === 0 ? "true" : "false"}
+          aria-label={`Go to slide ${idx + 1}: ${b.title}`}
+          data-goto-slide={idx}
+        ></button>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .promo-carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1040px;
+    margin: 0 auto 1.85rem;
+    text-align: left;
+  }
+
+  .carousel-viewport {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--r-m);
+    border: 1.5px solid rgba(255, 255, 255, 0.28);
+    box-shadow:
+      0 16px 40px rgba(0, 30, 80, 0.24),
+      0 2px 6px rgba(0, 0, 0, 0.1);
+    background: #08182E;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
+  }
+
+  .carousel-slide {
+    position: relative;
+    flex: 0 0 100%;
+    min-width: 100%;
+    display: flex;
+    align-items: flex-end;
+    min-height: 380px;
+  }
+
+  @media (min-width: 768px) {
+    .carousel-slide {
+      min-height: 420px;
+      align-items: center;
+    }
+  }
+
+  .slide-media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .slide-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 38%;
+    display: block;
+    transform: scale(1.02);
+    transition: transform 6s ease-out;
+  }
+
+  .carousel-slide.is-active .slide-media img {
+    transform: scale(1.08);
+  }
+
+  .slide-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(4, 16, 36, 0.25) 0%,
+      rgba(4, 16, 36, 0.75) 45%,
+      rgba(4, 16, 36, 0.95) 100%
+    );
+    pointer-events: none;
+  }
+
+  @media (min-width: 768px) {
+    .slide-scrim {
+      background: linear-gradient(
+        90deg,
+        rgba(4, 16, 36, 0.94) 0%,
+        rgba(4, 16, 36, 0.85) 46%,
+        rgba(4, 16, 36, 0.4) 80%,
+        rgba(4, 16, 36, 0.25) 100%
+      );
+    }
+  }
+
+  .slide-content {
+    position: relative;
+    z-index: 2;
+    padding: 1.5rem;
+    width: 100%;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  @media (min-width: 768px) {
+    .slide-content {
+      padding: 2.5rem 3rem;
+      max-width: 680px;
+      gap: 0.75rem;
+    }
+  }
+
+  .slide-badge-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .promo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.74rem;
+    font-weight: 800;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--r-pill);
+    letter-spacing: 0.04em;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+
+  .badge-i {
+    width: 13px !important;
+    height: 13px !important;
+  }
+
+  .badge-trending {
+    background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+    color: #ffffff;
+  }
+
+  .badge-new {
+    background: linear-gradient(135deg, #00B4D8 0%, #0077B6 100%);
+    color: #ffffff;
+  }
+
+  .badge-popular {
+    background: linear-gradient(135deg, #FFB400 0%, #FF7F00 100%);
+    color: #1A202C;
+  }
+
+  .badge-limited {
+    background: linear-gradient(135deg, #7928CA 0%, #FF0080 100%);
+    color: #ffffff;
+  }
+
+  .slide-counter {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.75);
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--r-pill);
+  }
+
+  .slide-title {
+    font-size: clamp(1.4rem, 4vw, 2.1rem);
+    font-weight: 900;
+    line-height: 1.15;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  }
+
+  .slide-subtitle {
+    font-size: clamp(0.88rem, 2vw, 1rem);
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 58ch;
+  }
+
+  .slide-perks {
+    list-style: none;
+    margin: 0.2rem 0 0.4rem;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem 1rem;
+  }
+
+  .slide-perks li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #D1E9FF;
+  }
+
+  .perk-i {
+    width: 14px !important;
+    height: 14px !important;
+    color: #06D6A0;
+    flex-shrink: 0;
+  }
+
+  .slide-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin-top: 0.3rem;
+  }
+
+  .slide-pricing {
+    display: flex;
+    flex-direction: column;
+    gap: 0.05rem;
+  }
+
+  .price-mrp {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: line-through;
+    font-weight: 600;
+  }
+
+  .price-main-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+  }
+
+  .price-val {
+    font-size: 1.65rem;
+    font-weight: 900;
+    color: #FFB400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .price-unit {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+  }
+
+  .slide-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .slide-btn-deal {
+    min-height: 44px;
+    padding: 0 1.25rem;
+    font-size: 0.92rem;
+    border-radius: var(--r-pill);
+    box-shadow: 0 4px 14px rgba(255, 109, 0, 0.4);
+    cursor: pointer;
+  }
+
+  .slide-btn-deal .btn-i {
+    transform: rotate(-90deg);
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .slide-btn-wa {
+    min-height: 44px;
+    padding: 0 1.1rem;
+    font-size: 0.88rem;
+    border-radius: var(--r-pill);
+  }
+
+  .slide-btn-wa .btn-i {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  /* Navigation Buttons */
+  .carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(0, 20, 50, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .carousel-nav-btn:hover {
+    background: rgba(0, 140, 255, 0.85);
+    transform: translateY(-50%) scale(1.08);
+  }
+
+  .carousel-nav-btn:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  .prev-btn {
+    left: 1rem;
+  }
+
+  .prev-btn .nav-i {
+    transform: rotate(90deg);
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .next-btn {
+    right: 1rem;
+  }
+
+  .next-btn .nav-i {
+    transform: rotate(-90deg);
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  @media (max-width: 640px) {
+    .carousel-nav-btn {
+      display: none;
+    }
+  }
+
+  /* Dots Indicator */
+  .carousel-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0, 15, 35, 0.5);
+    backdrop-filter: blur(6px);
+    padding: 5px 9px;
+    border-radius: var(--r-pill);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--r-pill);
+    background: rgba(255, 255, 255, 0.45);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.25s var(--ease);
+  }
+
+  .carousel-dot.active {
+    width: 24px;
+    background: #008CFF;
+    box-shadow: 0 0 8px rgba(0, 140, 255, 0.8);
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const track = document.getElementById('promoTrack');
+    const viewport = document.getElementById('promoViewport');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const prevBtn = document.getElementById('promoPrevBtn');
+    const nextBtn = document.getElementById('promoNextBtn');
+
+    if (!track || !dots.length) return;
+
+    const totalSlides = dots.length;
+    let currentIdx = 0;
+    let autoplayTimer = null;
+    let isPaused = false;
+
+    function goToSlide(idx) {
+      currentIdx = (idx + totalSlides) % totalSlides;
+      track.style.transform = `translateX(-${currentIdx * 100}%)`;
+
+      dots.forEach((dot, i) => {
+        const isActive = i === currentIdx;
+        dot.classList.toggle('active', isActive);
+        dot.setAttribute('aria-selected', String(isActive));
+      });
+
+      const slides = track.querySelectorAll('.carousel-slide');
+      slides.forEach((s, i) => {
+        s.classList.toggle('is-active', i === currentIdx);
+      });
+    }
+
+    function nextSlide() {
+      goToSlide(currentIdx + 1);
+    }
+
+    function prevSlide() {
+      goToSlide(currentIdx - 1);
+    }
+
+    prevBtn?.addEventListener('click', () => {
+      prevSlide();
+      resetAutoplay();
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      nextSlide();
+      resetAutoplay();
+    });
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', (e) => {
+        const target = Number(e.currentTarget.dataset.gotoSlide);
+        goToSlide(target);
+        resetAutoplay();
+      });
+    });
+
+    // Autoplay logic (5 seconds)
+    function startAutoplay() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      stopAutoplay();
+      autoplayTimer = setInterval(() => {
+        if (!isPaused) nextSlide();
+      }, 5000);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    }
+
+    function resetAutoplay() {
+      stopAutoplay();
+      startAutoplay();
+    }
+
+    viewport?.addEventListener('mouseenter', () => { isPaused = true; });
+    viewport?.addEventListener('mouseleave', () => { isPaused = false; });
+
+    // Touch Swipe Support for mobile devices
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    viewport?.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      isPaused = true;
+    }, { passive: true });
+
+    viewport?.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      isPaused = false;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 45) {
+        if (diff > 0) nextSlide();
+        else prevSlide();
+        resetAutoplay();
+      }
+    }, { passive: true });
+
+    // Keyboard navigation
+    viewport?.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        prevSlide();
+        resetAutoplay();
+      } else if (e.key === 'ArrowRight') {
+        nextSlide();
+        resetAutoplay();
+      }
+    });
+
+    // Initialize first slide as active
+    goToSlide(0);
+    startAutoplay();
+  })();
+</script>
