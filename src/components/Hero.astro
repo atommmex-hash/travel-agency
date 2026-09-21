@@ -3,14 +3,14 @@ import PromoCarousel from './PromoCarousel.astro';
 
 interface Props {
   headline?: string;
-  lead: string;
+  lead?: string;
   peakName?: string;
   peakMetres?: number;
   finePrint?: string;
   whatsappUrl?: string;
 }
 
-const { headline = 'Explore Mountain Holidays', lead } = Astro.props;
+const { headline = 'Explore Mountain Holidays' } = Astro.props;
 ---
 <section class="hero" aria-labelledby="hero-h">
   <div class="hero-bg">
@@ -20,14 +20,7 @@ const { headline = 'Explore Mountain Holidays', lead } = Astro.props;
   </div>
 
   <div class="wrap hero-content">
-    <div class="hero-header">
-      <div class="hero-badge">
-        <svg class="i badge-svg" aria-hidden="true"><use href="#i-mountain"></use></svg>
-        <span>Eastern Himalayas Specialist</span>
-      </div>
-      <h1 id="hero-h">{headline}</h1>
-      <p class="hero-sub">{lead}</p>
-    </div>
+    <h1 class="sr-only" id="hero-h">{headline}</h1>
 
     <!-- Commercial Ad Banner Carousel (Trending & Newly Launched) -->
     <PromoCarousel />
@@ -215,7 +208,7 @@ const { headline = 'Explore Mountain Holidays', lead } = Astro.props;
     position: relative;
     background: linear-gradient(145deg, #0056C6 0%, #008CFF 60%, #38B6FF 100%);
     color: #ffffff;
-    padding: clamp(2.5rem, 5vw, 4.5rem) 0 clamp(3.5rem, 6vw, 5.5rem);
+    padding: clamp(1.25rem, 3vw, 2rem) 0 clamp(2.5rem, 4.5vw, 4rem);
     overflow: hidden;
   }
 
@@ -266,43 +259,6 @@ const { headline = 'Explore Mountain Holidays', lead } = Astro.props;
     flex-direction: column;
     align-items: center;
     text-align: center;
-  }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.4rem 1.1rem;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    border-radius: var(--r-pill);
-    font-size: 0.875rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-
-  .badge-svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .hero-header h1 {
-    font-size: clamp(2.4rem, 6vw, 4rem);
-    color: #ffffff;
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    text-shadow: 0 2px 10px rgba(0, 50, 120, 0.2);
-  }
-
-  .hero-sub {
-    font-size: clamp(1.05rem, 2.5vw, 1.25rem);
-    color: rgba(255, 255, 255, 0.92);
-    max-width: 62ch;
-    margin: 0.75rem auto 1.6rem;
-    line-height: 1.5;
   }
 
   /* Search Card */
