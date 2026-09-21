@@ -160,7 +160,8 @@ const schemaJson = JSON.stringify({
       const $ = (s, r = document) => r.querySelector(s);
       const $$ = (s, r = document) => [...r.querySelectorAll(s)];
       const fmt = (n) => '\u20B9' + n.toLocaleString('en-IN');
-      const metres = (n) => n.toLocaleString('en-IN') + ' m';
+      const formatMetres = (n) => n.toLocaleString('en-IN') + ' m';
+      const metres = formatMetres;
       const wa = (msg) => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
       const ico = (n) => `<svg class="i" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 
@@ -354,10 +355,20 @@ const schemaJson = JSON.stringify({
       }
 
       function updateSearchCardUI() {
-        // Destination field
-        if ($('#heroDestVal')) {
-          $('#heroDestVal').textContent = state.dest === 'All' ? 'All Destinations' : state.dest;
-        }
+        // Destination field value and subtitle
+        const destMeta = {
+          All: { val: 'All Destinations', sub: 'Darjeeling, Gangtok, Pelling & more' },
+          Darjeeling: { val: 'Darjeeling', sub: 'Tiger Hill Sunrise, Toy Train, Chowrasta' },
+          Sikkim: { val: 'Sikkim', sub: 'Gangtok, Tsomgo Lake, Pelling & more' },
+          'North Sikkim': { val: 'North Sikkim', sub: 'Gurudongmar Lake, Lachen, Yumthang' },
+          Kalimpong: { val: 'Kalimpong & Homestays', sub: 'Pine trails, Lamahatta, quiet homestays' },
+          Gangtok: { val: 'Gangtok & East Sikkim', sub: 'Tsomgo Lake, Nathula Pass, MG Marg' },
+          Pelling: { val: 'West Sikkim & Pelling', sub: 'Glass Skywalk, Rabdentse, Buddha Park' }
+        };
+        const curDest = destMeta[state.dest] || { val: state.dest, sub: 'Explore handcrafted mountain tours' };
+        if ($('#heroDestVal')) $('#heroDestVal').textContent = curDest.val;
+        if ($('#heroDestSub')) $('#heroDestSub').textContent = curDest.sub;
+
         $$('#dropdownDest .dropdown-item').forEach((item) => {
           const match = item.dataset.dest === state.dest;
           item.classList.toggle('active', match);
@@ -394,12 +405,20 @@ const schemaJson = JSON.stringify({
           item.setAttribute('aria-selected', String(match));
         });
 
-        // Tabs
+        // Tabs - activate only the single exact matching tab
+        function getMatchingTab(dest) {
+          if (!dest || dest === 'All') return 'All';
+          const d = dest.toLowerCase();
+          if (d.includes('north sikkim')) return 'North Sikkim';
+          if (d.includes('sikkim') || d.includes('gangtok') || d.includes('pelling')) return 'Sikkim';
+          if (d.includes('darjeeling')) return 'Darjeeling';
+          if (d.includes('kalimpong') || d.includes('homestay')) return 'Kalimpong';
+          return 'All';
+        }
+
+        const activeTabKey = getMatchingTab(state.dest);
         $$('.search-tab').forEach((tab) => {
-          const tabDest = tab.dataset.destPick;
-          let match = false;
-          if (tabDest === 'All' && state.dest === 'All') match = true;
-          else if (tabDest !== 'All' && state.dest.toLowerCase().includes(tabDest.toLowerCase())) match = true;
+          const match = tab.dataset.destPick === activeTabKey;
           tab.classList.toggle('active', match);
           tab.setAttribute('aria-selected', String(match));
         });
@@ -669,8 +688,16 @@ const schemaJson = JSON.stringify({
       });
 
       // Search Holidays CTA button
-      $('#heroSearchTrigger')?.addEventListener('click', () => {
+      $('#heroSearchTrigger')?.addEventListener('click', (e) => {
+        e.preventDefault();
         closeAllDropdowns();
+        renderTrips();
+        const tripsEl = document.getElementById('trips');
+        if (tripsEl) {
+          const yOffset = -72;
+          const y = tripsEl.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
       });
 
       // Reset filters from results status bar or empty state
