@@ -696,6 +696,40 @@ const schemaJson = JSON.stringify({
       $('#dockSaved')?.addEventListener('click', openSaved);
       $('#hdrSaved')?.addEventListener('click', openSaved);
 
+      // Mobile dock navigation active state
+      $('#dockHome')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        $('#dockHome')?.classList.add('active');
+        $('#dockTrips')?.classList.remove('active');
+      });
+
+      $('#dockTrips')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('trips')?.scrollIntoView({ behavior: 'smooth' });
+        $('#dockTrips')?.classList.add('active');
+        $('#dockHome')?.classList.remove('active');
+      });
+
+      const tripsSec = document.getElementById('trips');
+      if (tripsSec && 'IntersectionObserver' in window) {
+        const dockObs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                $('#dockTrips')?.classList.add('active');
+                $('#dockHome')?.classList.remove('active');
+              } else if (window.scrollY < 300) {
+                $('#dockHome')?.classList.add('active');
+                $('#dockTrips')?.classList.remove('active');
+              }
+            });
+          },
+          { threshold: 0.2 }
+        );
+        dockObs.observe(tripsSec);
+      }
+
       /* Mobile menu toggle */
       const nav = $('#nav');
       const menuBtn = $('#menuBtn');

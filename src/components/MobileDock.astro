@@ -6,92 +6,182 @@ interface Props {
 
 const { phone, whatsappUrl } = Astro.props;
 ---
-<aside class="dock" role="group" aria-label="Quick actions">
-  <a class="dock-btn" href={`tel:${phone}`} aria-label="Call us">
-    <div class="dock-icon-circle">
-      <svg class="i" aria-hidden="true"><use href="#i-phone"></use></svg>
-    </div>
-    <span class="dock-label">Call</span>
-  </a>
+<aside class="dock-wrapper" role="group" aria-label="Quick actions" data-phone={phone}>
+  <nav class="menu" aria-label="Mobile navigation">
+    <a href="#" class="dock-item active" id="dockHome" aria-label="Home">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="dock-svg" aria-hidden="true">
+        <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z"></path>
+        <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z"></path>
+      </svg>
+      <span class="dock-label">Home</span>
+    </a>
 
-  <a class="btn btn-whatsapp dock-wa-btn" id="dockWa" href={whatsappUrl} target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
-    <svg class="i" aria-hidden="true"><use href="#i-chat"></use></svg>
-    <span>WhatsApp Quote</span>
-  </a>
+    <a href="#trips" class="dock-item" id="dockTrips" aria-label="View Packages">
+      <svg class="dock-svg i" aria-hidden="true"><use href="#i-mountain"></use></svg>
+      <span class="dock-label">Packages</span>
+    </a>
 
-  <button class="dock-btn" id="dockSaved" aria-label="Saved trips">
-    <div class="dock-icon-circle" style="position:relative">
-      <svg class="i" aria-hidden="true"><use href="#i-heart"></use></svg>
-      <span class="cnt-badge dock-badge" id="dockCount" hidden>0</span>
-    </div>
-    <span class="dock-label">Saved</span>
-  </button>
+    <button type="button" class="dock-item" id="dockSaved" aria-label="Saved shortlisted packages">
+      <div class="dock-icon-wrap">
+        <svg class="dock-svg i" aria-hidden="true"><use href="#i-heart"></use></svg>
+        <span class="dock-badge" id="dockCount" hidden>0</span>
+      </div>
+      <span class="dock-label">Saved</span>
+    </button>
+
+    <a href={whatsappUrl} class="dock-item dock-item-wa" id="dockWa" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+      <svg class="dock-svg i" aria-hidden="true"><use href="#i-chat"></use></svg>
+      <span class="dock-label">Quote</span>
+    </a>
+  </nav>
 </aside>
 
 <style>
-  .dock {
+  .dock-wrapper {
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 0;
-    z-index: 40;
+    bottom: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    z-index: 90;
     display: none;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    padding: 0.5rem 1rem calc(0.5rem + env(safe-area-inset-bottom, 0px));
-    background: #ffffff;
-    border-top: 1px solid var(--border-subtle);
-    box-shadow: 0 -4px 20px rgba(0, 40, 100, 0.08);
+    justify-content: center;
+    pointer-events: none;
+    padding: 0 12px;
   }
 
-  .dock-btn {
+  .menu {
+    position: relative;
+    pointer-events: auto;
+    width: 100%;
+    max-width: 460px;
+    backdrop-filter: blur(16px) saturate(180%) contrast(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%) contrast(150%);
+    background: linear-gradient(135deg, rgba(0, 110, 240, 0.88), rgba(0, 80, 195, 0.94));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+      0 12px 32px rgba(0, 30, 90, 0.28),
+      0 2px 6px rgba(0, 0, 0, 0.12);
+    padding: 6px;
+    border-radius: 99rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .menu::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow:
+      inset 1.5px 1.5px 4px 0 rgba(255, 255, 255, 0.5),
+      inset -1.5px -1.5px 4px 0 rgba(255, 255, 255, 0.25),
+      inset 0 -2px 0 rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .dock-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.2rem;
+    justify-content: center;
+    flex: 1 1 0;
+    min-width: 0;
+    color: rgba(255, 255, 255, 0.92);
     text-decoration: none;
-    color: var(--text-muted);
-    font-size: 0.72rem;
+    padding: 8px 4px;
+    border-radius: 999rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    position: relative;
+    transition:
+      background 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+      color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+      transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.25s ease-in-out;
+  }
+
+  .dock-item:hover {
+    background-color: rgba(255, 255, 255, 0.24);
+    box-shadow:
+      inset 2px 2px 5px -2px rgba(255, 255, 255, 0.4),
+      inset -2px -1px 5px 0 rgba(255, 255, 255, 0.4),
+      inset 0 -2px 0 rgba(255, 255, 255, 0.2);
+    transform: rotate(2deg);
+    color: #ffffff;
+  }
+
+  .dock-item:active {
+    transform: scale(0.95);
+  }
+
+  .dock-item.active {
+    background: #ffffff;
+    color: #0056C6;
+    box-shadow:
+      0 4px 14px rgba(0, 20, 60, 0.2),
+      inset 0 1px 2px rgba(255, 255, 255, 0.8);
+  }
+
+  .dock-item.active .dock-svg {
+    color: #0056C6;
+  }
+
+  .dock-item.active .dock-label {
+    color: #0056C6;
+    font-weight: 800;
+  }
+
+  .dock-svg {
+    width: 1.35rem;
+    height: 1.35rem;
+    flex-shrink: 0;
+  }
+
+  .dock-icon-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dock-label {
+    font-size: 0.74rem;
     font-weight: 700;
-    min-width: 48px;
-  }
-
-  .dock-icon-circle {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--bg-card-alt);
-    display: grid;
-    place-items: center;
-    color: var(--text-main);
-  }
-
-  .dock-icon-circle .i {
-    width: 18px;
-    height: 18px;
+    line-height: 1;
+    margin-top: 4px;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
   }
 
   .dock-badge {
     position: absolute;
-    top: -4px;
-    right: -6px;
-    min-width: 18px;
-    height: 18px;
-    font-size: 0.65rem;
+    top: -6px;
+    right: -10px;
+    min-width: 17px;
+    height: 17px;
     padding: 0 4px;
-  }
-
-  .dock-wa-btn {
-    flex: 1;
-    min-height: 44px;
-    font-size: 0.92rem;
     border-radius: var(--r-pill);
-    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+    background: #FF3B30;
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
   }
 
   @media (max-width: 767px) {
-    .dock {
+    .dock-wrapper {
       display: flex;
     }
   }
