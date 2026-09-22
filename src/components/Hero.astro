@@ -178,22 +178,26 @@ const { headline = 'Explore Mountain Holidays' } = Astro.props;
     </div>
 
     <!-- Trust Badges -->
-    <div class="hero-trust">
-      <div class="trust-item">
+    <div class="hero-trust" role="list" aria-label="Customer trust and assurance">
+      <div class="trust-item" role="listitem">
         <svg class="i trust-svg" aria-hidden="true"><use href="#i-chat"></use></svg>
-        <span>Instant WhatsApp Planning</span>
+        <span class="trust-full">Instant WhatsApp Planning</span>
+        <span class="trust-short">Instant WhatsApp</span>
       </div>
-      <div class="trust-item">
+      <div class="trust-item" role="listitem">
         <svg class="i trust-svg star-icon" aria-hidden="true"><use href="#i-star"></use></svg>
-        <span>4.9/5 Rated on Google</span>
+        <span class="trust-full">4.9/5 Rated on Google</span>
+        <span class="trust-short">4.9/5 on Google</span>
       </div>
-      <div class="trust-item">
+      <div class="trust-item" role="listitem">
         <svg class="i trust-svg" aria-hidden="true"><use href="#i-refresh"></use></svg>
-        <span>Free Date Changes</span>
+        <span class="trust-full">Free Date Changes</span>
+        <span class="trust-short">Free Changes</span>
       </div>
-      <div class="trust-item">
+      <div class="trust-item" role="listitem">
         <svg class="i trust-svg" aria-hidden="true"><use href="#i-shield"></use></svg>
-        <span>Local Himalayan Guides</span>
+        <span class="trust-full">Local Himalayan Guides</span>
+        <span class="trust-short">Local Guides</span>
       </div>
     </div>
   </div>
@@ -521,6 +525,10 @@ const { headline = 'Explore Mountain Holidays' } = Astro.props;
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
+  .trust-short {
+    display: none;
+  }
+
   .trust-svg {
     width: 17px;
     height: 17px;
@@ -529,6 +537,50 @@ const { headline = 'Explore Mountain Holidays' } = Astro.props;
   .star-icon {
     fill: #FFD166;
     stroke: #FFD166;
+  }
+
+  @media (max-width: 767px) {
+    .hero-trust {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      justify-content: flex-start;
+      justify-content: safe center;
+      gap: 0.45rem;
+      margin-top: 1.25rem;
+      padding: 0.25rem 0.25rem 0.5rem;
+      width: 100%;
+      max-width: 100%;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+    }
+
+    .hero-trust::-webkit-scrollbar {
+      display: none;
+    }
+
+    .trust-item {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      white-space: nowrap;
+      font-size: 0.76rem;
+      padding: 0.35rem 0.65rem;
+      gap: 0.35rem;
+    }
+
+    .trust-svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .trust-full {
+      display: none;
+    }
+
+    .trust-short {
+      display: inline;
+    }
   }
 
   @media (max-width: 991px) {
