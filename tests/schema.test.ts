@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { tripSchema, siteSchema } from '../src/lib/schemas';
+import { tripSchema, siteSchema, bannerSchema, bannersSchema } from '../src/lib/schemas';
 
 describe('Content Schema Validation', () => {
   const validTrip = {
@@ -26,6 +26,20 @@ describe('Content Schema Validation', () => {
       py: 0.5,
       bg: ['#14324A', '#0E1A2B']
     }
+  };
+
+  const validBanner = {
+    id: 'promo-test',
+    tripId: 'test-trip',
+    badge: 'TRENDING DEAL',
+    badgeType: 'trending' as const,
+    title: 'Test Banner Title',
+    subtitle: 'Test Banner Subtitle',
+    perks: ['Perk 1', 'Perk 2'],
+    price: '₹9,999',
+    mrp: '₹12,999',
+    image: '/images/banners/test.jpg',
+    alt: 'Test Banner Alt'
   };
 
   it('valid trip passes schema validation', () => {
@@ -68,4 +82,20 @@ describe('Content Schema Validation', () => {
     };
     expect(() => siteSchema.parse(badSite)).toThrow();
   });
+
+  it('valid banner passes schema validation', () => {
+    expect(() => bannerSchema.parse(validBanner)).not.toThrow();
+    expect(() => bannersSchema.parse({ banners: [validBanner] })).not.toThrow();
+  });
+
+  it('fails clearly when banner badgeType is invalid', () => {
+    const badBanner = { ...validBanner, badgeType: 'unknown-type' };
+    expect(() => bannerSchema.parse(badBanner)).toThrow();
+  });
+
+  it('fails clearly when banner perks are empty', () => {
+    const badBanner = { ...validBanner, perks: [] };
+    expect(() => bannerSchema.parse(badBanner)).toThrow(/At least 1 perk is required/);
+  });
 });
+

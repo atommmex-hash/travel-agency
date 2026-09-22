@@ -1,71 +1,30 @@
 ---
+import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
-import { siteData } from '../lib/content';
-import bannerNorthSikkim from '../assets/banners/banner-north-sikkim.jpg';
-import bannerDarjeeling from '../assets/banners/banner-darjeeling.jpg';
-import bannerPelling from '../assets/banners/banner-pelling.jpg';
-import bannerTsomgo from '../assets/banners/banner-tsomgo.jpg';
+import { siteData, bannersData } from '../lib/content';
 
 interface Props {
   whatsappPhone?: string;
 }
 
 const { whatsappPhone = siteData.whatsapp } = Astro.props;
+const banners = bannersData.banners;
 
-const banners = [
-  {
-    id: 'promo-north-sikkim',
-    tripId: 'lachung-yumthang',
-    badge: 'TRENDING EXPEDITION',
-    badgeType: 'trending',
-    title: 'North Sikkim & Gurudongmar Expedition',
-    subtitle: 'Sacred Glacial Lake at 17,800 ft, Valley of Flowers & High Passes',
-    perks: ['Dedicated Mountain 4x4 SUV', '100% Arranged Army Permits', '5N/6D All Meals in Hills'],
-    price: '₹14,400',
-    mrp: '₹17,500',
-    image: bannerNorthSikkim,
-    alt: 'Scenic mountain road expedition to North Sikkim and Gurudongmar lake'
-  },
-  {
-    id: 'promo-darjeeling',
-    tripId: 'darjeeling-classic',
-    badge: 'NEWLY LAUNCHED',
-    badgeType: 'new',
-    title: 'Darjeeling Toy Train & Sunrise Heritage',
-    subtitle: 'Golden Tiger Hill Sunrise over Kanchenjunga & Heritage Tea Estate Stays',
-    perks: ['Private Sightseeing Cab', 'Batasia Loop & Ghoom Monastery', '2N/3D Daily Breakfast'],
-    price: '₹7,500',
-    mrp: '₹9,000',
-    image: bannerDarjeeling,
-    alt: 'Vintage steam toy train through green Darjeeling tea gardens with snowy peaks'
-  },
-  {
-    id: 'promo-pelling',
-    tripId: 'pelling-yuksom',
-    badge: 'POPULAR CIRCUIT',
-    badgeType: 'popular',
-    title: 'West Sikkim Skywalk & Grand Monasteries',
-    subtitle: 'Pelling Glass Skywalk, 130ft Buddha Statue & Ancient Rabdentse Ruins',
-    perks: ['Complete 7N/8D Mountain Circuit', 'Dedicated Private Cab', 'Breakfast & Dinner'],
-    price: '₹21,500',
-    mrp: '₹25,800',
-    image: bannerPelling,
-    alt: 'Golden Buddha statue and monastery in Pelling overlooking Kanchenjunga'
-  },
-  {
-    id: 'promo-tsomgo',
-    tripId: 'gangtok-tsomgo',
-    badge: 'LIMITED SEASON DEAL',
-    badgeType: 'limited',
-    title: 'Gangtok, Glacial Tsomgo & Nathula Pass',
-    subtitle: 'Indo-China Frontier at 14,140 ft, Sacred Changu Lake & Gangtok Ropeway',
-    perks: ['Guaranteed Border Permits', 'Scorpio / Innova Sightseeing', '3N/4D MG Marg Stays'],
-    price: '₹8,400',
-    mrp: '₹10,500',
-    image: bannerTsomgo,
-    alt: 'Glacial Tsomgo Lake with decorated yaks and snowy mountain pass'
+const localBanners = import.meta.glob<{ default: ImageMetadata }>('../assets/banners/*.{jpeg,jpg,png,gif,webp}', { eager: true });
+
+function resolveBannerImage(imgPath: string): ImageMetadata | string {
+  if (imgPath.startsWith('http://') || imgPath.startsWith('https://')) {
+    return imgPath;
   }
-];
+  const filename = imgPath.split('/').pop();
+  if (filename) {
+    const key = `../assets/banners/${filename}`;
+    if (localBanners[key]) {
+      return localBanners[key].default;
+    }
+  }
+  return imgPath;
+}
 
 const waBase = `https://wa.me/${whatsappPhone}?text=`;
 ---
@@ -75,6 +34,7 @@ const waBase = `https://wa.me/${whatsappPhone}?text=`;
     <div class="carousel-track" id="promoTrack">
       {banners.map((b, idx) => {
         const waMsg = encodeURIComponent(`Hi ${siteData.brand}! I'm interested in the featured deal: "${b.title}" starting at ${b.price}. Can you share availability and dates?`);
+        const bannerImg = resolveBannerImage(b.image);
         return (
           <div
             class="carousel-slide"
@@ -84,14 +44,25 @@ const waBase = `https://wa.me/${whatsappPhone}?text=`;
             data-slide-index={idx}
           >
             <div class="slide-media">
-              <Image
-                src={b.image}
-                alt={b.alt}
-                loading={idx === 0 ? "eager" : "lazy"}
-                decoding="async"
-                width={1200}
-                height={560}
-              />
+              {typeof bannerImg === 'string' && !bannerImg.startsWith('http') ? (
+                <img
+                  src={bannerImg}
+                  alt={b.alt}
+                  loading={idx === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  width="1200"
+                  height="560"
+                />
+              ) : (
+                <Image
+                  src={bannerImg as any}
+                  alt={b.alt}
+                  loading={idx === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  width={1200}
+                  height={560}
+                />
+              )}
               <div class="slide-scrim"></div>
             </div>
 

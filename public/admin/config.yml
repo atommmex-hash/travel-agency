@@ -109,3 +109,34 @@ collections:
             fields:
               - { label: "Question", name: "question", widget: "string" }
               - { label: "Answer", name: "answer", widget: "text" }
+
+      - name: "banners"
+        label: "Promo Carousel Banners"
+        file: "src/content/banners.json"
+        format: "json"
+        fields:
+          - label: "Promotional Ad Banners"
+            name: "banners"
+            widget: "list"
+            summary: "{{fields.title}} ({{fields.badge}})"
+            fields:
+              - { label: "Banner ID (e.g. promo-north-sikkim)", name: "id", widget: "string" }
+              - { label: "Trip ID Slug (e.g. lachung-yumthang)", name: "tripId", widget: "string" }
+              - { label: "Badge Label (e.g. TRENDING EXPEDITION)", name: "badge", widget: "string" }
+              - { label: "Badge Type", name: "badgeType", widget: "select", options: [
+                  { label: "Trending (Flame Red/Orange)", value: "trending" },
+                  { label: "Newly Launched (Cyan/Blue)", value: "new" },
+                  { label: "Popular Circuit (Gold/Amber)", value: "popular" },
+                  { label: "Limited Season Deal (Purple/Pink)", value: "limited" }
+                ] }
+              - { label: "Headline Title", name: "title", widget: "string" }
+              - { label: "Subtitle / Tagline", name: "subtitle", widget: "string" }
+              - label: "Inclusion Perks (Bullet points)"
+                name: "perks"
+                widget: "list"
+                field: { label: "Perk", name: "perk", widget: "string" }
+              - { label: "Discounted Price (e.g. ₹14,400)", name: "price", widget: "string" }
+              - { label: "Original Price / MRP (e.g. ₹17,500)", name: "mrp", widget: "string" }
+              - { label: "Banner Photo", name: "image", widget: "image" }
+              - { label: "Image Alt Text (for SEO & Screen Readers)", name: "alt", widget: "string" }
+

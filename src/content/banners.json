@@ -1,0 +1,72 @@
+{
+  "banners": [
+    {
+      "id": "promo-north-sikkim",
+      "tripId": "lachung-yumthang",
+      "badge": "TRENDING EXPEDITION",
+      "badgeType": "trending",
+      "title": "North Sikkim & Gurudongmar Expedition",
+      "subtitle": "Sacred Glacial Lake at 17,800 ft, Valley of Flowers & High Passes",
+      "perks": [
+        "Dedicated Mountain 4x4 SUV",
+        "100% Arranged Army Permits",
+        "5N/6D All Meals in Hills"
+      ],
+      "price": "₹14,400",
+      "mrp": "₹17,500",
+      "image": "/images/banners/banner-north-sikkim.jpg",
+      "alt": "Scenic mountain road expedition to North Sikkim and Gurudongmar lake"
+    },
+    {
+      "id": "promo-darjeeling",
+      "tripId": "darjeeling-classic",
+      "badge": "NEWLY LAUNCHED",
+      "badgeType": "new",
+      "title": "Darjeeling Toy Train & Sunrise Heritage",
+      "subtitle": "Golden Tiger Hill Sunrise over Kanchenjunga & Heritage Tea Estate Stays",
+      "perks": [
+        "Private Sightseeing Cab",
+        "Batasia Loop & Ghoom Monastery",
+        "2N/3D Daily Breakfast"
+      ],
+      "price": "₹7,500",
+      "mrp": "₹9,000",
+      "image": "/images/banners/banner-darjeeling.jpg",
+      "alt": "Vintage steam toy train through green Darjeeling tea gardens with snowy peaks"
+    },
+    {
+      "id": "promo-pelling",
+      "tripId": "pelling-yuksom",
+      "badge": "POPULAR CIRCUIT",
+      "badgeType": "popular",
+      "title": "West Sikkim Skywalk & Grand Monasteries",
+      "subtitle": "Pelling Glass Skywalk, 130ft Buddha Statue & Ancient Rabdentse Ruins",
+      "perks": [
+        "Complete 7N/8D Mountain Circuit",
+        "Dedicated Private Cab",
+        "Breakfast & Dinner"
+      ],
+      "price": "₹21,500",
+      "mrp": "₹25,800",
+      "image": "/images/banners/banner-pelling.jpg",
+      "alt": "Golden Buddha statue and monastery in Pelling overlooking Kanchenjunga"
+    },
+    {
+      "id": "promo-tsomgo",
+      "tripId": "gangtok-tsomgo",
+      "badge": "LIMITED SEASON DEAL",
+      "badgeType": "limited",
+      "title": "Gangtok, Glacial Tsomgo & Nathula Pass",
+      "subtitle": "Indo-China Frontier at 14,140 ft, Sacred Changu Lake & Gangtok Ropeway",
+      "perks": [
+        "Guaranteed Border Permits",
+        "Scorpio / Innova Sightseeing",
+        "3N/4D MG Marg Stays"
+      ],
+      "price": "₹8,400",
+      "mrp": "₹10,500",
+      "image": "/images/banners/banner-tsomgo.jpg",
+      "alt": "Glacial Tsomgo Lake with decorated yaks and snowy mountain pass"
+    }
+  ]
+}

@@ -77,3 +77,22 @@ Welcome! This website was designed so that you can update trips, prices, FAQs, a
    - **Phone**: For phone calls, format with `+` (e.g., `+91 98765 43210`).
    - **Opening Hours**: (e.g., `Daily, 9 am to 9 pm`).
 3. Click **Publish**. All WhatsApp buttons, footers, headers, and mobile docks across the site will immediately route to your updated numbers.
+
+---
+
+## 7. How to Edit or Add Promotional Carousel Banners
+
+1. In the left sidebar, click **Site Settings & Content** -> **Promo Carousel Banners**.
+2. You will see the list of active promotional banners shown on the homepage hero carousel.
+3. **To Edit a Banner**:
+   - Click on the banner to open its details.
+   - Update **Headline Title**, **Subtitle / Tagline**, or **Inclusion Perks**.
+   - Update the **Discounted Price** (e.g. `₹14,400`) and **Original Price / MRP** (e.g. `₹17,500`).
+   - Change the **Badge Label** and **Badge Type** (`Trending`, `Newly Launched`, `Popular Circuit`, or `Limited Season Deal`).
+   - Replace the **Banner Photo** using the upload widget or drag-and-drop.
+4. **To Add a New Banner**:
+   - Click **Add promotional ad banners** at the bottom of the list.
+   - Set a unique **Banner ID** (e.g. `promo-gurudongmar`) and matching **Trip ID Slug** (e.g. `lachung-yumthang`).
+   - Fill in the title, prices, perks, and upload a horizontal photo.
+5. Click **Publish**. The homepage carousel will immediately display your new promotional campaigns with smooth auto-cycling, touch swiping, and instant WhatsApp quote links.
+
