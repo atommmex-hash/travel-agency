@@ -6,12 +6,16 @@
   <title>Content Manager | Travel Agency</title>
   <!-- Netlify Identity widget (used on production deployments) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- Custom Mobile-Friendly Admin Theme -->
+  <link rel="stylesheet" href="/admin/admin.css" />
 </head>
 <body>
   <script>
     window.CMS_MANUAL_INIT = true;
   </script>
   <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
+  <!-- Live Preview Components -->
+  <script src="/admin/preview.js"></script>
   <script>
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 

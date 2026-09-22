@@ -1,0 +1,256 @@
+/* Decap CMS Modern & Mobile-Friendly Theme */
+:root {
+  --admin-primary: #008CFF;
+  --admin-primary-dark: #0066CC;
+  --admin-accent: #FFB400;
+  --admin-bg: #F4F7FB;
+  --admin-card: #FFFFFF;
+  --admin-text: #0B1E36;
+  --admin-muted: #53647A;
+  --admin-border: #D8E2EC;
+  --admin-radius: 12px;
+  --admin-shadow: 0 4px 16px rgba(0, 30, 80, 0.08);
+}
+
+/* Global Font & Resets */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  background-color: var(--admin-bg) !important;
+  color: var(--admin-text) !important;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* -------------------------------------------------------------
+   TOP HEADER / NAVBAR
+------------------------------------------------------------- */
+header {
+  background: linear-gradient(135deg, #0056C6 0%, #008CFF 100%) !important;
+  box-shadow: 0 2px 10px rgba(0, 30, 80, 0.15) !important;
+  padding: 0.5rem 1rem !important;
+  min-height: 56px !important;
+}
+
+header a, 
+header span, 
+header button {
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+}
+
+/* -------------------------------------------------------------
+   SIDEBAR & COLLECTION NAVIGATION
+------------------------------------------------------------- */
+aside {
+  background: #FFFFFF !important;
+  border-right: 1px solid var(--admin-border) !important;
+  padding: 1rem 0.5rem !important;
+}
+
+aside a {
+  border-radius: 8px !important;
+  padding: 0.65rem 0.9rem !important;
+  margin-bottom: 0.25rem !important;
+  font-weight: 600 !important;
+  font-size: 0.92rem !important;
+  color: var(--admin-text) !important;
+  transition: all 0.15s ease !important;
+}
+
+aside a:hover {
+  background: #EAF5FF !important;
+  color: var(--admin-primary) !important;
+}
+
+aside a[aria-current="page"],
+aside a.active {
+  background: var(--admin-primary) !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 12px rgba(0, 140, 255, 0.3) !important;
+}
+
+/* -------------------------------------------------------------
+   FORM FIELDS & INPUTS (Touch Friendly & iOS Safe)
+------------------------------------------------------------- */
+label {
+  font-weight: 700 !important;
+  font-size: 0.88rem !important;
+  color: var(--admin-text) !important;
+  margin-bottom: 0.35rem !important;
+  display: block !important;
+  letter-spacing: 0.01em !important;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+  font-size: 16px !important; /* 16px prevents iOS Safari auto-zooming on focus */
+  min-height: 48px !important;
+  padding: 0.65rem 0.9rem !important;
+  border: 1.5px solid var(--admin-border) !important;
+  border-radius: 8px !important;
+  background: #FFFFFF !important;
+  color: var(--admin-text) !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  border-color: var(--admin-primary) !important;
+  box-shadow: 0 0 0 3px rgba(0, 140, 255, 0.18) !important;
+}
+
+textarea {
+  min-height: 90px !important;
+  line-height: 1.5 !important;
+}
+
+/* Hints and Helpers */
+span[class*="Hint"],
+div[class*="hint"] {
+  font-size: 0.78rem !important;
+  color: var(--admin-muted) !important;
+  margin-top: 0.3rem !important;
+  line-height: 1.4 !important;
+}
+
+/* -------------------------------------------------------------
+   BUTTONS & ACTION BARS
+------------------------------------------------------------- */
+button {
+  font-family: inherit !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+/* Primary / Publish buttons */
+button[class*="Publish"],
+button[class*="Save"],
+button[color="primary"] {
+  background: linear-gradient(135deg, #008CFF 0%, #0066CC 100%) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  min-height: 44px !important;
+  padding: 0.5rem 1.4rem !important;
+  box-shadow: 0 4px 14px rgba(0, 140, 255, 0.35) !important;
+}
+
+button[class*="Publish"]:hover,
+button[class*="Save"]:hover {
+  filter: brightness(1.08) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* "+ Add item" buttons */
+button[class*="AddButton"],
+button[class*="addItem"] {
+  min-height: 44px !important;
+  background: #EAF5FF !important;
+  color: var(--admin-primary) !important;
+  border: 1.5px dashed var(--admin-primary) !important;
+  font-weight: 700 !important;
+  padding: 0.6rem 1.2rem !important;
+  margin-top: 0.5rem !important;
+  width: 100% !important;
+  justify-content: center !important;
+}
+
+button[class*="AddButton"]:hover {
+  background: #D5ECFF !important;
+}
+
+/* -------------------------------------------------------------
+   LIST & OBJECT CARDS (Itinerary, Highlights, Perks)
+------------------------------------------------------------- */
+div[class*="ListItem"],
+div[class*="ObjectControl"] {
+  border: 1px solid var(--admin-border) !important;
+  border-radius: var(--admin-radius) !important;
+  background: #FFFFFF !important;
+  margin-bottom: 0.9rem !important;
+  box-shadow: var(--admin-shadow) !important;
+  overflow: hidden !important;
+}
+
+/* -------------------------------------------------------------
+   MOBILE OPTIMIZATION (Screens < 900px)
+------------------------------------------------------------- */
+@media (max-width: 900px) {
+  /* Prevent horizontal squishing: Let editor take full width */
+  div[class*="PaneContainer"],
+  div[class*="EditorContainer"],
+  div[class*="split-pane"] {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Make left editor pane full width on mobile */
+  div[class*="EditorPane"],
+  div[class*="Pane1"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0.75rem !important;
+  }
+
+  /* Make preview pane full width below editor or full-width tab */
+  div[class*="PreviewPane"],
+  div[class*="Pane2"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-left: none !important;
+    border-top: 2px solid var(--admin-border) !important;
+    min-height: 480px !important;
+    padding: 0.75rem !important;
+  }
+
+  /* Sidebar collapse on mobile */
+  aside {
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--admin-border) !important;
+    overflow-x: auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0.5rem !important;
+    padding: 0.5rem !important;
+  }
+
+  aside a {
+    white-space: nowrap !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Header adjustments on mobile */
+  header {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    min-height: 48px !important;
+  }
+
+  /* Sticky floating action buttons at bottom of mobile viewport */
+  div[class*="ToolbarContainer"],
+  div[class*="EditorToolbar"] {
+    position: sticky !important;
+    bottom: 0 !important;
+    z-index: 100 !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(8px) !important;
+    border-top: 1px solid var(--admin-border) !important;
+    padding: 0.6rem 1rem !important;
+    box-shadow: 0 -4px 16px rgba(0, 30, 80, 0.12) !important;
+  }
+}

@@ -16,22 +16,26 @@ collections:
     format: "json"
     slug: "{{id}}"
     identifier_field: "title"
+    summary: "{{title}} • {{destination}} ({{nights}}N) — ₹{{pricePerPerson}}"
     fields:
-      - { label: "Trip ID (URL slug, e.g. darjeeling-classic)", name: "id", widget: "string" }
-      - { label: "Trip Title", name: "title", widget: "string" }
+      - { label: "Trip ID (URL slug, e.g. darjeeling-classic)", name: "id", widget: "string", hint: "Lowercase with hyphens, e.g. darjeeling-classic" }
+      - { label: "Trip Title", name: "title", widget: "string", hint: "Headline shown on card and itinerary dialog" }
       - { label: "Destination", name: "destination", widget: "select", options: ["Darjeeling", "Sikkim", "Dooars", "Offbeat"] }
-      - { label: "Duration (Nights)", name: "nights", widget: "number", value_type: "int", min: 1 }
-      - { label: "Price per Person (INR, twin sharing)", name: "pricePerPerson", widget: "number", value_type: "int" }
-      - { label: "Highest Point (Metres)", name: "highestPointMetres", widget: "number", value_type: "int" }
-      - { label: "Badge Tag (optional, e.g. Bestseller, Snow line)", name: "tag", widget: "string", required: false }
-      - { label: "Feature on Homepage (spans 2 columns on desktop)", name: "featured", widget: "boolean", default: false, required: false }
-      - label: "Highlights (3 bullet points)"
+      - { label: "Duration (Nights)", name: "nights", widget: "number", value_type: "int", min: 1, hint: "Number of nights (e.g. 2 for 2N/3D)" }
+      - { label: "Price per Person (INR, twin sharing)", name: "pricePerPerson", widget: "number", value_type: "int", hint: "Base price in rupees, e.g. 7500" }
+      - { label: "Highest Point (Metres)", name: "highestPointMetres", widget: "number", value_type: "int", hint: "Altitude in metres (e.g. 2590). Renders elevation meter." }
+      - { label: "Badge Tag (optional, e.g. Bestseller, Weekend Getaway)", name: "tag", widget: "string", required: false }
+      - { label: "Feature on Homepage (Spans 2 columns on desktop)", name: "featured", widget: "boolean", default: false, required: false }
+      - label: "Highlights (Key bullet points)"
         name: "highlights"
         widget: "list"
+        hint: "Top 3 to 4 highlights shown on the package card"
         field: { label: "Highlight", name: "highlight", widget: "string" }
       - label: "Day-by-Day Itinerary"
         name: "days"
         widget: "list"
+        summary: "{{fields.label}}: {{fields.title}}"
+        collapsed: false
         fields:
           - { label: "Day Label (e.g. Day 1)", name: "label", widget: "string" }
           - { label: "Day Title", name: "title", widget: "string" }
@@ -39,11 +43,14 @@ collections:
       - label: "Included in Package"
         name: "included"
         widget: "list"
+        collapsed: false
         field: { label: "Inclusion item", name: "item", widget: "string" }
-      - { label: "Trip Photo (optional - automatically falls back to topographic contour plate)", name: "photo", widget: "image", required: false }
-      - label: "Contour Plate Settings"
+      - { label: "Trip Photo", name: "photo", widget: "image", required: false, hint: "Upload horizontal photo. If left empty, a decorative Himalayan contour graphic is generated." }
+      - label: "Contour Plate Graphic Settings (Advanced)"
         name: "plate"
         widget: "object"
+        collapsed: true
+        hint: "Geometric topography generator settings. Leave as default unless customizing graphics."
         fields:
           - { label: "Seed", name: "seed", widget: "number", default: 7 }
           - { label: "Center X (0 to 1)", name: "px", widget: "number", value_type: "float", default: 0.5 }
