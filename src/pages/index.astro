@@ -61,6 +61,20 @@ const schemaJson = JSON.stringify({
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json" set:html={schemaJson} />
+
+  <!-- Netlify Identity (handles email invitations and redirects to /admin) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script is:inline>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', (user) => {
+        if (!user) {
+          window.netlifyIdentity.on('login', () => {
+            document.location.href = '/admin/';
+          });
+        }
+      });
+    }
+  </script>
 </head>
 <body id="top">
   <a class="skip-link" href="#trips">Skip to packages</a>
