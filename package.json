@@ -7,6 +7,7 @@
     "start": "astro dev",
     "build": "astro check --minimum-severity error && astro build",
     "preview": "astro preview",
+    "cms": "decap-server",
     "astro": "astro",
     "test": "vitest run"
   },
@@ -15,6 +16,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "decap-server": "^3.11.2",
     "typescript": "^5.7.3",
     "vitest": "^5.0.1"
   }

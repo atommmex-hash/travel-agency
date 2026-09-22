@@ -4,10 +4,52 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager | Travel Agency</title>
-  <!-- Decap CMS official distribution -->
+  <!-- Netlify Identity widget (used on production deployments) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
+  <script>
+    window.CMS_MANUAL_INIT = true;
+  </script>
   <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
+  <script>
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+    if (isLocal) {
+      // Check if local decap-server is active on port 8081
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1200);
+
+      fetch('http://localhost:8081/api/v1', { signal: controller.signal })
+        .then(() => {
+          clearTimeout(timeoutId);
+          console.info('[CMS] Connected to local decap-server file proxy.');
+          CMS.init({
+            config: {
+              local_backend: true,
+              backend: {
+                name: 'git-gateway'
+              }
+            }
+          });
+        })
+        .catch(() => {
+          clearTimeout(timeoutId);
+          console.info('[CMS] Decap server not running on :8081. Initializing in local preview test mode.');
+          CMS.init({
+            config: {
+              local_backend: false,
+              backend: {
+                name: 'test-repo'
+              }
+            }
+          });
+        });
+    } else {
+      // Production deployment: Use git-gateway + Netlify Identity
+      CMS.init();
+    }
+  </script>
 </body>
 </html>
+
