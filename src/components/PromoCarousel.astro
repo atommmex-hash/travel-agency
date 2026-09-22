@@ -214,12 +214,16 @@ const waBase = `https://wa.me/${whatsappPhone}?text=`;
     object-fit: cover;
     object-position: center 38%;
     display: block;
-    transform: scale(1.02);
-    transition: transform 6s ease-out;
   }
 
-  .carousel-slide.is-active .slide-media img {
-    transform: scale(1.08);
+  @media (min-width: 768px) {
+    .slide-media img {
+      transform: scale(1.02);
+      transition: transform 6s ease-out;
+    }
+    .carousel-slide.is-active .slide-media img {
+      transform: scale(1.08);
+    }
   }
 
   .slide-scrim {
@@ -312,11 +316,11 @@ const waBase = `https://wa.me/${whatsappPhone}?text=`;
   .slide-counter {
     font-size: 0.78rem;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.75);
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(6px);
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(0, 0, 0, 0.55);
     padding: 0.2rem 0.55rem;
     border-radius: var(--r-pill);
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
   .slide-title {
@@ -503,11 +507,10 @@ const waBase = `https://wa.me/${whatsappPhone}?text=`;
     display: flex;
     align-items: center;
     gap: 6px;
-    background: rgba(0, 15, 35, 0.5);
-    backdrop-filter: blur(6px);
+    background: rgba(0, 15, 35, 0.75);
     padding: 5px 9px;
     border-radius: var(--r-pill);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .carousel-dot {

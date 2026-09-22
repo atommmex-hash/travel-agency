@@ -62,17 +62,24 @@ const schemaJson = JSON.stringify({
 
   <script type="application/ld+json" set:html={schemaJson} />
 
-  <!-- Netlify Identity (handles email invitations and redirects to /admin) -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- Netlify Identity: Loaded conditionally ONLY if an invitation or auth token exists in URL hash -->
   <script is:inline>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on('init', (user) => {
-        if (!user) {
-          window.netlifyIdentity.on('login', () => {
-            document.location.href = '/admin/';
+    if (window.location.hash && (window.location.hash.includes('token') || window.location.hash.includes('invite'))) {
+      const s = document.createElement('script');
+      s.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
+      s.async = true;
+      s.onload = () => {
+        if (window.netlifyIdentity) {
+          window.netlifyIdentity.on('init', (user) => {
+            if (!user) {
+              window.netlifyIdentity.on('login', () => {
+                document.location.href = '/admin/';
+              });
+            }
           });
         }
-      });
+      };
+      document.head.appendChild(s);
     }
   </script>
 </head>
